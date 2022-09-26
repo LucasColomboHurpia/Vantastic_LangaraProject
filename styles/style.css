@@ -1,0 +1,31 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.plead{
+  background-color: rgb(197, 197, 197);
+  height: 85vh;
+  width: 25%;
+  text-align: center;
+  font-weight: bolder;
+  padding: 10px;
+  display: inline-block;
+}
+#output{
+  margin-top: 35px;
+  font-weight:400;
+}
+
+ #map {
+   height: 85vh;
+   width: 75%;
+    float: right;
+
+   background-color: aquamarine;
+  }
+  
+
+
+  
