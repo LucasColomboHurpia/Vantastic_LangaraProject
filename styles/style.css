@@ -16,6 +16,7 @@ body {
 #output{
   margin-top: 35px;
   font-weight:400;
+  overflow:auto;
 }
 
  #map {
@@ -26,6 +27,15 @@ body {
    background-color: aquamarine;
   }
   
+  #howManyIdsText{
+    font-size: 20px;
+    display: inline;
+  }
+  #locationCounter{
+    font-size: 20px;
+
+    width: 50px;
+  }
 
 
   

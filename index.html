@@ -15,7 +15,10 @@
 <body id='body' style="background-color:grey;">
 
 <h1> 
+
         <div class="form-group mt-0" id='dropdown'>
+           <div id="howManyIdsText">How many locations? (up to 20)</div> 
+            <input type="number" id="locationCounter" value="10" max="20" min="0">
             <label for="exampleFormControlSelect1"></label>
             <select class="form-control" id="exampleFormControlSelect1">
               <option value="restaurant">Restaurants</option>
@@ -39,7 +42,7 @@
               <option value="tourist_attraction">Tourist Attractions</option>
             </select>
         </div>
-        <button type="button" class="btn btn-info" id="load">load</button>
+        <button type="button" class="btn btn-info" id="load" >load </button>
         <button type="button" class="btn btn-success" id="findMe">Find me</button>
         <button type="button" class="btn btn-danger" id="deleteButton">Delete Markers</button>
         <button type="button" class="btn btn-light" id="changeStyle">Change Style</button>
@@ -47,12 +50,11 @@
 
 </h1> 
 
-<div class="plead" id="plead">map please work
-    <div id="output">Lorem ipsum dolor sit amet consectetur adipisicing elit. At consequatur sapiente veritatis. Itaque ad facere veritatis placeat dolorem accusantium assumenda rerum provident, totam est repell?</div>
+<div class="plead" id="plead">Vancouver Challenge gmaps Prototype I
+    <div id="output">This a prototype, use the buttons to test the enviroment, check the source code at https://github.com/LucasColomboHurpia/Langara_gmapsPrototype</div>
 </div>
 <div id="map"></div>
-<!-- <img src="" alt="">
- -->
+
  <!--- API KEY GMAPS --->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
  

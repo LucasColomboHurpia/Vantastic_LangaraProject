@@ -21,6 +21,8 @@
 
 //Array to store and manage custom markers
 let currentVisibleMarkers = []
+//Array to store and manage info window
+let currentInfoWindow = []
 
 //default position
 let currentPosition = {};
@@ -115,9 +117,9 @@ function initMap() {
               shouldFocus: true,
             });
           });
-          //update currentPosition
-          currentPosition = pos;
-          console.log(currentPosition)
+          //update currentPosition 
+          currentPosition = pos; 
+          map.panTo(currentPosition) //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -160,8 +162,14 @@ function initMap() {
         map,
         shouldFocus: true,
       });
+    //Close infowindow when a new one is open
+      closeinfoWindow(infowindow) 
     });
-    //adds narker to the array
+    //
+    infowindow.focus()
+
+
+    //adds marker to the array
     currentVisibleMarkers.push(marker)
   }
 
@@ -193,8 +201,8 @@ function initMap() {
       currentVisibleMarkers = [];
 
       //nPins dictates the number of desired pins to be rendered
-      let nPins = 10
-
+      let nPins = document.getElementById('locationCounter').value
+        
       //Loops through the array
       for (i = 0; i < results.length; i++) {
         let place = results[i];
@@ -256,7 +264,15 @@ function deletePins(arrayOfMarkers) {
   }
 }
 
-
+// Close info window when a new one is open
+const closeinfoWindow = (infowindow) => {
+  if(currentInfoWindow.length>0){
+    currentInfoWindow[0].close()
+    currentInfoWindow[0]=infowindow
+  } else{
+    currentInfoWindow[0]=infowindow
+  }
+}
 
 //--------------------------------------------------------------------
 /// Buttons for the TESTING interface
