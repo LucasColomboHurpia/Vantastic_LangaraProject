@@ -34,6 +34,10 @@ let directionsRenderer;
 let pinMarker;
 let findUser;
 let placesAPIRequest;
+let aroundVancouverMarkers;
+
+//nPins dictates the number of desired pins to be rendered by the places API
+let nPins = document.getElementById('locationCounter').value
 
 // Object to manage the google places API
 let requestPlaces = {
@@ -64,7 +68,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     mapId: myMapId,
     center: VancouverLatlng,
-    zoom: 14,
+    zoom: 12,
 
     //map control starts deactivate
     mapTypeControl: myMapTypeControl,
@@ -94,7 +98,9 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          //sets up infoWindow
+
+          //-----------------------------------------
+//sets up infoWindow
           let infowindow = new google.maps.InfoWindow({
             content: "Location found!"
           });
@@ -118,7 +124,7 @@ function initMap() {
             });
           });
           //update currentPosition 
-          currentPosition = pos; 
+          currentPosition = pos;
           map.panTo(currentPosition) //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
         },
         () => {
@@ -143,45 +149,54 @@ function initMap() {
   ///---------------------------------------------------------------------------------------------
   ///marker///
 
-  //sets up function to find user
+  //sets up function to build markers
   pinMarker = function (place) {
     let infowindow = new google.maps.InfoWindow({
       content: createContentString(place), //creates a custom info window using the object parameters
     });
-    //creates the google maps marker
+
+    //creates and adds the google maps marker
     const marker = new google.maps.Marker({
       position: place.position,
       map,
       title: place.title,
       icon: place.icon,
     });
-    //adds infowindow when clicked
-    marker.addListener("click", () => {
-      infowindow.open({
-        anchor: marker,
-        map,
-        shouldFocus: true,
+    if (place.category == 'pointOfInterest') {
+      //adds infowindow when clicked
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+          shouldFocus: true,
+        });
+        //Close infowindow when a new one is open
+        closeinfoWindow(infowindow)
       });
-    //Close infowindow when a new one is open
-      closeinfoWindow(infowindow) 
-    });
-    //
-    infowindow.focus()
+      //focus the window
+      infowindow.focus()
 
+      //checks if marker should be stored as a point of interest
 
-    //adds marker to the array
+    } //adds marker to the array
     currentVisibleMarkers.push(marker)
   }
-
 
   ///---------------------------------------------------------------------------------------------
   ///Places API///
 
   //Calls the google places API for its database
-  placesAPIRequest = function (type) {
-
-    requestPlaces.location = currentPosition //sets current place as a parameter
+  placesAPIRequest = function (type, position, npins) {
+ 
+    requestPlaces.location = position //sets location as a parameter
     requestPlaces.type[0] = type //sets chosen type as a parameter
+
+    //Delete pins and empty the array
+    deletePins(currentVisibleMarkers)
+    currentVisibleMarkers = [];
+    
+    //Sets how many markers will be rendered
+    nPins = npins
 
     //Makes the API call
     service = new google.maps.places.PlacesService(map);
@@ -193,22 +208,13 @@ function initMap() {
 
     //Checks if the status response is OK
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-      console.log('results', results)
-      
-      //Delete pins and empty the array
-      deletePins(currentVisibleMarkers)
-      currentVisibleMarkers = [];
-
-      //nPins dictates the number of desired pins to be rendered
-      let nPins = document.getElementById('locationCounter').value
-        
+      console.log(results)
       //Loops through the array
       for (i = 0; i < results.length; i++) {
         let place = results[i];
 
         //calculates the coordinates using the high and low google estimates
-        let lat = (((place.geometry.viewport.Ab.lo) + (place.geometry.viewport.Ab.hi)) / 2)
+        let lat = (((place.geometry.viewport.Cb.lo) + (place.geometry.viewport.Cb.hi)) / 2)
         let lng = (((place.geometry.viewport.Va.lo) + (place.geometry.viewport.Va.hi)) / 2)
 
         //checks if price level is available
@@ -229,29 +235,63 @@ function initMap() {
           priceLevel: priceLevel,
           type: place.types,
           id: place.place_id,
-          photo_data: place.photos
+          photo_data: place.photos,
+          category: 'pointOfInterest'
         }
         //Creates the new Pin based on the object
         pinMarker(newPlace)
 
         //checks if the set requirement by nPin was met
-        if(i==nPins-1){i=results.length}
-      } 
+        if (i == nPins - 1) { i = results.length }
+      }
+
       console.log('array', currentVisibleMarkers)
     }
   }
 
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
   /// Sets up the button for TESTING
   document.getElementById('load').addEventListener("click", () => {
     requestPlaces.location = currentPosition
-    let dropdown = document.getElementById('exampleFormControlSelect1').value
-    requestPlaces.type[0] = dropdown
+    let dropdownValue = document.getElementById('exampleFormControlSelect1').value
+    requestPlaces.type[0] = dropdownValue
+    nPins = document.getElementById('locationCounter').value
 
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(requestPlaces, callbackPlacesAPI);
+    placesAPIRequest(dropdownValue, currentPosition, nPins)
   })
-//------------------------------------------------------------------
+  //------------------------------------------------------------------
+
+  aroundVancouverMarkers = function () {
+
+    let invisibleMarkers = [
+      { lat: 49.26619806343015, lng: -123.1857251774933 },
+      { lat: 49.23321894517517, lng: -123.16840324520768 },
+      { lat: 49.23378448708606, lng: -123.0690908334368 },
+      { lat: 49.26851453010027, lng: -123.07305406904976 },
+      { lat: 49.290754750354566, lng: -123.13429634796184 },
+      { lat: 49.33972774400079, lng: -123.16267193737758 },
+      { lat: 49.33387484028106, lng: -123.05406896259956 },
+      { lat: 49.26137950331339, lng: -123.12082629486389 },
+      { lat: 49.22790174959055, lng: -123.1146204699535 },
+    ]
+    nPins = 3
+
+    for (point of invisibleMarkers) {
+      const marker = {
+        position: point,
+        map,
+        title: 'invisible',
+        icon: './Assets/Empty.png',
+        category: 'invisible'
+      };
+      point = marker
+      pinMarker(point)
+
+      //
+      let dropdownValue = document.getElementById('exampleFormControlSelect1').value
+      placesAPIRequest(dropdownValue, point.position, 3)
+    }
+  }
 
 }
 
@@ -266,11 +306,11 @@ function deletePins(arrayOfMarkers) {
 
 // Close info window when a new one is open
 const closeinfoWindow = (infowindow) => {
-  if(currentInfoWindow.length>0){
+  if (currentInfoWindow.length > 0) {
     currentInfoWindow[0].close()
-    currentInfoWindow[0]=infowindow
-  } else{
-    currentInfoWindow[0]=infowindow
+    currentInfoWindow[0] = infowindow
+  } else {
+    currentInfoWindow[0] = infowindow
   }
 }
 
@@ -278,29 +318,29 @@ const closeinfoWindow = (infowindow) => {
 //Calculates the route, takes coordinates and the mode of transportarion
 //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
 
-const calculateRoute = (lat,lng, mode) =>{
+const calculateRoute = (lat, lng, mode) => {
   let start = currentPosition; //start route
-  let end = {lat,lng}; //end route
+  let end = { lat, lng }; //end route
 
   //sets up request object for the API
   let request = {
     origin: start,
-    destination: end,    
+    destination: end,
     travelMode: mode //DRIVING, BICYCLING, TRANSIT, WALKING  
   };
 
   //Makes the route API request
-  directionsService.route(request, function(result, status) {
+  directionsService.route(request, function (result, status) {
     //checks if the status of the response is OK
     if (status == 'OK') {
       //gets data from the response
       let googleRoute = result.routes[0].legs[0]
       let dataArray = googleRoute.steps
-      for(data of dataArray){
-        console.log('duration:',data.duration.text)
+      for (data of dataArray) {
+        console.log('duration:', data.duration.text)
       }
 
-///---------------------------------------------------------------------------------------------
+      ///---------------------------------------------------------------------------------------------
       //output (STILL IN TESTING PHASE)
       output.innerHTML = `
         <div><b>Departure:</b> ${googleRoute.departure_time.text}</div>
@@ -308,14 +348,14 @@ const calculateRoute = (lat,lng, mode) =>{
         <div><b>Distance:</b> ${googleRoute.distance.text}</div>
         <div class="mb-2"><b>Duration:</b> ${googleRoute.duration.text}</div>
       `
-      for(data of dataArray){
+      for (data of dataArray) {
         output.innerHTML += `
         <div>${data.instructions} <b>${data.duration.text}</b></div>
         `
       }
-///---------------------------------------------------------------------------------------------
-      
-    //renders the directon in the map
+      ///---------------------------------------------------------------------------------------------
+
+      //renders the directon in the map
       directionsRenderer.setDirections(result);
     } else {
       console.log('Directions Services not available')
@@ -352,6 +392,9 @@ toggleControls.addEventListener('click', () => {
   initMap()
 })
 
+//Testing button to finding the user
+let loadVancouverButton = document.getElementById('loadVancouver')
+loadVancouverButton.addEventListener('click', () => { aroundVancouverMarkers() })
 
 //d04e37658de12594 map id default
 //ffcaa1df68a4459b normal map id 

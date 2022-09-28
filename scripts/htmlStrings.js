@@ -17,3 +17,4 @@ const createContentString = (place) =>{
   return infoWindowString
 }
 
+
