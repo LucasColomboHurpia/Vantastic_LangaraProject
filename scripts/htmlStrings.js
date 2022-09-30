@@ -9,7 +9,7 @@ const createContentString = (place) =>{
       <h5 class="card-title">${place.name}</h5>
       <p class="card-text">${place.address}</p>
       <p class="card-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
-      <p class="card-text"><b>Price Level: </b>${place.priceLevel}</p>
+      <p class="card-text"><b>Price Level: </b>${place.priceLevel}/5</p>
     </div>
     <button type="button" class="btn btn-primary" onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
   </div>

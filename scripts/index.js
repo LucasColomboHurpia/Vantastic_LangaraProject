@@ -212,10 +212,10 @@ function initMap() {
       //Loops through the array
       for (i = 0; i < results.length; i++) {
         let place = results[i];
-
-        //calculates the coordinates using the high and low google estimates
-        let lat = (((place.geometry.viewport.Cb.lo) + (place.geometry.viewport.Cb.hi)) / 2)
-        let lng = (((place.geometry.viewport.Va.lo) + (place.geometry.viewport.Va.hi)) / 2)
+        console.log(place.photos)
+        //gets the coordinates 
+        let lat = (place.geometry.location.lat())
+        let lng = (place.geometry.location.lng())
 
         //checks if price level is available
         let priceLevel;
@@ -226,9 +226,7 @@ function initMap() {
           name: place.name,
           title: place.name,
           address: place.vicinity,
-          picture: './Assets/default_img.jpg',
-          icon: orangeMarker,
-          description: 'default desc',
+          picture: place.photos[0].getUrl(),
           position: { lat, lng },
           rating: place.rating,
           numberOfRatings: place.user_ratings_total,
@@ -236,16 +234,18 @@ function initMap() {
           type: place.types,
           id: place.place_id,
           photo_data: place.photos,
+          icon: orangeMarker,
+          description: '',
           category: 'pointOfInterest'
         }
+        //https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceReview
+
         //Creates the new Pin based on the object
         pinMarker(newPlace)
 
         //checks if the set requirement by nPin was met
         if (i == nPins - 1) { i = results.length }
       }
-
-      console.log('array', currentVisibleMarkers)
     }
   }
 
