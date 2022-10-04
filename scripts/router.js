@@ -1,3 +1,8 @@
+
+//Encountered problems with setting up a router that works on GitHub, the following code works in a live server but not when using github pages
+//For now, this code and the pages folder is not being used, see routerSpa.js
+
+
 const pageIndex = [
     { id: '#mainPage', htmlPath: '/index.html', jsPath: '', stylePath: '' },
     { id: '#startScreen', htmlPath: '/Pages/startScreen.html', jsPath: '', stylePath: '' },

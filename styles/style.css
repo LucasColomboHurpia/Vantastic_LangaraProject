@@ -38,4 +38,6 @@ body {
   }
 
 
-  
+.nav-link:hover{
+  cursor: pointer;
+}

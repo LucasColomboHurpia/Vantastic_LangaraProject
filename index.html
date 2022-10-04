@@ -22,29 +22,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#mainPage">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item active" id="mainPage" onclick="routerSPA('mainPage')">
+                    <a class="nav-link">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#startScreen">Start Screen</a>
+                <li class="nav-item"  id="startScreen" onclick="routerSPA('startScreen')">
+                    <div class="nav-link">Start Screen </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#login">Log in</a>
+                <li class="nav-item" id="login" onclick="routerSPA('login')">
+                    <div class="nav-link" >Log in</d>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#register">Register</a>
+                <li class="nav-item" id="register" onclick="routerSPA('register')">
+                    <div class="nav-link">Register</d>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#survey">Survey</a>
+                <li class="nav-item" id="survey" onclick="routerSPA('survey')">
+                    <div class="nav-link">Survey</div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#profile">Profile</a>
+                <li class="nav-item" id="profile" onclick="routerSPA('profile')">
+                    <div class="nav-link">Profile</d>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#badges">Badges</a>
+                <li class="nav-item" id="badges" onclick="routerSPA('badges')">
+                    <div class="nav-link">Badges</div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#challenges">Challenges</a>
+                <li class="nav-item" id="challenges" onclick="routerSPA('challenges')">
+                    <div class="nav-link">Challenges</div>
                 </li>
             </ul>
             <span class="navbar-text">
@@ -109,9 +109,8 @@
     <!--- API KEY GMAPS --->
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
-    <script src="./scripts/router.js"></script>
-<!--     <script src="./scripts/htmlStrings.js"></script>
- -->    <script src="./scripts/index.js"></script>
+    <script defer src="./scripts/routerSpa.js"></script>
+    <script src="./scripts/index.js"></script>
     <!----------------------------------------------------- -->
     <!-- Jquery-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
