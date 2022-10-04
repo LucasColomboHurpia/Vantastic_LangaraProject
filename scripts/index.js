@@ -1,24 +1,3 @@
-
-//-----------------------------------------------------------------------------------------------
-
-///////////////////////////////////////////////
-//Guide to global functions\\
-///////////////////////////////////////////////
-
-///use pinMaker({object}) to add new pins. the object must follow standards
-//use deletePins([array of markers]) to delete markers
-
-//----------------------
-
-///use placesFunction(type) to display pins from the google database set by parameters
-//types can be any of: 'restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','bus_station','park','restaurant','shopping_mall','stadium','spa','subway_station','tourist_attraction','zoo'
-
-//----------------------
-
-//use findUser() to find the user location(and set a pin)
-
-//-----------------------------------------------------------------------------------------------
-
 //Array to store and manage custom markers
 let currentVisibleMarkers = []
 //Array to store and manage info window
@@ -35,6 +14,7 @@ let pinMarker;
 let findUser;
 let placesAPIRequest;
 let aroundVancouverMarkers;
+let librarians;
 
 //nPins dictates the number of desired pins to be rendered by the places API
 let nPins = document.getElementById('locationCounter').value
@@ -58,241 +38,249 @@ let myStreetViewControl = false;
 
 
 //Activates Gmaps API
-function initMap() {
+async function initMap() {
+  try {
+    //sets default position to downtown
+    let VancouverLatlng = new google.maps.LatLng(49.281709, -123.119305); //sets location to downtown
+    currentPosition = VancouverLatlng //sets current position to downtown
 
-  //sets default position to downtown
-  let VancouverLatlng = new google.maps.LatLng(49.281709, -123.119305); //sets location to downtown
-  currentPosition = VancouverLatlng //sets current position to downtown
+    //starts the map and set parameters
+    map = new google.maps.Map(document.getElementById("map"), {
+      mapId: myMapId,
+      center: VancouverLatlng,
+      zoom: 12,
 
-  //starts the map and set parameters
-  map = new google.maps.Map(document.getElementById("map"), {
-    mapId: myMapId,
-    center: VancouverLatlng,
-    zoom: 12,
-
-    //map control starts deactivate
-    mapTypeControl: myMapTypeControl,
-    fullscreenControl: myFullscreenControl,
-    streetViewControl: myStreetViewControl,
-  });
+      //map control starts deactivate
+      mapTypeControl: myMapTypeControl,
+      fullscreenControl: myFullscreenControl,
+      streetViewControl: myStreetViewControl,
+    });
 
 
-  ////---------------------------------------------------------------------------------------------
-  ///Declarations to make routes work
-  directionsService = new google.maps.DirectionsService();
-  directionsRenderer = new google.maps.DirectionsRenderer();
-  directionsRenderer.setMap(map);
+    ////---------------------------------------------------------------------------------------------
+    ///Declarations to make routes work
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
 
-  ///---------------------------------------------------------------------------------------------
-  ///////Pan to current location
+    ///---------------------------------------------------------------------------------------------
+    ///////Pan to current location
 
-  //sets up function to find user
-  findUser = function () {
-    // chechs if the navigator has geolocation
-    if (navigator.geolocation) {
-      ///gets the current position by geolocation
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          //set up the position in an object
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+    //sets up function to find user
+    findUser = function () {
+      // chechs if the navigator has geolocation
+      if (navigator.geolocation) {
+        ///gets the current position by geolocation
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            //set up the position in an object
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
 
-          //-----------------------------------------
-//sets up infoWindow
-          let infowindow = new google.maps.InfoWindow({
-            content: "Location found!"
-          });
-
-          //checks if there is a userMarker already
-          if (userMarker) { userMarker.setMap(null); }
-          //Creates the userMarker
-          userMarker = new google.maps.Marker({
-            position: pos,
-            map,
-            title: "You are here!",
-            icon: "./Assets/red marker.png",
-          });
-
-          //adds infowindow when clicked
-          userMarker.addListener("click", () => {
-            infowindow.open({
-              anchor: userMarker,
-              map,
-              shouldFocus: true,
+            //-----------------------------------------
+            //sets up infoWindow
+            let infowindow = new google.maps.InfoWindow({
+              content: "Location found!"
             });
-          });
-          //update currentPosition 
-          currentPosition = pos;
-          map.panTo(currentPosition) //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
+
+            //checks if there is a userMarker already
+            if (userMarker) { userMarker.setMap(null); }
+            //Creates the userMarker
+            userMarker = new google.maps.Marker({
+              position: pos,
+              map,
+              title: "You are here!",
+              icon: "./Assets/red marker.png",
+            });
+
+            //adds infowindow when clicked
+            userMarker.addListener("click", () => {
+              infowindow.open({
+                anchor: userMarker,
+                map,
+                shouldFocus: true,
+              });
+            });
+            //update currentPosition 
+            currentPosition = pos;
+            map.panTo(currentPosition) //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
+          },
+          () => {
+            handleLocationError(true, infoWindow, map.getCenter());
+          }
+        );
+      } else {
+        //if Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, VancouverLatlng);
+      }
+    };
+    //Deal with errors
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
       );
-    } else {
-      //if Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, VancouverLatlng);
     }
-  };
-  //Deal with errors
-  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-      browserHasGeolocation
-        ? "Error: The Geolocation service failed."
-        : "Error: Your browser doesn't support geolocation."
-    );
-  }
 
-  ///---------------------------------------------------------------------------------------------
-  ///marker///
+    ///---------------------------------------------------------------------------------------------
+    ///marker///
 
-  //sets up function to build markers
-  pinMarker = function (place) {
-    let infowindow = new google.maps.InfoWindow({
-      content: createContentString(place), //creates a custom info window using the object parameters
-    });
-
-    //creates and adds the google maps marker
-    const marker = new google.maps.Marker({
-      position: place.position,
-      map,
-      title: place.title,
-      icon: place.icon,
-    });
-    if (place.category == 'pointOfInterest') {
-      //adds infowindow when clicked
-      marker.addListener("click", () => {
-        infowindow.open({
-          anchor: marker,
-          map,
-          shouldFocus: true,
-        });
-        //Close infowindow when a new one is open
-        closeinfoWindow(infowindow)
+    //sets up function to build markers
+    pinMarker = function (place) {
+      let infowindow = new google.maps.InfoWindow({
+        content: createContentString(place), //creates a custom info window using the object parameters
       });
-      //focus the window
-      infowindow.focus()
 
-      //checks if marker should be stored as a point of interest
+      //creates and adds the google maps marker
+      const marker = new google.maps.Marker({
+        position: place.position,
+        map,
+        title: place.title,
+        icon: place.icon,
+      });
+      if (place.category == 'pointOfInterest') {
+        //adds infowindow when clicked
+        marker.addListener("click", () => {
+          infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: true,
+          });
+          //Close infowindow when a new one is open
+          closeinfoWindow(infowindow)
+        });
+        //focus the window
+        infowindow.focus()
 
-    } //adds marker to the array
-    currentVisibleMarkers.push(marker)
-  }
+        //checks if marker should be stored as a point of interest
 
-  ///---------------------------------------------------------------------------------------------
-  ///Places API///
+      } //adds marker to the array
+      currentVisibleMarkers.push(marker)
+    }
 
-  //Calls the google places API for its database
-  placesAPIRequest = function (type, position, npins) {
- 
-    requestPlaces.location = position //sets location as a parameter
-    requestPlaces.type[0] = type //sets chosen type as a parameter
+    ///---------------------------------------------------------------------------------------------
+    ///Places API///
 
-    //Delete pins and empty the array
-    deletePins(currentVisibleMarkers)
-    currentVisibleMarkers = [];
-    
-    //Sets how many markers will be rendered
-    nPins = npins
+    //Calls the google places API for its database
+    placesAPIRequest = function (type, position, npins) {
 
-    //Makes the API call
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(requestPlaces, callbackPlacesAPI);
-  }
+      requestPlaces.location = position //sets location as a parameter
+      requestPlaces.type[0] = type //sets chosen type as a parameter
 
-  //callback for the google places API
-  function callbackPlacesAPI(results, status) {
+      //Delete pins and empty the array
+      deletePins(currentVisibleMarkers)
+      currentVisibleMarkers = [];
 
-    //Checks if the status response is OK
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results)
-      //Loops through the array
-      for (i = 0; i < results.length; i++) {
-        let place = results[i];
-        console.log(place.photos)
-        //gets the coordinates 
-        let lat = (place.geometry.location.lat())
-        let lng = (place.geometry.location.lng())
+      //Sets how many markers will be rendered
+      nPins = npins
 
-        //checks if price level is available
-        let priceLevel;
-        place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
+      //Makes the API call
+      service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(requestPlaces, callbackPlacesAPI);
+    }
 
-        //Creates a new object with the information provided by google
-        let newPlace = {
-          name: place.name,
-          title: place.name,
-          address: place.vicinity,
-          picture: place.photos[0].getUrl(),
-          position: { lat, lng },
-          rating: place.rating,
-          numberOfRatings: place.user_ratings_total,
-          priceLevel: priceLevel,
-          type: place.types,
-          id: place.place_id,
-          photo_data: place.photos,
-          icon: orangeMarker,
-          description: '',
-          category: 'pointOfInterest'
+    //callback for the google places API
+    function callbackPlacesAPI(results, status) {
+
+      //Checks if the status response is OK
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results)
+        //Loops through the array
+        for (i = 0; i < results.length; i++) {
+          let place = results[i];
+          console.log(place.photos)
+          //gets the coordinates 
+          let lat = (place.geometry.location.lat())
+          let lng = (place.geometry.location.lng())
+
+          //checks if price level is available
+          let priceLevel;
+          place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
+
+          //Creates a new object with the information provided by google
+          let newPlace = {
+            name: place.name,
+            title: place.name,
+            address: place.vicinity,
+            picture: place.photos[0].getUrl(),
+            position: { lat, lng },
+            rating: place.rating,
+            numberOfRatings: place.user_ratings_total,
+            priceLevel: priceLevel,
+            type: place.types,
+            id: place.place_id,
+            icon: orangeMarker,
+            description: '',
+            category: 'pointOfInterest'
+          }
+          //https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceReview
+
+          //Creates the new Pin based on the object
+          pinMarker(newPlace)
+
+          //checks if the set requirement by nPin was met
+          if (i == nPins - 1) { i = results.length }
         }
-        //https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceReview
-
-        //Creates the new Pin based on the object
-        pinMarker(newPlace)
-
-        //checks if the set requirement by nPin was met
-        if (i == nPins - 1) { i = results.length }
       }
     }
-  }
 
-  //------------------------------------------------------------------
-  /// Sets up the button for TESTING
-  document.getElementById('load').addEventListener("click", () => {
-    requestPlaces.location = currentPosition
-    let dropdownValue = document.getElementById('exampleFormControlSelect1').value
-    requestPlaces.type[0] = dropdownValue
-    nPins = document.getElementById('locationCounter').value
-
-    placesAPIRequest(dropdownValue, currentPosition, nPins)
-  })
-  //------------------------------------------------------------------
-
-  aroundVancouverMarkers = function () {
-
-    let invisibleMarkers = [
-      { lat: 49.26619806343015, lng: -123.1857251774933 },
-      { lat: 49.23321894517517, lng: -123.16840324520768 },
-      { lat: 49.23378448708606, lng: -123.0690908334368 },
-      { lat: 49.26851453010027, lng: -123.07305406904976 },
-      { lat: 49.290754750354566, lng: -123.13429634796184 },
-      { lat: 49.33972774400079, lng: -123.16267193737758 },
-      { lat: 49.33387484028106, lng: -123.05406896259956 },
-      { lat: 49.26137950331339, lng: -123.12082629486389 },
-      { lat: 49.22790174959055, lng: -123.1146204699535 },
-    ]
-    nPins = 3
-
-    for (point of invisibleMarkers) {
-      const marker = {
-        position: point,
-        map,
-        title: 'invisible',
-        icon: './Assets/Empty.png',
-        category: 'invisible'
-      };
-      point = marker
-      pinMarker(point)
-
-      //
+    //------------------------------------------------------------------
+    /// Sets up the button for TESTING
+    document.getElementById('load').addEventListener("click", () => {
+      requestPlaces.location = currentPosition
       let dropdownValue = document.getElementById('exampleFormControlSelect1').value
-      placesAPIRequest(dropdownValue, point.position, 3)
-    }
-  }
+      requestPlaces.type[0] = dropdownValue
+      nPins = document.getElementById('locationCounter').value
 
+      placesAPIRequest(dropdownValue, currentPosition, nPins)
+    })
+    //------------------------------------------------------------------
+    //set markers around Vancouver
+    aroundVancouverMarkers = function () {
+
+      let invisibleMarkers = [
+        { lat: 49.26619806343015, lng: -123.1857251774933 },
+        { lat: 49.23321894517517, lng: -123.16840324520768 },
+        { lat: 49.23378448708606, lng: -123.0690908334368 },
+        { lat: 49.26851453010027, lng: -123.07305406904976 },
+        { lat: 49.290754750354566, lng: -123.13429634796184 },
+        { lat: 49.33972774400079, lng: -123.16267193737758 },
+        { lat: 49.33387484028106, lng: -123.05406896259956 },
+        { lat: 49.26137950331339, lng: -123.12082629486389 },
+        { lat: 49.22790174959055, lng: -123.1146204699535 },
+      ]
+      nPins = 3
+
+      for (point of invisibleMarkers) {
+        const marker = {
+          position: point,
+          map,
+          title: 'invisible',
+          icon: './Assets/Empty.png',
+          category: 'invisible'
+        };
+        point = marker
+        pinMarker(point)
+
+        //
+        let dropdownValue = document.getElementById('exampleFormControlSelect1').value
+        placesAPIRequest(dropdownValue, point.position, 3)
+      }
+    }
+
+    //set object with our functions
+    librarians = {
+      pinMaker: pinMarker,
+      deletePins: deletePins,
+      placesAPIRequest: placesAPIRequest,
+      aroundVancouverMarkers: aroundVancouverMarkers,
+  } 
+  
+  } catch (error) { console.log(error) }
 }
 
 // Delete pins
