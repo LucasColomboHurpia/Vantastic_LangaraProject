@@ -1,3 +1,24 @@
+:root {
+    --main-body-color: gray;
+    --main-button-color: rgb(100, 77, 122);
+    --main-button-hover-color: rgb(108, 94, 121);
+    --main-bg-color: rgba(0, 90, 90, 0.548);
+    --main-title-color: rgba(13, 82, 82, 0.548);
+    --main-placeholder-color: rgb(85, 51, 116);
+    --main-border-style: 1px solid black;
+    --main-border-testing: 1px solid black;
+
+    --main-body-color: white;
+    --main-button-color: white;
+    --main-button-hover-color: rgb(219, 219, 219);
+    --main-bg-color: white;
+    --main-title-color: white;
+    --main-placeholder-color: rgb(155, 155, 155);
+    --main-border-style: 1px solid black;
+    --main-border-testing: 0px solid black; 
+   }
+
+
 *{
     margin: 0%;
     font-family: Arial, Helvetica, sans-serif;
@@ -6,16 +27,16 @@
 }
 
 body{
-    background-color: gray;
     max-height: 100vh;
     max-width: 100vw;
     margin: 0;
     overflow: hidden;
+    /*colors*/
+    background-color: var(--main-body-color);
 }
 
 .surveyWrapping{
     margin: auto;
-    background-color: rgba(0, 90, 90, 0.548);
     width: 100%;
     height: 90vh;
 
@@ -24,16 +45,22 @@ body{
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
+    /*colors*/
+    background-color: var(--main-bg-color);
 }
 
 .surveyTitle{
     margin: auto;
     position: relative;
     top: 50px;
-    background-color: rgba(0, 90, 90, 0.548);
     font-size: 25px;
     text-align: center;
     padding: 10px;
+
+    /*colors*/
+    background-color: var(--main-title-color);
+
 }
 
 .surveyFlex{
@@ -50,12 +77,12 @@ body{
     justify-content: center;
     margin: 0%;
     padding: 0;
-    border: 1px solid black;
+    border: var(--main-border-testing);
     width: 60%;
     height: 100%;
 }
 .surveyWrapper{
-    border: 1px solid rgb(7, 50, 90);
+    border: var(--main-border-testing);
     width: 100%;
     height: 70%;
 
@@ -70,9 +97,30 @@ body{
 
 }
 
+/* ////////////Buttons Survey//////////////////
+ */
+.surveyButton{
+    border: var(--main-border-style);
+    border-radius: 15px;
+    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+
+    /*colors*/
+    background-color: var(--main-button-color);
+}
+
+.surveyHoverButton:hover{
+    /*colors*/
+    background-color: var(--main-button-hover-color);
+    
+    cursor: pointer;
+    user-select: none;
+}
+
 .surveyOpt{
-    background-color: rgb(100, 77, 122);
-    border: 1px solid black;
+    border: var(--main-border-style);
     border-radius: 25px;
 
     text-align: center;
@@ -81,26 +129,33 @@ body{
 
     width: 45%;
     height: 70%;
+    max-width: 200px;
+
+    display: grid;
+    grid-template-rows: 50% 10%;
+
+    /*colors*/
+    background-color: var(--main-button-color);
+
 }
 
-.surveyButton{
-    background-color: rgb(100, 77, 122);
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
-    text-align: center;
+.surveyOptCheckbox{
+    margin: auto;
+    padding: 30px;
+    border-radius: 100%;
+
+    /*colors*/
+    background-color: var(--main-placeholder-color);
+
 }
 
-.surveyHoverButton:hover{
-    background-color: rgb(108, 94, 121);
-    cursor: pointer;
-    user-select: none;
+.surveyOptDescription{
+    margin: auto;
+
 }
 
 .surveyBoth{
-    background-color: rgb(100, 77, 122);
+
     border: 1px solid black;
 
     margin: auto;
@@ -111,4 +166,49 @@ body{
     padding: 15px;
     padding-left: 40px;
     padding-right: 40px;
+
+    /*colors*/
+    background-color: var(--main-button-color);
 }
+
+/* ////////////Budget Survey//////////////////
+ */
+
+.surveyBudgetWrapp{
+    display: grid;
+    padding: 20%;
+    grid-template-rows: auto auto auto;
+    grid-gap: 20px;
+}
+
+ .section1Budget{
+    margin: auto;
+    font-size: 40px;
+ }
+
+ .section2Budget{
+    margin: auto;
+    font-size: 25px;
+
+ }
+
+ .section3Budget{
+    margin: auto;
+    font-weight:normal;
+    font-size: 15px;
+ }
+
+ /* //////////////////////////////
+ */
+
+ .animationTest{
+    animation-name: example;
+    animation-duration: 1.5s;
+/*     animation-timing-function: ease-in;
+ */ }
+ @keyframes example {
+    0%   {background-color: var(--main-button-hover-color); }
+    25%  {background-color: var(--main-button-color);}
+    50%  {background-color: var(--main-bg-color); color: white;}
+    100% {background-color: var(--main-title-color); padding: 9px; border-width: 2px; transform: rotateY(720deg);color: white;}
+  }
