@@ -201,14 +201,27 @@ body{
  /* //////////////////////////////
  */
 
- .animationTest{
-    animation-name: example;
+ .spinCard{
+    animation-name: spin;
     animation-duration: 1.5s;
 /*     animation-timing-function: ease-in;
  */ }
- @keyframes example {
+ @keyframes spin {
     0%   {background-color: var(--main-button-hover-color); }
     25%  {background-color: var(--main-button-color);}
     50%  {background-color: var(--main-bg-color); color: white;}
     100% {background-color: var(--main-title-color); padding: 9px; border-width: 2px; transform: rotateY(720deg);color: white;}
+  }
+
+ /* //////////////////////////////
+ */
+.surveyProgress{
+    transform: translateY(410%);
+}
+
+  .surveyProgressMarker{
+    padding: 1px;
+  }
+  .surveyProgressMarker:hover{
+    cursor: pointer;
   }

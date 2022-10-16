@@ -1,121 +1,88 @@
+//value: ['restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','park','shopping_mall','stadium','spa','zoo'],
+
+
 const surveyOptions = [
     {
         opt1: {
             text: 'Day',
-            value: [],
+            value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'park', 'shopping_mall', 'stadium', 'spa', 'zoo'],
             marked: false,
         },
         opt2: {
             text: 'Night',
-            value: [],
+            value: ['restaurant', 'bar', 'movie_theater', 'bowling_alley', 'night_club', 'shopping_mall', 'stadium', 'spa'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'Adrenaline',
-            value: [],
+            value: ['bar', 'bowling_alley', 'night_club', 'restaurant', 'shopping_mall', 'stadium',],
             marked: false,
         },
         opt2: {
             text: 'Relax',
-            value: [],
+            value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'museum', 'cafe', 'park', 'spa', 'zoo'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'Beach',
-            value: [],
+            value: ['aquarium', 'park'],
             marked: false,
         },
         opt2: {
             text: 'Lake',
-            value: [],
-            marked: false,
-        }
-    },
-    {
-        opt1: {
-            text: 'Famous',
-            value: [],
-            marked: false,
-        },
-        opt2: {
-            text: 'Hidden',
-            value: [],
+            value: ['aquarium', 'park'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'Outdoor',
-            value: [],
+            value: ['park', 'outdoor'],
             marked: false,
         },
         opt2: {
             text: 'Indoor',
-            value: [],
+            value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'night_club', 'shopping_mall', 'stadium', 'spa'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'History',
-            value: [],
+            value: ['museum'],
             marked: false,
         },
         opt2: {
             text: 'Culture',
-            value: [],
+            value: ['restaurant', 'library', 'art_gallery', 'bar', 'museum', 'stadium'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'Big City',
-            value: [],
+            value: ['restaurant', 'art_gallery', 'bar', 'movie_theater', 'night_club', 'shopping_mall', 'stadium', 'zoo'],
             marked: false,
         },
         opt2: {
             text: 'Small City',
-            value: [],
-            marked: false,
-        }
-    },
-    {
-        opt1: {
-            text: 'LongWalk',
-            value: [],
-            marked: false,
-        },
-        opt2: {
-            text: 'ShortWalk',
-            value: [],
+            value: ['cafe', 'park'],
             marked: false,
         }
     },
     {
         opt1: {
             text: 'Group',
-            value: [],
+            value: ['restaurant', 'aquarium', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'night_club', 'park', 'shopping_mall', 'stadium', 'zoo'],
             marked: false,
         },
         opt2: {
             text: 'Individual',
-            value: [],
-            marked: false,
-        }
-    },
-    {
-        opt1: {
-            text: 'Long Transit',
-            value: [],
-            marked: false,
-        },
-        opt2: {
-            text: 'Short Transit',
-            value: [],
+            value: ['library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'museum', 'cafe', 'night_club', 'park', 'shopping_mall', 'spa'],
             marked: false,
         }
     },
@@ -128,6 +95,7 @@ const surveyOpt2 = document.getElementById('surveyOpt2')
 const surveyPrev = document.getElementById('surveyPrev')
 const surveyNext = document.getElementById('surveyNext')
 const surveyBothButton = document.getElementById('surveyBothButton')
+const surveyProgress = document.getElementById('surveyProgress')
 
 let surveyDelay = 300
 
@@ -136,7 +104,7 @@ let currentOptions = 0
 const surveyUpdate = () => {
     surveyOpt1.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt1);
     surveyOpt2.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt2);
-
+    surveyCheckProgress()
     return console.log(currentOptions)
 }
 
@@ -165,6 +133,7 @@ const SurveyAddEventListeners = () => {
 
     surveyOpt1.addEventListener('click', () => {
         checkSurvey(surveyOptions[currentOptions].opt1.text)
+        surveyParseAnswer(surveyOptions[currentOptions].opt1)
 
         setTimeout(() => {
             currentOptions++;
@@ -180,6 +149,7 @@ const SurveyAddEventListeners = () => {
 
     surveyOpt2.addEventListener('click', () => {
         checkSurvey(surveyOptions[currentOptions].opt2.text)
+        surveyParseAnswer(surveyOptions[currentOptions].opt2)
 
         setTimeout(() => {
             currentOptions++;
@@ -195,7 +165,9 @@ const SurveyAddEventListeners = () => {
 
     surveyBothButton.addEventListener('click', () => {
         checkSurveyBoth(surveyOptions[currentOptions].opt1.text)
-      
+        surveyParseAnswer(surveyOptions[currentOptions].opt1)
+        surveyParseAnswer(surveyOptions[currentOptions].opt2)
+
         setTimeout(() => {
             currentOptions++;
             for (let i = 0; i < surveyOptions.length; i++) {
@@ -219,17 +191,20 @@ const startSurvey = () => {
 }
 
 const submitBudget = (budget) => {
-    if(budget=='high'){
-    surveyOpt1.classList.add('animationTest')}
-    else if (budget=='low'){
-        surveyOpt2.classList.add('animationTest')}
+    if (budget == 'high') {
+        surveyOpt1.classList.add('spinCard')
+    }
+    else if (budget == 'low') {
+        surveyOpt2.classList.add('spinCard')
+    }
     console.log(budget)
     setTimeout(() => {
         surveyTitle.innerHTML = 'Between these two, what do you prefer?'
         surveyPrev.style.display = "inline";
         surveyNext.style.display = "inline";
-        surveyBothButton.style.display = "inline";    
-        surveyUpdate();SurveyAddEventListeners()}, 1000)
+        surveyBothButton.style.display = "inline";
+        surveyUpdate(); SurveyAddEventListeners()
+    }, 1000)
 }
 
 const checkSurvey = (text) => {
@@ -262,8 +237,47 @@ const checkSurveyBoth = (text) => {
     surveyUpdate()
 }
 
+const surveyCheckProgress = () => {
+    surveyProgress.innerHTML = ''
+    for (item of surveyOptions) {
+        if (item.opt1.marked || item.opt2.marked)
+            surveyProgress.innerHTML += 'x '
+        if (!item.opt1.marked && !item.opt2.marked)
+            surveyProgress.innerHTML += 'o '
+    }
+
+    for (item of surveyOptions) {
+        if (!item.opt1.marked && !item.opt2.marked) {
+            return console.log('not ready yet')
+        }
+    }
+
+    finishSurvey();
+}
+
+const surveyParseAnswer = (opt) => {
+    if(opt=='high' || opt=='low'){
+        user.preferences.budget = 'opt'
+        return
+    }
+
+    let userChallengePreferences =user.preferences.surveyResults
+    userChallengePreferences.ChallengePreferences.push(opt.text)
+    console.log(userChallengePreferences.ChallengePreferences)
+
+    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
+    console.log(userPlacesPreferences)
+    for (item of userPlacesPreferences) {
+        for (pref of opt.value) {
+            if (pref == item.name) {
+                item.value++
+            }
+        }
+    }
+}
 
 
+///-----------------------------------------
 const optionHtmlString = (opt) => {
     let checkBox = ''
     if (opt.marked) { checkBox = '<div class="surveyOptCheckbox" onclick="">X</div>' }
@@ -300,16 +314,22 @@ const startSurveyHtmlString = (budget) => {
     return string
 }
 
+const finishSurvey = () => {
+    console.log('All done!')
+    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
+    console.log(user)
+    //sends result to object
+    //shows finish screen
+
+}
 
 startSurvey()
 
 
 
 
-
-
 //Library USERS
-user = {
+const user = {
     userName: 'Lucas',
     email: 'lucas@email.com',
     password: 'encryptionKey',
@@ -319,20 +339,22 @@ user = {
     preferences: {
         budget: 'low',
         surveyResults: {
-            restaurant: 2,
-            library: 5,
-            aquarium: 4,
-            art_gallery: 3,
-            bar: 1,
-            movie_theater: 3,
-            bowling_alley: 2,
-            museum: 3,
-            cafe: 3,
-            night_club: 0,
-            park: 5,
-            shopping_mall: 2,
-            stadium: 1,
-            zoo: 3,
+            placesPreferences: [
+                { name: 'restaurant', value: 0, },
+                { name: 'library', value: 0, },
+                { name: 'art_gallery', value: 0, },
+                { name: 'bar', value: 0, },
+                { name: 'movie_theater', value: 0, },
+                { name: 'bowling_alley', value: 0, },
+                { name: 'museum', value: 0, },
+                { name: 'cafe', value: 0, },
+                { name: 'night_club', value: 0, },
+                { name: 'park', value: 0, },
+                { name: 'shopping_mall', value: 0, },
+                { name: 'stadium', value: 0, },
+                { name: 'zoo', value: 0, },
+            ],
+            ChallengePreferences: [ ]
         }
     },
     challengesDone: ['idOfChallenge1', 'idOfChallenge2', 'idOfChallenge3'],
@@ -340,6 +362,7 @@ user = {
     placesVisited: ['idOfPlace1', 'idOfPlace2', 'idOfPlace3',],
     id: 'a8s72bn198gbs18y',
 }
+
 
 //Library BADGES
 badges = {
@@ -359,5 +382,6 @@ Challenge = {
     placeId: '',
     areaCoordinates: { lat: 'lat', lng: 'lng' },
     premium: true,
+    tags: ['', '', '']
 }
 
