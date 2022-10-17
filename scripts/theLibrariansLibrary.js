@@ -29,16 +29,16 @@ librarians = {
 
 let newPlace = {
     name: 'name', //required
-    title: 'title', //required
-    address: 'vicinity', //required
+    title: 'title', //optional
+    address: 'vicinity', //optional
     picture: 'href', //optional
     position: { lat, lng }, //required
     rating: place.rating, //optional
     numberOfRatings: place.user_ratings_total, //optional
     priceLevel: priceLevel, //optional
-    type: place.types, //required
+    type: place.types, //optional
     id: place.place_id, ////
-    icon: orangeMarker, //optional
+    icon: orangeMarker, //required
     description: '', //optional
     category: 'pointOfInterest' ///
   }

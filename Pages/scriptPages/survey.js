@@ -1,6 +1,7 @@
 //value: ['restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','park','shopping_mall','stadium','spa','zoo'],
 
 
+
 const surveyOptions = [
     {
         opt1: {
@@ -87,15 +88,24 @@ const surveyOptions = [
         }
     },
 ]
-console.clear()
 
-const surveyTitle = document.getElementById('surveyTitle')
-const surveyOpt1 = document.getElementById('surveyOpt1')
-const surveyOpt2 = document.getElementById('surveyOpt2')
-const surveyPrev = document.getElementById('surveyPrev')
-const surveyNext = document.getElementById('surveyNext')
-const surveyBothButton = document.getElementById('surveyBothButton')
-const surveyProgress = document.getElementById('surveyProgress')
+let surveyTitle = ''
+let surveyOpt1 = ''
+let surveyOpt2 = ''
+let surveyPrev = ''
+let surveyNext = ''
+let surveyBothButton = ''
+let surveyProgress = ''
+
+const getSurveyHtmlElements =()=>{
+     surveyTitle = document.getElementById('surveyTitle')
+     surveyOpt1 = document.getElementById('surveyOpt1')
+     surveyOpt2 = document.getElementById('surveyOpt2')
+     surveyPrev = document.getElementById('surveyPrev')
+     surveyNext = document.getElementById('surveyNext')
+     surveyBothButton = document.getElementById('surveyBothButton')
+     surveyProgress = document.getElementById('surveyProgress')
+}
 
 let surveyDelay = 300
 
@@ -135,6 +145,9 @@ const SurveyAddEventListeners = () => {
         checkSurvey(surveyOptions[currentOptions].opt1.text)
         surveyParseAnswer(surveyOptions[currentOptions].opt1)
 
+        surveyOpt1.classList.remove('spinCard');
+        setTimeout(function(){ surveyOpt1.classList.add('spinCard')},10);
+
         setTimeout(() => {
             currentOptions++;
             for (let i = 0; i < surveyOptions.length; i++) {
@@ -150,6 +163,9 @@ const SurveyAddEventListeners = () => {
     surveyOpt2.addEventListener('click', () => {
         checkSurvey(surveyOptions[currentOptions].opt2.text)
         surveyParseAnswer(surveyOptions[currentOptions].opt2)
+
+        surveyOpt2.classList.remove('spinCard');
+        setTimeout(function(){ surveyOpt2.classList.add('spinCard')},10);
 
         setTimeout(() => {
             currentOptions++;
@@ -182,6 +198,8 @@ const SurveyAddEventListeners = () => {
     })
 }
 const startSurvey = () => {
+    getSurveyHtmlElements()
+    console.log("activated")
     surveyPrev.style.display = "none";
     surveyNext.style.display = "none";
     surveyBothButton.style.display = "none";
@@ -223,6 +241,7 @@ const checkSurvey = (text) => {
     }
     surveyUpdate()
 }
+
 const checkSurveyBoth = (text) => {
     for (item of surveyOptions) {
         if (item.opt1.text == text) {
@@ -323,7 +342,6 @@ const finishSurvey = () => {
 
 }
 
-startSurvey()
 
 
 
@@ -365,16 +383,16 @@ const user = {
 
 
 //Library BADGES
-badges = {
+/*  badges = {
     id: '',
     challengeId: '',
     icon: '',
     name: '',
     description: '',
-}
+} */
 
 //Library CHALLENGES
-Challenge = {
+let Challenge = {
     id: '',
     name: '',
     description: '',
@@ -384,4 +402,6 @@ Challenge = {
     premium: true,
     tags: ['', '', '']
 }
+
+startSurvey()
 

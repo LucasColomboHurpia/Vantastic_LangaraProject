@@ -1,11 +1,12 @@
 html,
 body {
   margin: 0;
-  padding: 0;
+  background-color: grey;
 }
 
 .plead{
   background-color: rgb(197, 197, 197);
+
   height: 85vh;
   width: 25%;
   text-align: center;

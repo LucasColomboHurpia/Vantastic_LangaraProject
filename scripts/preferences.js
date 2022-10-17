@@ -23,11 +23,29 @@ challengesExample = [
 
     {
         id: '',
-        name: 'challenge1',
+        name: 'THE HANGING BRIDGE CHALLENGE',
         description: '',
+        steps: {
+            low:[
+                {desc:"Go to Lynn Valley Park in North Vancouver. When you’re there, take a picture with the welcome sign! Don’t forget that it might be dangerous being in the forest at night, so we recommend not going too late!", 
+                coord:{ lat: 49.34292296418448, lng: -123.01977724677438}},
+                {desc:"Hope you’re not afraid of heights! Take a picture standing on the hanging bridge, and don’t forget to take the time to enjoy the view! ", 
+                coord:{ lat:49.34393808747806 , lng: -123.0180606869341}},
+                {desc:"Delight yourself with this park’s captivating views by walking down the park. Find the waterfall and take a picture with it! ", 
+                coord:{ lat:49.34393808747806 , lng: -123.0180606869341}},
+            ],
+            high:[
+                {desc:"Go to Capilano in North Vancouver. When you’re there, take a picture with the welcome sign! Don’t forget that it might be dangerous being in the forest at night, so we recommend not going too late! ", 
+                coord:{ lat: 49.3426884715942, lng: -123.11402141238946}},
+                {desc:"	Hope you’re not afraid of heights! Take a picture standing on the hanging bridge, and don’t forget to take the time to enjoy the view! ", 
+                coord:{ lat: 49.34287347137181, lng:-123.11492004060521}},
+                {desc:"Delight yourself by having lunch -or a drink- in The Cliff House Restaurant and Bar while enjoying the captivating views. Share us a picture of what you decide to order! ", 
+                coord:{ lat: -123.11492004060521, lng: -123.11380161190166}},
+            ],
+        },
         budget: '',
         placeId: '',
-        areaCoordinates: { lat: 'lat', lng: 'lng' },
+        areaCoordinates: { lat: 49.34292296418448, lng: -123.01977724677438 },
         premium: true,
         tags: ['day', 'AAA', 'BBB']
     },
@@ -116,4 +134,4 @@ const preferences = (surveyResults) => {
      console.log(challengesExample[comparisonValue[i]])
    }
 }
-preferences(surveyResults)
+/* preferences(surveyResults) */

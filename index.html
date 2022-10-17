@@ -8,13 +8,15 @@
     <title>Vancouver Challenge</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link href="./styles/style.css" rel="stylesheet">
 
 
 </head>
 
-<body id='body' style="background-color:grey;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body id='body'>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navTesting">
         <a class="navbar-brand" href="#">Placeholder</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +36,7 @@
                 <li class="nav-item" id="register" onclick="routerSPA('register')">
                     <div class="nav-link">Register</d>
                 </li>
-                <li class="nav-item" id="survey" onclick="routerSPA('survey')">
+                <li class="nav-item" id="survey" onclick="routerSPA('survey');">
                     <div class="nav-link">Survey</div>
                 </li>
                 <li class="nav-item" id="profile" onclick="routerSPA('profile')">
@@ -56,7 +58,7 @@
 
     <div id="mainArea"></div>
 
-    <!----------------------------------------------------- -->
+    <!-- --------------------------------------------------- -->
 
     <div id="mapDisplay">
         <h1>
@@ -92,8 +94,12 @@
             <button type="button" class="btn btn-danger" id="deleteButton">Delete Markers</button>
             <button type="button" class="btn btn-light" id="changeStyle">Change Style</button>
             <button type="button" class="btn btn-light" id="toggleControls">Toggle Controls</button>
-
+            <button type="button" class="btn btn-dark" id="loadChallenge">Load Challenge</button>
         </h1>
+
+
+
+
         <div class="plead" id="plead">Vancouver Challenge gmaps Prototype I
             <div id="output">
                 <br />
@@ -105,12 +111,20 @@
         </div>
         <div id="map">If you can read this, please relaod the page</div>
     </div>
-    
+
+
+
+    <!-- Style and Script pages -->
+
+
+<!--   \\\\\  API DISABLED /////  -->
     <!--- API KEY GMAPS --->
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
     <script defer src="./scripts/routerSpa.js"></script>
+    <script src="./scripts/preferences.js"></script>
     <script src="./scripts/index.js"></script>
+
     <!----------------------------------------------------- -->
     <!-- Jquery-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

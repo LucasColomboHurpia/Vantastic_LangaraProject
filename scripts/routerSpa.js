@@ -1,28 +1,44 @@
 const mapDisplay = document.getElementById('mapDisplay');
 const rootElement = document.getElementById('mainArea');
 
-let currentStyle = '/styles/style.css'
+let currentStyle = './styles/style.css'
 
-
+const defaultFunction = () => {
+    console.log('default')
+}
 
 //this section will be updated soon, for now this works just fine
 const login = `<div>this is the login page</div>`
 const startScreen = `<div>this is the startScreen page</div>`
 const register = `<div>this is the register page</div>`
-const survey = `<div>this is the survey page</div>`
+const survey = `<div class="surveyWrapping" onload="startSurvey()">
+                    <div class="surveyTitle" id='surveyTitle'>Between these two, what do you prefer?</div>
+                    <div class="surveyWrapper">
+                        <div class="surveyFlex">
+                            <div class="surveyButton surveyHoverButton" id="surveyPrev">Prev </div>
+                            <div class="surveyOptFlex">
+                                <div class="surveyOpt surveyHoverButton" id="surveyOpt1">Option 1</div>
+                                <div class="surveyOpt surveyHoverButton" id="surveyOpt2">Option 2</div>
+                            </div>
+                            <div class="surveyButton surveyHoverButton" id="surveyNext">Next</div>
+                        </div> 
+                        <div class="surveyBoth surveyHoverButton" id="surveyBothButton">Both!</div>
+                    </div>
+                    <div class="surveyProgress" id="surveyProgress"><span class="surveyProgressMarker"></span></div>
+                </div>`
 const profile = `<div>this is the profile page</div>`
 const badges = `<div>this is the badges page</div>`
 const challenges = `<div>this is the challenges page</div>`
 
 const pageIndex = [
-    { id: 'mainPage',    defaulthtml: '',          stylePath:'/styles/style.css',            scriptPath:'',                             htmlPath: '' },
-    { id: 'startScreen', defaulthtml: startScreen, stylePath:'',                             scriptPath:'/Pages/scriptPages/test.js',   htmlPath: '/Pages/startScreen.html' },
-    { id: 'login',       defaulthtml: login,       stylePath:'',                             scriptPath:'',                             htmlPath: '/Pages/login.html' },
-    { id: 'register',    defaulthtml: register,    stylePath:'',                             scriptPath:'',                             htmlPath: '/Pages/register.html' },
-    { id: 'survey',      defaulthtml: survey,      stylePath:'/Pages/stylePages/survey.css', scriptPath:'/Pages/scriptPages/survey.js', htmlPath: '/Pages/survey.html' },
-    { id: 'profile',     defaulthtml: profile,     stylePath:'',                             scriptPath:'',                             htmlPath: '/Pages/profile.html' },
-    { id: 'badges',      defaulthtml: badges,      stylePath:'',                             scriptPath:'',                             htmlPath: '/Pages/badges.html' },
-    { id: 'challenges',  defaulthtml: challenges,  stylePath:'',                             scriptPath:'',                             htmlPath: '/Pages/challenges.html' },
+    { id: 'mainPage',    defaulthtml: '',          stylePath:'./styles/style.css',            scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '' },
+    { id: 'startScreen', defaulthtml: startScreen, stylePath:'',                              scriptPath:'./Pages/scriptPages/test.js',   scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/startScreen.html' },
+    { id: 'login',       defaulthtml: login,       stylePath:'',                              scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/login.html' },
+    { id: 'register',    defaulthtml: register,    stylePath:'',                              scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/register.html' },
+    { id: 'survey',      defaulthtml: survey,      stylePath:'./Pages/stylePages/survey.css', scriptPath:'./Pages/scriptPages/survey.js', scriptLoaded: false,  function: function(){startSurvey()},       htmlPath: '/Pages/survey.html' },
+    { id: 'profile',     defaulthtml: profile,     stylePath:'',                              scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/profile.html' },
+    { id: 'badges',      defaulthtml: badges,      stylePath:'',                              scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/badges.html' },
+    { id: 'challenges',  defaulthtml: challenges,  stylePath:'',                              scriptPath:'',                             scriptLoaded: false,  function: function(){defaultFunction()},   htmlPath: '/Pages/challenges.html' },
 ]
 
 
@@ -35,20 +51,32 @@ let scripts = head.getElementsByTagName('script');
         if (id == 'mainPage') { //the map is always loaded in the background, this reduces loading times when going back to the main page
             mapDisplay.style.display = 'block'
             rootElement.style.display = 'none'
+            //toggle style
             toggleStylesheet('',0)
             toggleStylesheet(page.stylePath,1)
-            currentStyle = page.stylePath
-
-            return;
+            //toggle script
+            if(!page.scriptLoaded){
+                page.scriptLoaded=true;
+                toggleScript(page.scriptPath,1)
+            } else {
+                setTimeout(() => { page.function()}, "500")    
+            } 
         }
         //temporary fix
         else if (page.id == id) {
             mapDisplay.style.display = 'none'
             rootElement.style.display = 'block'
             rootElement.innerHTML = page.defaulthtml;
+            //toggle style
             toggleStylesheet('',0)
             toggleStylesheet(page.stylePath,1)
-            currentStyle = page.stylePath
+            //toggle script
+            if(!page.scriptLoaded){
+                page.scriptLoaded=true;
+                toggleScript(page.scriptPath,1)
+            } else {
+                setTimeout(() => { page.function()}, "500")    
+            } 
         }
         ///////GITHUB ERROR needs to be FIXED : //routerSpa.js:28 The Content Security Policy 'default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'' was delivered via a <meta> element outside the document's <head>, which is disallowed. The policy has been ignored.
 /*        else if (page.id == id) {

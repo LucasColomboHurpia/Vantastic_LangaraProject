@@ -14,6 +14,7 @@ let pinMarker;
 let findUser;
 let placesAPIRequest;
 let aroundVancouverMarkers;
+let challengeMarker;
 let librarians;
 
 const orangeMarker = "./Assets/orange marker.png"
@@ -133,9 +134,6 @@ async function initMap() {
 
     //sets up function to build markers
     pinMarker = function (place) {
-      let infowindow = new google.maps.InfoWindow({
-        content: createContentString(place), //creates a custom info window using the object parameters
-      });
 
       //creates and adds the google maps marker
       const marker = new google.maps.Marker({
@@ -144,7 +142,13 @@ async function initMap() {
         title: place.title,
         icon: place.icon,
       });
+
       if (place.category == 'pointOfInterest') {
+
+        let infowindow = new google.maps.InfoWindow({
+          content: createContentString(place), //creates a custom info window using the object parameters
+        });
+
         //adds infowindow when clicked
         marker.addListener("click", () => {
           infowindow.open({
@@ -152,6 +156,7 @@ async function initMap() {
             map,
             shouldFocus: true,
           });
+
           //Close infowindow when a new one is open
           closeinfoWindow(infowindow)
         });
@@ -160,7 +165,9 @@ async function initMap() {
 
         //checks if marker should be stored as a point of interest
 
-      } //adds marker to the array
+      }
+
+      //adds marker to the array
       currentVisibleMarkers.push(marker)
     }
 
@@ -191,10 +198,11 @@ async function initMap() {
       //Checks if the status response is OK
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(results)
+
         //Loops through the array
         for (i = 0; i < results.length; i++) {
           let place = results[i];
-          console.log(place.photos)
+
           //gets the coordinates 
           let lat = (place.geometry.location.lat())
           let lng = (place.geometry.location.lng())
@@ -274,124 +282,171 @@ async function initMap() {
       }
     }
 
+    //------------Polygons----------------------------------------
+    //https://developers.google.com/maps/documentation/javascript/shapes
+
+    challengeMarker = (challenge) =>{
+    //CIRCLE
+    const cityCircle = new google.maps.Circle({
+      strokeColor: "#264996",
+      strokeOpacity: 0.5,
+      strokeWeight: 1,
+      fillColor: "#264996",
+      fillOpacity: 0.25,
+      map,
+      center: challenge.areaCoordinates,
+      radius: 900,
+    });
+
+    //marker
+    newMarker = new google.maps.Marker({
+      position: challenge.areaCoordinates,
+      map,
+      title: challenge.name,
+      icon: "./Assets/blue marker.png",
+    });
+
+    //INFOWINDOW
+    let infowindow = new google.maps.InfoWindow({
+      content: createChallengeString(challenge), //creates a custom info window using the object parameters
+    });
+    //adds infowindow when clicked
+    newMarker.addListener("click", () => {
+      infowindow.open({
+        anchor: newMarker,
+        map,
+        shouldFocus: true,
+      })});
+    }
+//--------------------------------------------------------------------
+
     //set object with our functions
     librarians = {
       pinMaker: pinMarker,
       deletePins: deletePins,
       placesAPIRequest: placesAPIRequest,
       aroundVancouverMarkers: aroundVancouverMarkers,
-  } 
-  
-  } catch (error) { console.log(error) }
-}
+      challengeMarker: challengeMarker,
+    }
+
+    }catch (error) { console.log(error) }
+  }
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 // Delete pins
 function deletePins(arrayOfMarkers) {
-  if (arrayOfMarkers.length > 0) { //checks if there is something to delete
-    for (pin of arrayOfMarkers) { // loops through the array
-      pin.setMap(null); //deletes the pin
+    if (arrayOfMarkers.length > 0) { //checks if there is something to delete
+      for (pin of arrayOfMarkers) { // loops through the array
+        pin.setMap(null); //deletes the pin
+      }
     }
   }
-}
 
-// Close info window when a new one is open
-const closeinfoWindow = (infowindow) => {
-  if (currentInfoWindow.length > 0) {
-    currentInfoWindow[0].close()
-    currentInfoWindow[0] = infowindow
-  } else {
-    currentInfoWindow[0] = infowindow
+  // Close info window when a new one is open
+  const closeinfoWindow = (infowindow) => {
+    if (currentInfoWindow.length > 0) {
+      currentInfoWindow[0].close()
+      currentInfoWindow[0] = infowindow
+    } else {
+      currentInfoWindow[0] = infowindow
+    }
   }
-}
 
 
-//Calculates the route, takes coordinates and the mode of transportarion
-//Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
+  //Calculates the route, takes coordinates and the mode of transportarion
+  //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
 
-const calculateRoute = (lat, lng, mode) => {
-  let start = currentPosition; //start route
-  let end = { lat, lng }; //end route
+  const calculateRoute = (lat, lng, mode) => {
+    let start = currentPosition; //start route
+    let end = { lat, lng }; //end route
 
-  //sets up request object for the API
-  let request = {
-    origin: start,
-    destination: end,
-    travelMode: mode //DRIVING, BICYCLING, TRANSIT, WALKING  
-  };
+    //sets up request object for the API
+    let request = {
+      origin: start,
+      destination: end,
+      travelMode: mode //DRIVING, BICYCLING, TRANSIT, WALKING  
+    };
 
-  //Makes the route API request
-  directionsService.route(request, function (result, status) {
-    //checks if the status of the response is OK
-    if (status == 'OK') {
-      //gets data from the response
-      let googleRoute = result.routes[0].legs[0]
-      let dataArray = googleRoute.steps
-      for (data of dataArray) {
-        console.log('duration:', googleRoute.departure_time)
-      }
+    //Makes the route API request
+    directionsService.route(request, function (result, status) {
+      //checks if the status of the response is OK
+      if (status == 'OK') {
+        //gets data from the response
+        let googleRoute = result.routes[0].legs[0]
+        let dataArray = googleRoute.steps
+        for (data of dataArray) {
+          console.log('duration:', googleRoute.departure_time)
+        }
 
-      ///---------------------------------------------------------------------------------------------
-      //output (STILL IN TESTING PHASE)
-      output.innerHTML = `
+        ///---------------------------------------------------------------------------------------------
+        //output (STILL IN TESTING PHASE)
+        output.innerHTML = `
         <div><b>Departure:</b> ${googleRoute.departure_time.text}</div>
         <div><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
         <div><b>Distance:</b> ${googleRoute.distance.text}</div>
         <div class="mb-2"><b>Duration:</b> ${googleRoute.duration.text}</div>
       `
-      for (data of dataArray) {
-        output.innerHTML += `
+        for (data of dataArray) {
+          output.innerHTML += `
         <div>${data.instructions} <b>${data.duration.text}</b></div>
         `
+        }
+        ///---------------------------------------------------------------------------------------------
+
+        //renders the directon in the map
+        directionsRenderer.setDirections(result);
+      } else {
+        console.log('Directions Services not available')
       }
-      ///---------------------------------------------------------------------------------------------
-
-      //renders the directon in the map
-      directionsRenderer.setDirections(result);
-    } else {
-      console.log('Directions Services not available')
-    }
-  });
-}
+    });
+  }
 
 
-//--------------------------------------------------------------------
-/// Buttons for the TESTING interface
+  //--------------------------------------------------------------------
+  /// Buttons for the TESTING interface
 
-//Testing button to finding the user
-let findMe = document.getElementById('findMe')
-findMe.addEventListener('click', () => { findUser() })
+  //Testing button to finding the user
+  let findMe = document.getElementById('findMe')
+  findMe.addEventListener('click', () => { findUser() })
 
-//Testing button to deleting markers
-let deleteButton = document.getElementById('deleteButton')
-deleteButton.addEventListener('click', () => { deletePins(currentVisibleMarkers) })
+  //Testing button to deleting markers
+  let deleteButton = document.getElementById('deleteButton')
+  deleteButton.addEventListener('click', () => { deletePins(currentVisibleMarkers) })
 
-//Testing button for changing the map style
-let changeStyle = document.getElementById('changeStyle')
-changeStyle.addEventListener('click', () => {
-  if (myMapId == 'd04e37658de12594') { myMapId = 'ffcaa1df68a4459b' }
-  else if (myMapId == 'ffcaa1df68a4459b') { myMapId = 'd04e37658de12594' }
-  initMap()
-})
+  //Testing button for changing the map style
+  let changeStyle = document.getElementById('changeStyle')
+  changeStyle.addEventListener('click', () => {
+    if (myMapId == 'd04e37658de12594') { myMapId = 'ffcaa1df68a4459b' }
+    else if (myMapId == 'ffcaa1df68a4459b') { myMapId = 'd04e37658de12594' }
+    initMap()
+  })
 
-//Testing button for toggling control
-let toggleControls = document.getElementById('toggleControls')
-toggleControls.addEventListener('click', () => {
-  myMapTypeControl = !myMapTypeControl
-  myFullscreenControl = !myFullscreenControl
-  myStreetViewControl = !myStreetViewControl
-  initMap()
-})
+  //Testing button for toggling control
+  let toggleControls = document.getElementById('toggleControls')
+  toggleControls.addEventListener('click', () => {
+    myMapTypeControl = !myMapTypeControl
+    myFullscreenControl = !myFullscreenControl
+    myStreetViewControl = !myStreetViewControl
+    initMap()
+  })
 
-//Testing button to finding the user
-let loadVancouverButton = document.getElementById('loadVancouver')
-loadVancouverButton.addEventListener('click', () => { aroundVancouverMarkers() })
+  //Testing button to finding the user
+  let loadVancouverButton = document.getElementById('loadVancouver')
+  loadVancouverButton.addEventListener('click', () => { aroundVancouverMarkers() })
 
-//d04e37658de12594 map id default
-//ffcaa1df68a4459b normal map id 
+    //Testing button to load a challenge
+    let loadChallenge = document.getElementById('loadChallenge')
+    loadChallenge.addEventListener('click', () => { challengeMarker(challengesExample[0]) })
+  
 
-//sets up HTML and style yo infowindow
-const createContentString = (place) =>{
-  let infoWindowString = `
+  //d04e37658de12594 map id default
+  //ffcaa1df68a4459b normal map id 
+
+  //sets up HTML and style yo infowindow
+  const createContentString = (place) => {
+    let infoWindowString = `
   <div class="card" style="width: 18rem;">
     <img class="card-img-top" src="${place.picture}">
     <div class="card-body">
@@ -403,6 +458,30 @@ const createContentString = (place) =>{
     <button type="button" class="btn btn-primary" onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
   </div>
   `
-  return infoWindowString
-}
+    return infoWindowString
+  }
 
+  const createChallengeString = (challenge) => {
+    let challengeSteps='';
+    for(steps of challenge.steps.low){
+      challengeSteps += `<li>${steps.desc}</li>`
+    }
+
+    let infoWindowString = `
+    <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="./Assets/default_img.jpg">
+        <div class="card-body">
+      <h5 class="card-title">${challenge.name}</h5>
+      <p class="card-text">${challenge.description}</p>
+      <p class="card-text">
+        ${challengeSteps}
+    </p>
+    </div>
+    <button type="button" class="btn btn-info" onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">See route</button>
+  </div>
+  `
+    return infoWindowString
+  }
+
+
+//https://developers.google.com/maps/documentation/javascript/shapes
