@@ -89,6 +89,7 @@ body{
     margin: auto;
     position: relative;
     padding-bottom: 0;
+    max-height: 400px;
 
     /* center verticaly*/   
     top: 40%;
@@ -216,7 +217,7 @@ body{
  /* //////////////////////////////
  */
 .surveyProgress{
-    transform: translateY(410%);
+    margin-top: 20vh;
 }
 
   .surveyProgressMarker{

@@ -1,3 +1,27 @@
+
+//this script IS NOT BEING USED anymore///////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////
+
 const mapDisplay = document.getElementById('mapDisplay');
 const rootElement = document.getElementById('mainArea');
 

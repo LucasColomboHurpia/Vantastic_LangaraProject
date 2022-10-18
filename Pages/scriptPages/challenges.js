@@ -1,7 +1,7 @@
 let newChallenge = [
     {
         id:0,
-        img: "",
+        img: "/Assets/default_img.jpg",
         name: "Downtown Challenge",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
         info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
@@ -10,7 +10,7 @@ let newChallenge = [
     },
     {
         id:1,
-        img: "",
+        img: "/Assets/default_img.jpg",
         name: "Park Challenge",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
         info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
@@ -19,7 +19,7 @@ let newChallenge = [
     },
     {
         id:2,
-        img: "",
+        img: "/Assets/default_img.jpg",
         name: "Beach Challenge",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
         info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
@@ -28,7 +28,7 @@ let newChallenge = [
     },
     {
         id:3,
-        img: "",
+        img: "/Assets/default_img.jpg",
         name: "Hill Challenge",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
         info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
@@ -39,22 +39,22 @@ let newChallenge = [
 
 let downtownChallenge = [
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Drink Coffee",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Drink Beer",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Walk by English Bay",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Gastown steam clock",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     }
@@ -62,22 +62,22 @@ let downtownChallenge = [
 
 let parkChallenge = [
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Walk to the river",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Click pic with a tree",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Click pic witha bird nest",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     },
     {
-        img: "",
+        img: "/Assets/default_img.jpg",
         activity: "Have lunch in park",
         activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
     }
@@ -88,7 +88,7 @@ for (let i=0; i<newChallenge.length; i++) {
     displayChallenge.innerHTML += `
 <div class="challenge">
     <div class="challengeStart">
-        <div class="challengeImage"><a href="#"><img src="${newChallenge[i].img}" alt="start"></a></div>
+        <div class="challengeImage"><a href="#"><img src="${newChallenge[i].img}" alt="start" width="200px" height="120px"></a></div>
         <div class="start_link" onclick="challengeActivity(${newChallenge[i].name})"><p>START</p></div>
     </div>
     <div class="challengeInfo">
@@ -102,7 +102,6 @@ for (let i=0; i<newChallenge.length; i++) {
         </ul>
     </div>
 </div>
-<hr>
 `
 }
 
