@@ -1,3 +1,44 @@
-<div>
-    THIS IS THE REGISTER SCREEN
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="stylePages/register.css">
+</head>
+
+<body>
+    
+    <div class="header">
+        <img class="logo" src="../Assets/default_img.jpg" alt="logo">
+        <button class="button" onclick="window.location.href='mainPage.html';" id="guest">Enter as Guest</button>
+        <button class="button" onclick="window.location.href='login.html';" id="login">Login</button>
+    </div>
+
+    <div id="intro">
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing.</h1><br>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi perspiciatis nam voluptatibus aliquam odit nostrum expedita.</p>
+    </div>
+
+    <form class="form">
+
+        <div class="meuform">
+            <h2>Create an Account</h2>
+            <label for="firstName"></label>
+            <input class="form-item" type="text" id="firstName" name="firstName" placeholder="First Name*" required>
+            <br>
+            <label for="lastName"></label>
+            <input class="form-item" type="text" id="lastName" name="lastName" placeholder="Last Name*" required> <br>
+            <label for="email"></label>
+            <input class="form-item" type="email" id="email" name="email" placeholder="Email Address*" required> <br>
+            <label for="password"></label>
+            <input class="form-item" type="password" placeholder="Choose your Password" id="password" name="password"
+                required> <br>
+            <input class="form-item" type="submit" class="button" id="button" value="Register">
+        </div>
+    </form>
+</body>
+
+</html>

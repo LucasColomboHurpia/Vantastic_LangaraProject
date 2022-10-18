@@ -1,0 +1,67 @@
+*{
+    box-sizing: border-box;
+}
+
+.badgeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.badgeName, .status {
+    text-align: center;
+}
+
+.challengeBadge {
+    border-style: solid;
+    /* margin: 20px; */
+    border-radius: 20px;
+    width: 300px;
+    
+}
+
+#badge {
+    text-align: center;
+}
+
+.badgeImg {
+    display: flex;
+    justify-content: center;
+}
+
+.badgeHeader {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.badgeLeftMenu li {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.logo {
+    position: relative;
+}
+.badgeLeftMenu {
+    position: absolute;
+    right: 200px;
+}
+
+/* @media screen and (max-width:920px) {
+    .challengeBadge {
+        border-style: solid;
+        margin: 20px;
+        border-radius: 20px;
+        width: 200px;
+        
+    }
+
+    .logo {
+        position: relative;
+    }
+    .badgeLeftMenu {
+        position: absolute;
+        right: 20px;
+    }
+} */
