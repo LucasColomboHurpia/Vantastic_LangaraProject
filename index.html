@@ -1,143 +1,22 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vancouver Challenge</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link href="./styles/style.css" rel="stylesheet">
-
-
+    <title>Start Screen</title>
+    <link rel="stylesheet" href="./Pages/stylePages/startScreen.css">
 </head>
 
-<body id='body'>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navTesting">
-        <a class="navbar-brand" href="#">Placeholder</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active" id="mainPage" onclick="window.location.href='./index.html';">
-                    <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item"  id="startScreen" onclick="window.location.href='./Pages/startScreen.html';">
-                    <div class="nav-link">Start Screen </div>
-                </li>
-                <li class="nav-item" id="login" onclick="window.location.href='./Pages/login.html';">
-                    <div class="nav-link" >Log in</d>
-                </li>
-                <li class="nav-item" id="register" onclick="window.location.href='./Pages/register.html';">
-                    <div class="nav-link">Register</d>
-                </li>
-                <li class="nav-item" id="survey" onclick="window.location.href='./Pages/survey.html';">
-                    <div class="nav-link">Survey</div>
-                </li>
-                <li class="nav-item" id="profile" onclick="window.location.href='./Pages/profile.html';">
-                    <div class="nav-link">Profile</d>
-                </li>
-                <li class="nav-item" id="badges" onclick="window.location.href='./Pages/badges.html';">
-                    <div class="nav-link">Badges</div>
-                </li>
-                <li class="nav-item" id="challenges" onclick="window.location.href='./Pages/challenges.html';">
-                    <div class="nav-link">Challenges</div>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                https://github.com/LucasColomboHurpia/Langara_gmapsPrototype
-            </span>
-        </div>
-    </nav>
-
-
-    <div id="mainArea"></div>
-
-    <!-- --------------------------------------------------- -->
-
-    <div id="mapDisplay">
-        <h1>
-            <div class="form-group mt-0" id='dropdown'>
-                <div id="howManyIdsText">How many locations? (up to 20)</div>
-                <input type="number" id="locationCounter" value="10" max="20" min="0">
-                <label for="exampleFormControlSelect1"></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option value="restaurant">Restaurants</option>
-                    <option value="library">Libraries</option>
-                    <option value="aquarium">aquarium</option>
-                    <option value="art_gallery">Art Gallery</option>
-                    <option value="bar">Bar</option>
-                    <option value="museum">Museum</option>
-                    <option value="movie_theater">Movie Theaters</option>
-                    <option value="cafe">Cafe</option>
-                    <option value="bowling_alley">Bowling Alleys</option>
-                    <option value="night_club">Night Clubs</option>
-                    <option value="museum">Museum</option>
-                    <option value="bus_station">Bus Stations</option>
-                    <option value="shopping_mall">Shopping Mall</option>
-                    <option value="park">Parks</option>
-                    <option value="stadium">Stadium</option>
-                    <option value="zoo">Zoo</option>
-                    <option value="subway_station">Subway Stations</option>
-                    <option value="spa">Spa</option>
-                    <option value="tourist_attraction">Tourist Attractions</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-info" id="load">Load around me</button>
-            <button type="button" class="btn btn-info" id="loadVancouver">Load around Vancouver </button>
-            <button type="button" class="btn btn-success" id="findMe">Find me</button>
-            <button type="button" class="btn btn-danger" id="deleteButton">Delete Markers</button>
-            <button type="button" class="btn btn-light" id="changeStyle">Change Style</button>
-            <button type="button" class="btn btn-light" id="toggleControls">Toggle Controls</button>
-            <button type="button" class="btn btn-dark" id="loadChallenge">Load Challenge</button>
-        </h1>
-
-
-
-
-        <div class="plead" id="plead">Vancouver Challenge gmaps Prototype I
-            <div id="output">
-                <br />
-                This is just a current under development <b>PROTOYPE</b> meant to test the technical possibilites and capabilities of the project.<br />
-                Every asset is this page is a <b>PLACEHOLDER</b> and does not reflect the final design in any way.<br />
-                The current interface, header, buttons and etc are <b>meant to help through the development cycle</b> and does
-                not represent the final version in any way.<br />
-            </div>
-        </div>
-        <div id="map">If you can read this, please relaod the page</div>
-    </div>
-
-
-
-    <!-- Style and Script pages -->
-
-
-<!--   \\\\\  API DISABLED /////  -->
-    <!--- API KEY GMAPS --->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
-    <script src="./scripts/preferences.js"></script>
-    <script src="./scripts/index.js"></script>
-
-    <!----------------------------------------------------- -->
-    <!-- Jquery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-
-    <!--bootstrap-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+<body>
+    <div class="container">
+        <img class="logo" src="../Assets/default_img.jpg" alt="logo">
+        
+        <button class="button" id="login" onclick="window.location.href='./Pages/login.html';">Login</button>
+        <button class="button" onclick="window.location.href='./Pages/register.html';" id="register">Sign Up</button>
+        <p>or</p>
+        <button class="button" onclick="window.location.href='./Pages/mainPage.html';" id="guest">Enter as Guest</button>
+    </div> 
 </body>
-
-
 </html>

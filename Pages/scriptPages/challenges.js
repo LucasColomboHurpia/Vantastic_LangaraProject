@@ -1,3 +1,6 @@
+let test = localStorage.getItem("lastname", "Smith");
+console.log(test)
+
 let newChallenge = [
     {
         id:0,

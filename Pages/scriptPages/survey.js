@@ -1,89 +1,102 @@
 //value: ['restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','park','shopping_mall','stadium','spa','zoo'],
 
-
+                    //0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
+const surveyTags = ['Day','Night','Adrenaline','Relax','Beach','Lake','Outdoor','Indoor','History','Culture','Big City','Small City','Group','Individual', 'City Landscapes', 'Nature Landscapes']
 
 const surveyOptions = [
     {
         opt1: {
-            text: 'Day',
+            text: surveyTags[0], //Day
             value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'park', 'shopping_mall', 'stadium', 'spa', 'zoo'],
             marked: false,
         },
         opt2: {
-            text: 'Night',
+            text: surveyTags[1], //Night
             value: ['restaurant', 'bar', 'movie_theater', 'bowling_alley', 'night_club', 'shopping_mall', 'stadium', 'spa'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'Adrenaline',
+            text: surveyTags[2], //Adrenaline
             value: ['bar', 'bowling_alley', 'night_club', 'restaurant', 'shopping_mall', 'stadium',],
             marked: false,
         },
         opt2: {
-            text: 'Relax',
+            text: surveyTags[3], //Relax
             value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'museum', 'cafe', 'park', 'spa', 'zoo'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'Beach',
+            text: surveyTags[4], //Beach
             value: ['aquarium', 'park'],
             marked: false,
         },
         opt2: {
-            text: 'Lake',
+            text: surveyTags[5], //Lake
             value: ['aquarium', 'park'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'Outdoor',
-            value: ['park', 'outdoor'],
+            text: surveyTags[6], //Outdoor
+            value: ['park', 'aquarium'],
             marked: false,
         },
         opt2: {
-            text: 'Indoor',
+            text: surveyTags[7], //Indoor
             value: ['restaurant', 'library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'night_club', 'shopping_mall', 'stadium', 'spa'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'History',
+            text: surveyTags[8], //History
             value: ['museum'],
             marked: false,
         },
         opt2: {
-            text: 'Culture',
+            text: surveyTags[9], //Culture
             value: ['restaurant', 'library', 'art_gallery', 'bar', 'museum', 'stadium'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'Big City',
+            text: surveyTags[10], //Big City
             value: ['restaurant', 'art_gallery', 'bar', 'movie_theater', 'night_club', 'shopping_mall', 'stadium', 'zoo'],
             marked: false,
         },
         opt2: {
-            text: 'Small City',
+            text: surveyTags[11], //Small City
             value: ['cafe', 'park'],
             marked: false,
         }
     },
     {
         opt1: {
-            text: 'Group',
+            text: surveyTags[12], //Group
             value: ['restaurant', 'aquarium', 'bar', 'movie_theater', 'bowling_alley', 'museum', 'cafe', 'night_club', 'park', 'shopping_mall', 'stadium', 'zoo'],
             marked: false,
         },
         opt2: {
-            text: 'Individual',
+            text: surveyTags[13], //Individual
             value: ['library', 'aquarium', 'art_gallery', 'bar', 'movie_theater', 'museum', 'cafe', 'night_club', 'park', 'shopping_mall', 'spa'],
+            marked: false,
+        }
+    },
+    {
+        opt1: {
+            text: surveyTags[14], //City Landscapes
+            value: ['restaurant','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','shopping_mall','stadium','spa'],
+            marked: false,
+        },
+        opt2: {
+            text: surveyTags[15], //Nature Landscapes
+            value: ['library', 'aquarium', 'park',],
             marked: false,
         }
     },
@@ -276,16 +289,18 @@ const surveyCheckProgress = () => {
 
 const surveyParseAnswer = (opt) => {
     if(opt=='high' || opt=='low'){
-        user.preferences.budget = 'opt'
+        defaultSurveyResults.budget = opt
         return
     }
 
-    let userChallengePreferences =user.preferences.surveyResults
+    let userChallengePreferences = defaultSurveyResults.surveyResults
+
     userChallengePreferences.ChallengePreferences.push(opt.text)
     console.log(userChallengePreferences.ChallengePreferences)
 
-    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
+    let userPlacesPreferences = defaultSurveyResults.surveyResults.placesPreferences
     console.log(userPlacesPreferences)
+    
     for (item of userPlacesPreferences) {
         for (pref of opt.value) {
             if (pref == item.name) {
@@ -293,6 +308,40 @@ const surveyParseAnswer = (opt) => {
             }
         }
     }
+    console.log(defaultSurveyResults)
+
+    user.preferences.surveyDone = true
+    user.preferences.budget = defaultSurveyResults.budget
+    user.preferences.surveyResults = defaultSurveyResults.surveyResults
+    
+    user.preferences = {       
+    surveyDone: true,
+    budget: 'low',
+    surveyResults: {
+        placesPreferences: [
+            { name: 'restaurant', value: 2, },
+            { name: 'library', value: 5, },
+            { name: 'art_gallery', value: 3, },
+            { name: 'bar', value: 1, },
+            { name: 'movie_theater', value: 4, },
+            { name: 'bowling_alley', value: 3, },
+            { name: 'museum', value: 3, },
+            { name: 'cafe', value: 4, },
+            { name: 'night_club', value: 1, },
+            { name: 'park', value: 5, },
+            { name: 'shopping_mall', value: 3, },
+            { name: 'stadium', value: 1, },
+            { name: 'zoo', value: 2, },
+        ],
+        ChallengePreferences: ['Day', 'Relax', 'History']
+    }
+}
+
+console.log('user',user)
+localStorage.setItem("user", JSON.stringify(user));
+
+//    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
+
 }
 
 
@@ -335,17 +384,30 @@ const startSurveyHtmlString = (budget) => {
 
 const finishSurvey = () => {
     console.log('All done!')
-    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
-    console.log(user)
-    //sends result to object
+/*     let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
+ */   
+  //console.log(user)
+    //----------------------
+    //sends result to object //creates localStorage object at register -> increments object here
+    //-----------------------
     //shows finish screen
-
+    let surveyWrapping = document.getElementById('surveyWrapping')
+    surveyWrapping.innerHTML=`
+        <div class="finishSurvey">
+            <div ><img class="finishSurveyImage" src="../../Assets/default_img.jpg"/></div>
+            <div class="finishThankYou">Thank You!</div>
+            <div class="finishText">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim aliquam inventore totam, tenetur nostrum magnam!</div>
+            <div><span class="FinishButton" onclick="window.location.href='./mainPage.html';">Home</span></div>
+        </div>
+    `
 }
 
 
+ startSurvey() 
 
 
-
+/* finishSurvey()
+ */
 //Library USERS
 const user = {
     userName: 'Lucas',
@@ -355,24 +417,25 @@ const user = {
     dateOfBirth: '',
     gender: 'male',
     preferences: {
+        surveyDone: false,
         budget: 'low',
         surveyResults: {
             placesPreferences: [
-                { name: 'restaurant', value: 0, },
-                { name: 'library', value: 0, },
-                { name: 'art_gallery', value: 0, },
-                { name: 'bar', value: 0, },
-                { name: 'movie_theater', value: 0, },
-                { name: 'bowling_alley', value: 0, },
-                { name: 'museum', value: 0, },
-                { name: 'cafe', value: 0, },
-                { name: 'night_club', value: 0, },
-                { name: 'park', value: 0, },
-                { name: 'shopping_mall', value: 0, },
-                { name: 'stadium', value: 0, },
-                { name: 'zoo', value: 0, },
+                { name: 'restaurant', value: 2, },
+                { name: 'library', value: 5, },
+                { name: 'art_gallery', value: 3, },
+                { name: 'bar', value: 1, },
+                { name: 'movie_theater', value: 4, },
+                { name: 'bowling_alley', value: 3, },
+                { name: 'museum', value: 3, },
+                { name: 'cafe', value: 4, },
+                { name: 'night_club', value: 1, },
+                { name: 'park', value: 5, },
+                { name: 'shopping_mall', value: 3, },
+                { name: 'stadium', value: 1, },
+                { name: 'zoo', value: 2, },
             ],
-            ChallengePreferences: [ ]
+            ChallengePreferences: ['Day', 'Relax', 'History']
         }
     },
     challengesDone: ['idOfChallenge1', 'idOfChallenge2', 'idOfChallenge3'],
@@ -380,7 +443,6 @@ const user = {
     placesVisited: ['idOfPlace1', 'idOfPlace2', 'idOfPlace3',],
     id: 'a8s72bn198gbs18y',
 }
-
 
 //Library BADGES
 /*  badges = {
@@ -403,5 +465,60 @@ let Challenge = {
     tags: ['', '', '']
 }
 
-startSurvey()
+////////////////////////////////--------------------------------
+
+//this comes from document storage
+
+
+let defaultSurveyResults = {
+    surveyDone: false,
+    budget: 'low',
+    surveyResults: {
+        placesPreferences: [
+            { name: 'restaurant', value: 0, },
+            { name: 'library', value: 0, },
+            { name: 'art_gallery', value: 0, },
+            { name: 'bar', value: 0, },
+            { name: 'movie_theater', value: 0, },
+            { name: 'bowling_alley', value: 0, },
+            { name: 'museum', value: 0, },
+            { name: 'cafe', value: 0, },
+            { name: 'night_club', value: 0, },
+            { name: 'park', value: 0, },
+            { name: 'shopping_mall', value: 0, },
+            { name: 'stadium', value: 0, },
+            { name: 'zoo', value: 0, },
+        ],
+        ChallengePreferences: [
+            'Day', 'Relax', 'History',
+        ]
+    }
+}
+ 
+/* let surveyResults = {
+    budget: 'low',
+    surveyResults: {
+        placesPreferences: [
+            { name: 'restaurant', value: 2, },
+            { name: 'library', value: 5, },
+            { name: 'art_gallery', value: 3, },
+            { name: 'bar', value: 1, },
+            { name: 'movie_theater', value: 4, },
+            { name: 'bowling_alley', value: 3, },
+            { name: 'museum', value: 3, },
+            { name: 'cafe', value: 4, },
+            { name: 'night_club', value: 1, },
+            { name: 'park', value: 5, },
+            { name: 'shopping_mall', value: 3, },
+            { name: 'stadium', value: 1, },
+            { name: 'zoo', value: 2, },
+        ],
+        ChallengePreferences: [
+            'Day', 'Relax', 'History',
+        ]
+    }
+} */
+
+//this comes from document storage
+
 

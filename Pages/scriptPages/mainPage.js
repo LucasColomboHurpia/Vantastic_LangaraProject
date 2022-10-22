@@ -1,5 +1,7 @@
 //Array to store and manage custom markers
 let currentVisibleMarkers = []
+
+let locations = []
 //Array to store and manage info window
 let currentInfoWindow = []
 
@@ -14,11 +16,14 @@ let pinMarker;
 let findUser;
 let placesAPIRequest;
 let aroundVancouverMarkers;
+let challengeMarker;
 let librarians;
 
+const orangeMarker = "../../Assets/orange marker.png"
+
 //nPins dictates the number of desired pins to be rendered by the places API
-let nPins = document.getElementById('locationCounter').value
-let orangeMarker = "./Assets/orange marker.png"
+/* let nPins = document.getElementById('locationCounter').value
+ */
 
 // Object to manage the google places API
 let requestPlaces = {
@@ -37,11 +42,10 @@ let myMapTypeControl = false;
 let myFullscreenControl = false;
 let myStreetViewControl = false;
 
-let alreadyLoaded = false
 
 //Activates Gmaps API
-function initMap() {
-    console.log('map started on main page')
+async function initMap() {
+  try {
     //sets default position to downtown
     let VancouverLatlng = new google.maps.LatLng(49.281709, -123.119305); //sets location to downtown
     currentPosition = VancouverLatlng //sets current position to downtown
@@ -94,7 +98,7 @@ function initMap() {
               position: pos,
               map,
               title: "You are here!",
-              icon: "./Assets/red marker.png",
+              icon: "../../Assets/red marker.png",
             });
 
             //adds infowindow when clicked
@@ -133,9 +137,6 @@ function initMap() {
 
     //sets up function to build markers
     pinMarker = function (place) {
-      let infowindow = new google.maps.InfoWindow({
-        content: createContentString(place), //creates a custom info window using the object parameters
-      });
 
       //creates and adds the google maps marker
       const marker = new google.maps.Marker({
@@ -144,7 +145,13 @@ function initMap() {
         title: place.title,
         icon: place.icon,
       });
+
       if (place.category == 'pointOfInterest') {
+
+        let infowindow = new google.maps.InfoWindow({
+          content: createContentString(place), //creates a custom info window using the object parameters
+        });
+
         //adds infowindow when clicked
         marker.addListener("click", () => {
           infowindow.open({
@@ -152,6 +159,7 @@ function initMap() {
             map,
             shouldFocus: true,
           });
+
           //Close infowindow when a new one is open
           closeinfoWindow(infowindow)
         });
@@ -160,7 +168,9 @@ function initMap() {
 
         //checks if marker should be stored as a point of interest
 
-      } //adds marker to the array
+      }
+
+      //adds marker to the array
       currentVisibleMarkers.push(marker)
     }
 
@@ -168,14 +178,16 @@ function initMap() {
     ///Places API///
 
     //Calls the google places API for its database
-    placesAPIRequest = function (type, position, npins) {
-
+    placesAPIRequest = function (type, position, npins, remove) {
+      console.log('TYPE IS', type)
       requestPlaces.location = position //sets location as a parameter
       requestPlaces.type[0] = type //sets chosen type as a parameter
 
       //Delete pins and empty the array
-      deletePins(currentVisibleMarkers)
-      currentVisibleMarkers = [];
+      if(remove){
+        console.log('remove',)
+        deletePins(currentVisibleMarkers)
+        currentVisibleMarkers = [];}
 
       //Sets how many markers will be rendered
       nPins = npins
@@ -191,10 +203,11 @@ function initMap() {
       //Checks if the status response is OK
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(results)
+
         //Loops through the array
         for (i = 0; i < results.length; i++) {
           let place = results[i];
-          console.log(place.photos)
+
           //gets the coordinates 
           let lat = (place.geometry.location.lat())
           let lng = (place.geometry.location.lng())
@@ -220,7 +233,7 @@ function initMap() {
             category: 'pointOfInterest'
           }
           //https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceReview
-
+          locations.push(newPlace);console.log('BEING PUSHED',newPlace)
           //Creates the new Pin based on the object
           pinMarker(newPlace)
 
@@ -232,18 +245,18 @@ function initMap() {
 
     //------------------------------------------------------------------
     /// Sets up the button for TESTING
-    document.getElementById('load').addEventListener("click", () => {
+/*     document.getElementById('load').addEventListener("click", () => {
       requestPlaces.location = currentPosition
       let dropdownValue = document.getElementById('exampleFormControlSelect1').value
       requestPlaces.type[0] = dropdownValue
       nPins = document.getElementById('locationCounter').value
 
       placesAPIRequest(dropdownValue, currentPosition, nPins)
-    })
+    }) */
     //------------------------------------------------------------------
     //set markers around Vancouver
-    aroundVancouverMarkers = function () {
-
+    aroundVancouverMarkers = function (type, position, npins) {
+      //type, position, npins
       let invisibleMarkers = [
         { lat: 49.26619806343015, lng: -123.1857251774933 },
         { lat: 49.23321894517517, lng: -123.16840324520768 },
@@ -255,7 +268,7 @@ function initMap() {
         { lat: 49.26137950331339, lng: -123.12082629486389 },
         { lat: 49.22790174959055, lng: -123.1146204699535 },
       ]
-      nPins = 3
+      if(!npins){nPins = 3}
 
       for (point of invisibleMarkers) {
         const marker = {
@@ -269,10 +282,51 @@ function initMap() {
         pinMarker(point)
 
         //
-        let dropdownValue = document.getElementById('exampleFormControlSelect1').value
-        placesAPIRequest(dropdownValue, point.position, 3)
+        placesAPIRequest(type, point.position, npins)
       }
     }
+
+    //------------Polygons----------------------------------------
+    //https://developers.google.com/maps/documentation/javascript/shapes
+
+    challengeMarker = (challenge) =>{
+    //CIRCLE
+    const cityCircle = new google.maps.Circle({
+      strokeColor: "#264996",
+      strokeOpacity: 0.5,
+      strokeWeight: 1,
+      fillColor: "#264996",
+      fillOpacity: 0.25,
+      map,
+      center: challenge.areaCoordinates,
+      radius: 1200,
+    });
+
+    //marker
+    let newMarker = new google.maps.Marker({
+      position: challenge.areaCoordinates,
+      map,
+      title: challenge.name,
+      icon: "../../Assets/blue marker.png",
+    });
+
+    //INFOWINDOW
+    let infowindow = new google.maps.InfoWindow({
+      content: createChallengeString(challenge), //creates a custom info window using the object parameters
+    });
+
+    //adds infowindow when clicked
+    newMarker.addListener("click", () => {
+      infowindow.open({
+        anchor: newMarker,
+        map,
+        shouldFocus: true,
+      });
+      closeinfoWindow(infowindow)
+      infowindow.focus()
+    });
+    }
+//--------------------------------------------------------------------
 
     //set object with our functions
     librarians = {
@@ -280,12 +334,23 @@ function initMap() {
       deletePins: deletePins,
       placesAPIRequest: placesAPIRequest,
       aroundVancouverMarkers: aroundVancouverMarkers,
+      challengeMarker: challengeMarker,
+      findUser: findUser,
     }
+    console.log('Librarian',librarians)
 
- 
 
-  // Delete pins
-  function deletePins(arrayOfMarkers) {
+  librarians.findUser();
+  preferences(surveyResults) 
+
+    }catch (error) { console.log(error) }
+  }
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
+
+// Delete pins
+function deletePins(arrayOfMarkers) {
     if (arrayOfMarkers.length > 0) { //checks if there is something to delete
       for (pin of arrayOfMarkers) { // loops through the array
         pin.setMap(null); //deletes the pin
@@ -326,7 +391,7 @@ function initMap() {
         let googleRoute = result.routes[0].legs[0]
         let dataArray = googleRoute.steps
         for (data of dataArray) {
-          console.log('duration:', data.duration.text)
+          console.log('duration:', googleRoute.departure_time)
         }
 
         ///---------------------------------------------------------------------------------------------
@@ -351,58 +416,52 @@ function initMap() {
       }
     });
   }
-}
 
-//--------------------------------------------------------------------
-/// Buttons for the TESTING interface
 
-//Testing button to finding the user
-let findMe = document.getElementById('findMe')
-findMe.addEventListener('click', () => { findUser() })
+  //--------------------------------------------------------------------
 
-//Testing button to deleting markers
-let deleteButton = document.getElementById('deleteButton')
-deleteButton.addEventListener('click', () => { deletePins(currentVisibleMarkers) })
+  //d04e37658de12594 map id default
+  //ffcaa1df68a4459b normal map id 
 
-//Testing button for changing the map style
-let changeStyle = document.getElementById('changeStyle')
-changeStyle.addEventListener('click', () => {
-  if (myMapId == 'd04e37658de12594') { myMapId = 'ffcaa1df68a4459b' }
-  else if (myMapId == 'ffcaa1df68a4459b') { myMapId = 'd04e37658de12594' }
-  initMap()
-})
-
-//Testing button for toggling control
-let toggleControls = document.getElementById('toggleControls')
-toggleControls.addEventListener('click', () => {
-  myMapTypeControl = !myMapTypeControl
-  myFullscreenControl = !myFullscreenControl
-  myStreetViewControl = !myStreetViewControl
-  initMap()
-})
-
-//Testing button to finding the user
-let loadVancouverButton = document.getElementById('loadVancouver')
-loadVancouverButton.addEventListener('click', () => { aroundVancouverMarkers() })
-
-//d04e37658de12594 map id default
-//ffcaa1df68a4459b normal map id 
-
-//----------------------------------------------------------------------------------------------------
-
-//sets up HTML and style yo infowindow
-const createContentString = (place) => {
-  let infoWindowString = `
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="${place.picture}">
-      <div class="card-body">
-        <h5 class="card-title">${place.name}</h5>
-        <p class="card-text">${place.address}</p>
-        <p class="card-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
-        <p class="card-text"><b>Price Level: </b>${place.priceLevel}/5</p>
-      </div>
-      <button type="button" class="btn btn-primary" onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+  //sets up HTML and style yo infowindow
+  const createContentString = (place) => {
+    let infoWindowString = `
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="${place.picture}">
+    <div class="card-body">
+      <h5 class="card-title">${place.name}</h5>
+      <p class="card-text">${place.address}</p>
+      <p class="card-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
+      <p class="card-text"><b>Price Level: </b>${place.priceLevel}/5</p>
     </div>
-    `
-  return infoWindowString
-}
+    <button type="button" class="btn btn-primary" onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+  </div>
+  `
+    return infoWindowString
+  }
+
+  const createChallengeString = (challenge) => {
+    let challengeSteps='';
+    for(steps of challenge.steps.low){
+      challengeSteps += `<li>${steps.desc}</li>`
+    }
+
+    let infoWindowString = `
+    <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="${challenge.image}" width="50px">
+        <div class="card-body">
+      <h5 class="card-title">${challenge.name}</h5>
+      <p class="card-text">${challenge.description}</p>
+      <p class="card-text">
+        ${challengeSteps}
+    </p>
+    </div>
+    <button type="button" class="btn btn-info" onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">See route</button>
+  </div>
+  `
+    return infoWindowString
+  }
+
+
+//https://developers.google.com/maps/documentation/javascript/shapes
+

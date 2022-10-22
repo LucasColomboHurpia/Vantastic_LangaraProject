@@ -20,7 +20,8 @@ let librarians;
 const orangeMarker = "./Assets/orange marker.png"
 
 //nPins dictates the number of desired pins to be rendered by the places API
-let nPins = document.getElementById('locationCounter').value
+/* let nPins = document.getElementById('locationCounter').value
+ */
 
 // Object to manage the google places API
 let requestPlaces = {
@@ -240,18 +241,18 @@ async function initMap() {
 
     //------------------------------------------------------------------
     /// Sets up the button for TESTING
-    document.getElementById('load').addEventListener("click", () => {
+/*     document.getElementById('load').addEventListener("click", () => {
       requestPlaces.location = currentPosition
       let dropdownValue = document.getElementById('exampleFormControlSelect1').value
       requestPlaces.type[0] = dropdownValue
       nPins = document.getElementById('locationCounter').value
 
       placesAPIRequest(dropdownValue, currentPosition, nPins)
-    })
+    }) */
     //------------------------------------------------------------------
     //set markers around Vancouver
-    aroundVancouverMarkers = function () {
-
+    aroundVancouverMarkers = function (type, position, npins) {
+      //type, position, npins
       let invisibleMarkers = [
         { lat: 49.26619806343015, lng: -123.1857251774933 },
         { lat: 49.23321894517517, lng: -123.16840324520768 },
@@ -263,7 +264,7 @@ async function initMap() {
         { lat: 49.26137950331339, lng: -123.12082629486389 },
         { lat: 49.22790174959055, lng: -123.1146204699535 },
       ]
-      nPins = 3
+      if(!npins){nPins = 3}
 
       for (point of invisibleMarkers) {
         const marker = {
@@ -277,8 +278,7 @@ async function initMap() {
         pinMarker(point)
 
         //
-        let dropdownValue = document.getElementById('exampleFormControlSelect1').value
-        placesAPIRequest(dropdownValue, point.position, 3)
+        placesAPIRequest(type, point.position, npins)
       }
     }
 
@@ -405,41 +405,6 @@ function deletePins(arrayOfMarkers) {
 
 
   //--------------------------------------------------------------------
-  /// Buttons for the TESTING interface
-
-  //Testing button to finding the user
-  let findMe = document.getElementById('findMe')
-  findMe.addEventListener('click', () => { findUser() })
-
-  //Testing button to deleting markers
-  let deleteButton = document.getElementById('deleteButton')
-  deleteButton.addEventListener('click', () => { deletePins(currentVisibleMarkers) })
-
-  //Testing button for changing the map style
-  let changeStyle = document.getElementById('changeStyle')
-  changeStyle.addEventListener('click', () => {
-    if (myMapId == 'd04e37658de12594') { myMapId = 'ffcaa1df68a4459b' }
-    else if (myMapId == 'ffcaa1df68a4459b') { myMapId = 'd04e37658de12594' }
-    initMap()
-  })
-
-  //Testing button for toggling control
-  let toggleControls = document.getElementById('toggleControls')
-  toggleControls.addEventListener('click', () => {
-    myMapTypeControl = !myMapTypeControl
-    myFullscreenControl = !myFullscreenControl
-    myStreetViewControl = !myStreetViewControl
-    initMap()
-  })
-
-  //Testing button to finding the user
-  let loadVancouverButton = document.getElementById('loadVancouver')
-  loadVancouverButton.addEventListener('click', () => { aroundVancouverMarkers() })
-
-    //Testing button to load a challenge
-    let loadChallenge = document.getElementById('loadChallenge')
-    loadChallenge.addEventListener('click', () => { challengeMarker(challengesExample[0]) })
-  
 
   //d04e37658de12594 map id default
   //ffcaa1df68a4459b normal map id 

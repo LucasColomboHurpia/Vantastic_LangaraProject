@@ -1,16 +1,16 @@
 :root {
-    --main-body-color: gray;
+/*     --main-body-color: gray;
     --main-button-color: rgb(100, 77, 122);
     --main-button-hover-color: rgb(108, 94, 121);
     --main-bg-color: rgba(0, 90, 90, 0.548);
     --main-title-color: rgba(13, 82, 82, 0.548);
     --main-placeholder-color: rgb(85, 51, 116);
     --main-border-style: 1px solid black;
-    --main-border-testing: 1px solid black;
+    --main-border-testing: 1px solid black; */
 
     --main-body-color: white;
     --main-button-color: white;
-    --main-button-color-secondary: rgb(128, 128, 188);
+    --main-button-color-secondary: rgb(211, 211, 238);
     --main-button-hover-color: rgb(219, 219, 219);
     --main-bg-color: white;
     --main-title-color: white;

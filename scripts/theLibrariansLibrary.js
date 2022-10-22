@@ -17,14 +17,14 @@
 //-----------------------------------------------------------------------------------------------
 
 librarians = {
-    pinMaker: pinMarker, //(place) 
+    pinMaker: pinMarker, //(placeObject) 
     deletePins: deletePins, //(arrayOfMarkers)
     placesAPIRequest: placesAPIRequest, //(type, position, npins)
-    aroundVancouverMarkers: aroundVancouverMarkers,//()
+    aroundVancouverMarkers: aroundVancouverMarkers,
+    challengeMarker: challengeMarker,//(challengeObject)
 } 
 
 //-----------------------------------------------------------------------------------------------
-
 //Guide to place object
 
 let newPlace = {
