@@ -434,7 +434,7 @@ const showChallengeInfo = (challenge) => {
                     <li class="challengeSteps">${challenge.steps.low[1].desc}</li>
                     <li class="challengeSteps">${challenge.steps.low[2].desc}</li>
                 </div>
-            <div class="challengeButton" onclick="panToChallenge(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng})">Start</div>
+            <div class="challengeButton" onclick="panToChallenge(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng})">Explore</div>
         </div>
 
     `
@@ -490,7 +490,7 @@ const showChallengeInfo = (challenge) => {
                     <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
                     <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
                 </div>
-            <div class="challengeButton">Start</div>
+            <div class="challengeButton">Explore</div>
         </div>
 
     `

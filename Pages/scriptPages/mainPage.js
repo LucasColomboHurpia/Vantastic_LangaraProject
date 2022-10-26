@@ -19,8 +19,8 @@ let aroundVancouverMarkers;
 let challengeMarker;
 let librarians;
 
-const orangeMarker = "../../Assets/orange marker.png"
-const yellowMarker = "../../Assets/yellow marker.png"
+const orangeMarker = "../Assets/orange marker.png"
+const yellowMarker = "../Assets/yellow marker.png"
 
 //nPins dictates the number of desired pins to be rendered by the places API
 /* let nPins = document.getElementById('locationCounter').value
@@ -99,7 +99,7 @@ async function initMap() {
               position: pos,
               map,
               title: "You are here!",
-              icon: "../../Assets/red marker.png",
+              icon: "../Assets/red marker.png",
             });
 
             //adds infowindow when clicked
@@ -249,7 +249,7 @@ async function initMap() {
           place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
 
           //checks if photos is valid
-          let photosAPI = '/Assets/default_img.jpg'
+          let photosAPI = '../Assets/default_img.jpg'
           /*           if(place.photos[0]){photosAPI=place.photos[0]}
            */
           //Creates a new object with the information provided by google
@@ -257,7 +257,7 @@ async function initMap() {
             name: place.name,
             title: place.name,
             address: place.vicinity,
-            picture: '/Assets/default_img.jpg',
+            picture:  place.photos[0].getUrl(),
             position: { lat, lng },
             rating: place.rating,
             numberOfRatings: place.user_ratings_total,
@@ -296,10 +296,10 @@ async function initMap() {
 
           //checks if price level is available
           let priceLevel;
-          place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
+          place.price_level > 0 ? priceLevel = `${place.price_level}/5` : priceLevel = 'Not available'
 
           //checks if photos is valid
-          let photosAPI = '/Assets/default_img.jpg'
+          let photosAPI = '../Assets/default_img.jpg'
           /*           if(place.photos[0]){photosAPI=place.photos[0]}
            */
           //Creates a new object with the information provided by google
@@ -307,7 +307,7 @@ async function initMap() {
             name: place.name,
             title: place.name,
             address: place.vicinity,
-            picture: '/Assets/default_img.jpg',
+            picture:  place.photos[0].getUrl(),
             position: { lat, lng },
             rating: place.rating,
             numberOfRatings: place.user_ratings_total,
@@ -351,7 +351,7 @@ async function initMap() {
           position: point,
           map,
           title: 'invisible',
-          icon: './Assets/Empty.png',
+          icon: '../Assets/Empty.png',
           category: 'invisible'
         };
         point = marker
@@ -383,7 +383,7 @@ async function initMap() {
         position: challenge.areaCoordinates,
         map,
         title: challenge.name,
-        icon: "../../Assets/blue marker.png",
+        icon: "../Assets/blue marker.png",
       });
 
       //INFOWINDOW
@@ -508,7 +508,7 @@ const createContentString = (place) => {
       <h5 class="infoWindow-title">${place.name}</h5>
       <p class="infoWindow-text">${place.address}</p>
       <p class="infoWindow-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
-      <p class="infoWindow-text"><b>Price Level: </b>${place.priceLevel}/5</p>
+      <p class="infoWindow-text"><b>Price Level: </b>${place.priceLevel}</p>
     </div>
     <button type="button" class="infoWindow-btn"
       onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>

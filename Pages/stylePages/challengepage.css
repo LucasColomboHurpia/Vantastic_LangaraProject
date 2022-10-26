@@ -188,3 +188,18 @@ hr:last-child{
     width: 200px;
     height: 130px;    
 }
+
+.returnButton{
+    float: right;
+    margin-right: 80px;
+    padding: 9px;
+    border: 1px solid purple;
+    color: #592b78;
+    font-weight: bold;
+    border-radius: 25px;
+}
+.returnButton:hover{
+    background-color: #592b78;
+    color: white;
+    cursor: pointer;
+}
