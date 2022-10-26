@@ -321,7 +321,6 @@ const orangeMarkerN1 = "../Assets/number 1 - orange marker.png";
 const orangeMarkerN2 = "../Assets/number 2 - orange marker.png";
 const orangeMarkerN3 = "../Assets/number 3 - orange marker.png";
 
-const yellowMarker = "../Assets/yellow marker.png";
 
 let userResults = JSON.parse(localStorage.getItem('user'))
 let userPreferences = userResults.preferences

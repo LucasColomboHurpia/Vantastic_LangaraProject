@@ -1,7 +1,9 @@
+
+
 let header = document.createElement("div")
 header.classList.add("header")
 header.innerHTML = `
-<div class="logo"><img src="Assets/designer-assets/png-logo06.png" alt="logo" class="logoIcon"></div>
+<div class="logo" id='logoDiv'> <img src="../Assets/designer-assets/png-logo06.png" alt='logo' class='logoIcon'> </div>
     <div class="headerOptions">
         <div class="headerHome headerSection"  onclick="window.location.href='./mainPage.html';">Home</div>
         <div class="headerChallenges headerSection" onclick="window.location.href='./challenges.html';">Challenges</div>
@@ -13,7 +15,6 @@ header.innerHTML = `
 `
 
 document.body.prepend(header)
-
 
 let headerStyle  = document.createElement('link');
 headerStyle.rel  = 'stylesheet';
