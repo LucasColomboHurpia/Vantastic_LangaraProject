@@ -240,6 +240,10 @@ async function initMap() {
           let priceLevel;
           place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
 
+          //checks if photos is valid
+          let photosAPI = '/Assets/default_img.jpg'
+          if(place.photos[0]){photosAPI=place.photos[0]}
+
           //Creates a new object with the information provided by google
           let newPlace = {
             name: place.name,
