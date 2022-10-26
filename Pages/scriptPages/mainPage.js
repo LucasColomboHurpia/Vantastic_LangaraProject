@@ -242,14 +242,14 @@ async function initMap() {
 
           //checks if photos is valid
           let photosAPI = '/Assets/default_img.jpg'
-          if(place.photos[0]){photosAPI=place.photos[0]}
-
+/*           if(place.photos[0]){photosAPI=place.photos[0]}
+ */
           //Creates a new object with the information provided by google
           let newPlace = {
             name: place.name,
             title: place.name,
             address: place.vicinity,
-            picture: place.photos[0].getUrl(),
+            picture: '/Assets/default_img.jpg',
             position: { lat, lng },
             rating: place.rating,
             numberOfRatings: place.user_ratings_total,
