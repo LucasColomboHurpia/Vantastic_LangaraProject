@@ -37,6 +37,6 @@ const guestEntry = () =>{
     localStorage.clear()
     localStorage.setItem("user", JSON.stringify(guest));
 
-    window.location.href='./Pages/mainPage.html'
+   
 
 }
