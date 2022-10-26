@@ -25,26 +25,37 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+   height: 100vh; 
+    width: 100vw;
+    overflow-x: hidden;
+    background-image: url('../../Assets/designer-assets/png-background.png');
+    background-size: 100%;
+
+}
+
+/* background
+ */
+#bgImg{
+    position: fixed;
+    top: 49%;
+    left: 49%; 
+    width: 900px; 
+    min-width: 900px;
+    z-index: -1;
+}
+
 
  .container{
-    background-color: var(--main-body-color);
     border: var(--main-border-testing);
 
     width: 95vw;
     height: 85vh;
     margin: auto;
      margin-top: 3vh;
+     margin-bottom: 50px;
 
 
-}
-
-.challengeContainer{   
-     background-color: var(--main-bg-color);   
-     border: var(--main-border-testing);
-
-     width: 30%;
-     height: 100%;
-     border-radius: 18px;
 }
 
 .mapContainer{
@@ -53,44 +64,137 @@
     
     float: right;
     width: 67%;
-    height: 65%;
+    min-width: 500px;
+    height: 80%;  
     border-radius: 18px;
+}
 
+/* chalenge index */
+
+.challengeContainer{   
+     background-color: var(--main-bg-color);   
+     border: var(--main-border-testing);
+     min-width: 300px;
+
+     width: 31%;
+     height: fit-content;
+     border-radius: 18px;
+}
+
+.challengeInfo{
+    min-width: 200px;
+
+    padding: 30px;
+    padding-top: 35px;
+    font-size: small;
+}
+
+.titleChallenge{
+    font-weight: bold;
+    font-size: large;
+    color:rgb(135, 42, 172);
+    border-bottom: 1px solid black;
+    min-width: 150px;
+}
+
+.challengeDesc{  
+     min-width: 170px;
+    margin-top: 10px;
 
 }
 
-.optionButtons{
-    border: var(--main-border-testing);
-
-    width: 35%;
-    height: 18%;
-    max-height: 150px;
-    position:absolute;
-    left: 49%;
-    top: 80%;
-
-    display: flex;
-    align-items: center;
-    justify-content:space-evenly;
+.challengeButton{
+    display: inline;
+    padding: 5px 30px;
+    border-radius: 30px;
+    border: 2px solid purple;
+    font-weight: bold;
+    color:rgb(98, 18, 129);
 
 }
-
-.badgeChalDiv{
-    background-color: var(--main-button-hover-color);
-    border: var(--main-border-testing);
-    border-style: dashed;
-    width: 130px;
-    height: 100%;
-    border-radius: 25px;
-    text-align: center;
-}
-
-.badgeButton{
+.challengeButton:hover{
+    color: aliceblue;
+    background-color: purple;
     cursor: pointer;
-    margin:auto
-}
-.ChallengeButton{
-    cursor: pointer;
-    margin:auto
 }
 
+.challengeStepsContainer{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.challengeSteps{
+    list-style:circle;
+    margin-top: 8px;
+}
+
+
+/* Infowindow place */
+
+.infoWindowContainer{
+    width: 18rem;
+}
+.infoWindowImg{
+    width: 100%;
+    height: 200px;
+}
+.infoWindowImgChallenge{
+    width: 100%;
+    height: 150px;
+}
+
+.infoWindow-body{
+    margin-left: 15px; 
+}
+
+.infoWindow-title{
+    font-size: large;
+    margin-top: 8px;
+
+}
+
+.infoWindow-text{
+    margin-top: 8px;
+}
+
+.infoWindow-btn{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    border: 0px;
+    border-radius: 15px;
+    width: 90%;
+    background-color: rgb(102, 40, 102);
+    color: aliceblue;
+    font-weight: bolder;
+    padding: 10px;
+}
+.infoWindow-btn:hover{
+    cursor: pointer;
+    background-color: rgb(133, 53, 133);
+
+}
+
+.infoWindow-ChallengeStep{
+
+    margin-top: 1px;
+    padding: 8px;
+    background-color: rgba(236, 236, 236, 0.582);
+}
+
+@media (max-width: 870px) {
+    .mapContainer {
+      background-color: lightblue;
+      width: 100%;
+      float: none;
+    }
+
+    .challengeContainer{
+        width: 100%;
+        min-width: 500px;
+
+    } 
+
+
+  }

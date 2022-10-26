@@ -1,22 +1,28 @@
 .header{
-    background-color: white;
     width: 100vw;
     max-width: 100%;
-    height: 100px;
-    max-height: 80px;
+    height: 250px;
+    max-height: 130px;
     overflow: hidden;
     display: flex;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.568);
+/*     box-shadow: 0px 1px 9px rgba(0, 0, 0, 0.568);
+ */}
+
+.logo{
+    width: max-content;
+    margin-left: 15px;
 }
 
 .logoIcon{
     width: 100%;
-    height: 100%;
+    min-width: 160px; 
+    height: 100%;  
 }
 
 .headerOptions{
     display: flex;
     width: 70vw;
+    min-width:500px;
     text-align: center;
     justify-content:center;
     align-items: center;
@@ -24,23 +30,31 @@
 .headerSection{
     width: 300px;
     cursor: pointer;
-    height: 100px;
-    line-height: 100px;
+    height: 100%;
+    line-height: 125px;
+    color: purple;
+    font-weight: bolder;
 }
 .headerSection:hover{
-    background-color: rgb(243, 243, 243);
+    background-color: rgba(92, 92, 92, 0.178);
 
 }
 
 .loginHeader{
-    border: 1px solid black;   
+    border: 1px solid purple;
+    color: purple;
+    font-weight: bold; 
     cursor: pointer;
     border-radius: 55px;
     padding: 10px 30px 10px 30px;
     margin: auto;
+
 }
 .loginHeader:hover{
     padding: 15px 35px 15px 35px;
+    background-color: purple;
+    color: white;
+
   
 }
 

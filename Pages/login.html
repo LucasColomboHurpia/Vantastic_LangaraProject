@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="./stylePages/login.css">
+    <script src="./scriptPages/login.js"></script>
 </head>
-<body>
-    <img class="logo" src="../Assets/default_img.jpg" alt="logo">
 
-    <h1>Login</h1> <br><br>
-        
+<body>
+    <div class="logo"></div>
+
     <form class="form">
-        <label for="user">Email:</label>
-        <input type="text" id="email" name="email" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <input type="submit" class="button" id="button" value="Submit" >
+        
+        <label for="email"></label>
+        <input class="form-item" type="email" id="email" name="email" placeholder="Enter your Email Address*" required>
+        <label for="password"></label>
+        <input class="form-item" type="password" placeholder="Password*" id="password" name="password"
+            required>
+        <input class="form-item" type="submit" class="button" id="buttonSU" value="Log In!">
     </form><br>
 
     <p>or</p>
-    <button class="button" onclick="window.location.href='./mainPage.html';" id="guest">Enter as Guest</button>
-    
+    <button class="button" onclick="guestEntry();" id="guest">Enter as Guest</button>
+
 </body>
+
 </html>

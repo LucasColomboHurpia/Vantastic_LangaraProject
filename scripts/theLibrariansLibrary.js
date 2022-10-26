@@ -19,8 +19,8 @@
 librarians = {
     pinMaker: pinMarker, //(placeObject) 
     deletePins: deletePins, //(arrayOfMarkers)
-    placesAPIRequest: placesAPIRequest, //(type, position, npins)
-    aroundVancouverMarkers: aroundVancouverMarkers,
+    placesAPIRequest: placesAPIRequest, //(type, position, npins, remove, radius)
+    aroundVancouverMarkers: aroundVancouverMarkers,//(type, position, npins)
     challengeMarker: challengeMarker,//(challengeObject)
 } 
 
@@ -29,16 +29,16 @@ librarians = {
 
 let newPlace = {
     name: 'name', //required
-    title: 'title', //optional
+    title: 'title', //required//
     address: 'vicinity', //optional
     picture: 'href', //optional
-    position: { lat, lng }, //required
+    position: { lat, lng }, //required//
     rating: place.rating, //optional
     numberOfRatings: place.user_ratings_total, //optional
     priceLevel: priceLevel, //optional
     type: place.types, //optional
     id: place.place_id, ////
-    icon: orangeMarker, //required
+    icon: orangeMarker, //required//
     description: '', //optional
     category: 'pointOfInterest' ///
   }

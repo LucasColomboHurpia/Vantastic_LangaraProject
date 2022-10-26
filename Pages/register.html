@@ -7,38 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="./stylePages/register.css">
+    <script src="./scriptPages/register.js"></script>
 </head>
 
 <body>
-    
-    <div class="header">
-        <img class="logo" src="../Assets/default_img.jpg" alt="logo">
-        <button class="button" onclick="window.location.href='./mainPage.html';" id="guest">Enter as Guest</button>
-        <button class="button" onclick="window.location.href='./login.html';" id="login">Login</button>
-    </div>
+
+ 
+        <button class="button pageOption" onclick="guestEntry();" id="guest">Enter as Guest</button>
+        <button class="button pageOption" onclick="window.location.href='./login.html';" id="login">Login</button>
+
 
     <div id="intro">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing.</h1><br>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi perspiciatis nam voluptatibus aliquam odit nostrum expedita.</p>
+        <h1></h1><br>
+        <p></p>
     </div>
 
     <form class="form">
 
-        <div class="meuform">
-            <h2>Create an Account</h2>
-            <label for="firstName"></label>
-            <input class="form-item" type="text" id="firstName" name="firstName" placeholder="First Name*" required>
-            <br>
-            <label for="lastName"></label>
-            <input class="form-item" type="text" id="lastName" name="lastName" placeholder="Last Name*" required> <br>
+            <div id="fullName">
+                <label for="firstName"></label>
+                <input class="form-item" type="text" id="firstName" name="firstName" placeholder="First Name*" required>
+            
+                <label for="lastName"></label>
+                <input class="form-item" type="text" id="lastName" name="lastName" placeholder="Last Name*" >
+               
+            </div>
             <label for="email"></label>
-            <input class="form-item" type="email" id="email" name="email" placeholder="Email Address*" required> <br>
+            <input class="form-item" type="email" id="email" name="email" placeholder="Email Address*" > 
             <label for="password"></label>
             <input class="form-item" type="password" placeholder="Choose your Password" id="password" name="password"
-                required> <br>
-            <input class="form-item" type="submit" class="button" id="button" value="Register" onclick="window.location.href='./survey.html';">
-        </div>
+                >
+            <input class="form-item"  class="button" id="buttonSU" onclick="window.location.href='./survey.html';" value="Sign Up!">
     </form>
+
 </body>
 
 </html>

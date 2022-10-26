@@ -1,33 +1,45 @@
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Regular.otf);
+}
+
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Bold.otf);
+    font-weight: bold;
+}
+
 :root {
-/*     --main-body-color: gray;
+    --main-body-color: gray;
     --main-button-color: rgb(100, 77, 122);
     --main-button-hover-color: rgb(108, 94, 121);
     --main-bg-color: rgba(0, 90, 90, 0.548);
     --main-title-color: rgba(13, 82, 82, 0.548);
     --main-placeholder-color: rgb(85, 51, 116);
     --main-border-style: 1px solid black;
-    --main-border-testing: 1px solid black; */
+    --main-border-testing: 1px solid black;
 
     --main-body-color: white;
     --main-button-color: white;
-    --main-button-color-secondary: rgb(211, 211, 238);
+    --main-button-color-secondary: rgb(128, 128, 188);
     --main-button-hover-color: rgb(219, 219, 219);
     --main-bg-color: white;
     --main-title-color: white;
     --main-placeholder-color: rgb(155, 155, 155);
     --main-border-style: 1px solid black;
-    --main-border-testing: 0px solid black; 
-   }
+    --main-border-testing: 0px solid black;
+}
 
 
-*{
+* {
     margin: 0%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-family: myFont;
+    font-weight: lighter;
     text-align: center;
 }
 
-.form{
+.form {
+    margin-top: 8vh;
     display: flex;
     align-items: center;
     align-content: center;
@@ -35,13 +47,29 @@
     justify-content: space-around;
 }
 
-.logo{
-    height: 300px;
-    width: 500px;
-    
+#fullName{
+    display: flex;
+    flex-direction: row;
+    width: 350px;
+    margin-bottom: 10px;
 }
 
-.button{
+.form-item {
+    
+    border-color: #8C2B72;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 260px;
+    height: 30px;
+}
+
+.logo {
+    height: 300px;
+    width: 500px;
+
+}
+
+.button {
     margin-top: 10px;
     border: var(--main-border-style);
     border-radius: 15px;
@@ -50,35 +78,92 @@
     padding-right: 25px;
     text-align: center;
     flex-shrink: 1;
-    
+
 
     /*colors*/
     background-color: var(--main-button-color-secondary);
 }
 
-.button:hover{
+#buttonSU{
+    margin-top: 25px;
+    border-color: #8C2B72;
+    border-width: 5px;
+    font-weight: bold;
+    font-size: 1.5em;
+    height: 60px;
+    width: 140px;
+    border-radius: 25px;
+    color: #8C2B72;
+    
+}
+
+.button:hover {
     /*colors*/
     background-color: var(--main-button-hover-color);
-    
+
     cursor: pointer;
     user-select: none;
 }
 
-@media only screen and (max-width: 600px) {
-    .logo{
-        height: 300px;
-        width: 400px;
-        }
-  }
 
-#guest{
-    background-color: var(--main-button-color); 
+#guest {
+    background-color: var(--main-button-color);
 }
 
-#guest:hover{
+#guest:hover {
     /*colors*/
     background-color: var(--main-button-hover-color);
-    
+
     cursor: pointer;
     user-select: none;
+}
+
+body {
+    background-image: url(../../Assets/designer-assets/13\ Pro\ -\ 15phone-login.png);
+    background-size: 100vh;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;background-position: center center; 
+    background-repeat: no-repeat;background-attachment: fixed;background-size: cover; 
+    /* Set a background color that will be displayed while the background image is loading */ background-color: #464646;
+
+}
+
+@media only screen and (min-width: 500px) {
+    body {
+        background-image: url(../../Assets/designer-assets/MacBook\ Pro\ 14_\ -\ Registrationlogin-big.png);
+        background-size: 100%;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        /* Set a background color that will be displayed while the background image is loading */
+        background-color: #464646;
+    
+    }
+    .form-item {
+    
+        border-color: #8C2B72;
+        margin-top: 10px;
+        border-radius: 10px;
+        width: 500px;
+        height: 30px;
+    }
+    #fullName{
+        display: flex;
+        flex-direction: row;
+        width: 505px;
+        margin-bottom: 10px;
+        
+    }
+    #fullName:first{
+        display: flex;
+        flex-direction: row;
+        width: 505px;
+        margin-bottom: 10px;
+        margin-right: 55px;
+    }
 }

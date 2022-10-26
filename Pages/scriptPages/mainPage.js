@@ -146,6 +146,7 @@ async function initMap() {
         icon: place.icon,
       });
 
+      //if place is a point of interest, sets up a special info window
       if (place.category == 'pointOfInterest') {
 
         let infowindow = new google.maps.InfoWindow({
@@ -165,9 +166,27 @@ async function initMap() {
         });
         //focus the window
         infowindow.focus()
+      }
 
-        //checks if marker should be stored as a point of interest
+      //if place is a challengeSpot, sets up a special info window
+      if (place.category == 'challengeStep') {
+        let infowindow = new google.maps.InfoWindow({
+          content: createChallengStepString(place), //creates a custom info window using the object parameters
+        });
 
+        //adds infowindow when clicked
+        marker.addListener("click", () => {
+          infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: true,
+          });
+
+          //Close infowindow when a new one is open
+          closeinfoWindow(infowindow)
+        });
+        //focus the window
+        infowindow.focus()
       }
 
       //adds marker to the array
@@ -178,10 +197,15 @@ async function initMap() {
     ///Places API///
 
     //Calls the google places API for its database
-    placesAPIRequest = function (type, position, npins, remove) {
+    placesAPIRequest = function (type, position, npins, remove, radius) {
       console.log('TYPE IS', type)
       requestPlaces.location = position //sets location as a parameter
       requestPlaces.type[0] = type //sets chosen type as a parameter
+
+      //chekc if there is a radius specification
+      if(radius){
+        requestPlaces.radius=radius
+      } else {requestPlaces.radius=50000}
 
       //Delete pins and empty the array
       if(remove){
@@ -243,19 +267,9 @@ async function initMap() {
       }
     }
 
-    //------------------------------------------------------------------
-    /// Sets up the button for TESTING
-/*     document.getElementById('load').addEventListener("click", () => {
-      requestPlaces.location = currentPosition
-      let dropdownValue = document.getElementById('exampleFormControlSelect1').value
-      requestPlaces.type[0] = dropdownValue
-      nPins = document.getElementById('locationCounter').value
 
-      placesAPIRequest(dropdownValue, currentPosition, nPins)
-    }) */
-    //------------------------------------------------------------------
     //set markers around Vancouver
-    aroundVancouverMarkers = function (type, position, npins) {
+    aroundVancouverMarkers = function (type, npins) {
       //type, position, npins
       let invisibleMarkers = [
         { lat: 49.26619806343015, lng: -123.1857251774933 },
@@ -396,7 +410,7 @@ function deletePins(arrayOfMarkers) {
 
         ///---------------------------------------------------------------------------------------------
         //output (STILL IN TESTING PHASE)
-        output.innerHTML = `
+/*         output.innerHTML = `
         <div><b>Departure:</b> ${googleRoute.departure_time.text}</div>
         <div><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
         <div><b>Distance:</b> ${googleRoute.distance.text}</div>
@@ -407,7 +421,7 @@ function deletePins(arrayOfMarkers) {
         <div>${data.instructions} <b>${data.duration.text}</b></div>
         `
         }
-        ///---------------------------------------------------------------------------------------------
+ */        ///---------------------------------------------------------------------------------------------
 
         //renders the directon in the map
         directionsRenderer.setDirections(result);
@@ -426,42 +440,63 @@ function deletePins(arrayOfMarkers) {
   //sets up HTML and style yo infowindow
   const createContentString = (place) => {
     let infoWindowString = `
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="${place.picture}">
-    <div class="card-body">
-      <h5 class="card-title">${place.name}</h5>
-      <p class="card-text">${place.address}</p>
-      <p class="card-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
-      <p class="card-text"><b>Price Level: </b>${place.priceLevel}/5</p>
+    <div class="infoWindowContainer">
+    <img class="infoWindowImg" src="${place.picture}">
+    <div class="infoWindow-body">
+      <h5 class="infoWindow-title">${place.name}</h5>
+      <p class="infoWindow-text">${place.address}</p>
+      <p class="infoWindow-text"><b>Rating: </b>${place.rating} (${place.numberOfRatings} ratings)</p>
+      <p class="infoWindow-text"><b>Price Level: </b>${place.priceLevel}/5</p>
     </div>
-    <button type="button" class="btn btn-primary" onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+    <button type="button" class="infoWindow-btn"
+      onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
   </div>
   `
     return infoWindowString
   }
 
+  //add if to high option
   const createChallengeString = (challenge) => {
     let challengeSteps='';
     for(steps of challenge.steps.low){
-      challengeSteps += `<li>${steps.desc}</li>`
+      challengeSteps += `<li class="infoWindow-ChallengeStep" >${steps.desc}</li>`
     }
 
     let infoWindowString = `
-    <div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="${challenge.image}" width="50px">
-        <div class="card-body">
-      <h5 class="card-title">${challenge.name}</h5>
-      <p class="card-text">${challenge.description}</p>
-      <p class="card-text">
-        ${challengeSteps}
-    </p>
+    <div class="infoWindowContainer">
+    <img class="infoWindowImg" src="${challenge.image}">
+    <div class="infoWindow-body">
+      <h5 class="infoWindow-title">${challenge.name}</h5>
+      <p class="infoWindow-text">${challenge.description}</p>
+      <p class="infoWindow-text">
+        ${challengeSteps}  
+      </p>
     </div>
-    <button type="button" class="btn btn-info" onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">See route</button>
+    <button type="button" class="infoWindow-btn"
+      onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">Start
+      Challenge</button>
   </div>
   `
     return infoWindowString
   }
 
+  //add info for challenge step
+  const createChallengStepString = (place) => {
+console.log('place is',  place)
+
+    let infoWindowString = `
+    <div class="infoWindowContainer">
+    <img class="infoWindowImgChallenge" src="${place.image}">
+    <div class="infoWindow-body">
+    <h5 class="infoWindow-title">${place.name}</h5>
+      <p class="infoWindow-text">${place.description}</p>
+    </div>
+    <button type="button" class="infoWindow-btn"
+    onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+    </div>
+  `
+    return infoWindowString
+  }
 
 //https://developers.google.com/maps/documentation/javascript/shapes
 

@@ -193,9 +193,16 @@ const SurveyAddEventListeners = () => {
     })
 
     surveyBothButton.addEventListener('click', () => {
+
         checkSurveyBoth(surveyOptions[currentOptions].opt1.text)
         surveyParseAnswer(surveyOptions[currentOptions].opt1)
         surveyParseAnswer(surveyOptions[currentOptions].opt2)
+
+        surveyOpt1.classList.remove('spinCard');
+        setTimeout(function(){ surveyOpt1.classList.add('spinCard')},10);
+
+        surveyOpt2.classList.remove('spinCard');
+        setTimeout(function(){ surveyOpt2.classList.add('spinCard')},10);
 
         setTimeout(() => {
             currentOptions++;
@@ -338,6 +345,7 @@ const surveyParseAnswer = (opt) => {
 }
 
 console.log('user',user)
+localStorage.clear()
 localStorage.setItem("user", JSON.stringify(user));
 
 //    let userPlacesPreferences = user.preferences.surveyResults.placesPreferences
@@ -394,7 +402,7 @@ const finishSurvey = () => {
     let surveyWrapping = document.getElementById('surveyWrapping')
     surveyWrapping.innerHTML=`
         <div class="finishSurvey">
-            <div ><img class="finishSurveyImage" src="../../Assets/default_img.jpg"/></div>
+            <div ><img class="finishSurveyImage" src="../../Assets/designer-assets/png-check.png"/></div>
             <div class="finishThankYou">Thank You!</div>
             <div class="finishText">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim aliquam inventore totam, tenetur nostrum magnam!</div>
             <div><span class="FinishButton" onclick="window.location.href='./mainPage.html';">Home</span></div>

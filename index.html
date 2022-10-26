@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Screen</title>
     <link rel="stylesheet" href="./Pages/stylePages/startScreen.css">
+    <script src="./scripts/index.js"></script>
 </head>
 
 
 <body>
     <div class="container">
-        <img class="logo" src="../Assets/default_img.jpg" alt="logo">
+        
+        <div class="logo"></div>
         
         <button class="button" id="login" onclick="window.location.href='./Pages/login.html';">Login</button>
-        <button class="button" onclick="window.location.href='./Pages/register.html';" id="register">Sign Up</button>
-        <p>or</p>
-        <button class="button" onclick="window.location.href='./Pages/mainPage.html';" id="guest">Enter as Guest</button>
-    </div> 
+        <button class="button" onclick="window.location.href='./Pages/register.html';" id="register">Sign Up</button><br>
+        
+        <button class="button" id="guestB" onclick="guestEntry()" id="guest">Enter as Guest</button>
+    </img> 
 </body>
 </html>
