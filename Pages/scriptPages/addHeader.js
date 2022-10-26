@@ -12,8 +12,6 @@ header.innerHTML = `
 <div class="loginHeader">Login</div>
 `
 
-png-logo06.png
-
 document.body.prepend(header)
 
 
