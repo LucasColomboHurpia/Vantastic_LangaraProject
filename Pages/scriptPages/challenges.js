@@ -120,7 +120,7 @@ challengesExample = [
                 },
             ],
         },
-        image: '../Assets/default_img.jpg',
+        image: "../Assets/designer-assets/jpg-sunset-2.jpg",
         budget: '',
         placeId: '',
         areaCoordinates: { lat: 49.34470485653275, lng: -123.02505444279568 },
@@ -181,7 +181,7 @@ challengesExample = [
                 },
             ],
         },
-        image: '../Assets/default_img.jpg',
+        image: "../Assets/designer-assets/jpg-sunset-3.jpg",
         budget: '',
         placeId: '',
         areaCoordinates: { lat: 49.286614016719064, lng: -123.1424614420471 },
@@ -242,7 +242,7 @@ challengesExample = [
                 },
             ],
         },
-        image: '../Assets/default_img.jpg',
+        image: "../Assets/designer-assets/jpg-sunset-1.jpg",
         budget: '',
         placeId: '',
         areaCoordinates: { lat: 49.27048109309838, lng: -123.13479550485158},
@@ -440,7 +440,7 @@ const challengeActivity = (name, i) => {
                         <h3>${activity}</h3>
                         <p>${challenge[j].desc}.</p>
                     </div>
-                    <div><button id="route">See Route</button></div>
+                    <div><button id="route" onclick="window.location.href='./challengeStepRoute.html'">See Route</button></div>
                 </div>
                     `
         }

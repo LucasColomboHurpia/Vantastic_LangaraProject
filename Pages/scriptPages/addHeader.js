@@ -1,4 +1,6 @@
-
+let user = JSON.parse(localStorage.getItem("user"))
+let buttonText = 'Logout'
+if(user.userName=='Guest'){buttonText='Login'}
 
 let header = document.createElement("div")
 header.classList.add("header")
@@ -8,10 +10,10 @@ header.innerHTML = `
         <div class="headerHome headerSection"  onclick="window.location.href='./mainPage.html';">Home</div>
         <div class="headerChallenges headerSection" onclick="window.location.href='./challenges.html';">Challenges</div>
         <div class="headerBadges headerSection" onclick="window.location.href='./badges.html';">Badges</div>
-        <div class="headerProfile headerSection">Profile</div>
-        <div class="hederSetting headerSection">Settings</div>
+        <div class="headerProfile headerSection disabled">Profile</div>
+        <div class="hederSetting headerSection disabled">Settings</div>
     </div>
-<div class="loginHeader">Login</div>
+<div class="loginHeader" onclick="window.location.href='./login.html';">${buttonText}</div>
 `
 
 document.body.prepend(header)

@@ -198,3 +198,19 @@ body{
 
 
   }
+
+  .returnButton{
+    margin: auto;
+    margin-right: 80px;
+    padding: 9px;
+    border: 1px solid purple;
+    display: inline;
+    color: #592b78;
+    font-weight: bold;
+    border-radius: 25px;
+}
+.returnButton:hover{
+    background-color: #592b78;
+    color: white;
+    cursor: pointer;
+}

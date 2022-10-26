@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./stylePages/mainPage.css">
+  <title>Vantastic!</title>
+</head>
+
+<body>
+
+
+
+  <!--- /////////////////////////////////////////////////////// --->
+  <img src="../Assets/designer-assets/png-trees.png" alt="" id="bgImg">
+
+
+  <!--- /////////////////////////////////////////////////////// --->
+   <div class="container">
+    <div class="mapContainer" id="map">The route is going to appear here! *imagine*</div>
+    <div class="routesContainer" id="challengeContainer">
+
+        PAGE UNDER CONSTRUCTION!
+        <hr>
+                 <div><b>Departure:</b> ${googleRoute.departure_time.text}</div>
+              <div><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
+              <div><b>Distance:</b> ${googleRoute.distance.text}</div>
+              <div class="mb-2"><b>Duration:</b> ${googleRoute.duration.text}</div>
+            <br>
+<!--               for (data of dataArray) {
+                output.innerHTML += `
+              <div>${data.instructions} <b>${data.duration.text}</b></div>
+ -->
+              <div class="returnButton" id="returnButton" onclick="history.back()">Return</div>
+
+    </div>
+  </div>
+
+  <!--- API KEY GMAPS --->
+<!--    <script async 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
+ -->
+  <script defer src="./scriptPages/addHeader.js"></script>
+  <script defer src="../scripts/preferences.js"></script>
+  <script defer src="./scriptPages//mainPage.js"></script>
+
+
+</body>
+
+</html>
