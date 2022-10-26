@@ -12,10 +12,6 @@ header.innerHTML = `
 <div class="loginHeader">Login</div>
 `
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0bc2344b919a69bb77b00b460b1e7c8cce6c528b
 document.body.prepend(header)
 
 
