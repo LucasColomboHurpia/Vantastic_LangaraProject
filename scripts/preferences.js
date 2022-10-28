@@ -2,7 +2,7 @@
 const surveyTags = ['Day','Night','Adrenaline','Relax','Beach','Lake','Outdoor','Indoor','History','Culture','Big City','Small City','Group','Individual', 'City Landscapes', 'Nature Landscapes']
 
 
-challengesExample = [
+challengesExample = [ 
     {
         id: '254yh24wtuh62utru2y24554y',
         name: 'THE HANGING BRIDGE CHALLENGE',
@@ -525,13 +525,7 @@ const panToChallenge = (lat,lng) => {
 
 //show route info
     //set up new page
-//aroundvan markers update
-    //setup new callback
 
-//fix user flow
-    //just resets storage
-
-//main page login button be custom
 
 
 //mobile style
