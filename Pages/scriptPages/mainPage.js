@@ -168,8 +168,8 @@ async function initMap() {
         infowindow.focus()
       }
 
-      //if place is a challengeSpot, sets up a special info window
-      if (place.category == 'challengeStep') {specific
+      //if place is a challengeSpot, sets up a specific info window
+      if (place.category == 'challengeStep') {
         let infowindow = new google.maps.InfoWindow({
           content: createChallengStepString(place), //creates a custom info window using the object parameters
         });
