@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./stylePages/mainPage.css">
+  <link rel="stylesheet" href="./stylePages/challengeStepRoute.css">
   <title>Vantastic!</title>
 </head>
 
@@ -18,33 +18,45 @@
 
 
   <!--- /////////////////////////////////////////////////////// --->
-   <div class="container">
-    <div class="mapContainer" id="map">The route is going to appear here! *imagine*</div>
-    <div class="routesContainer" id="challengeContainer">
+  <div class="container">
 
-        PAGE UNDER CONSTRUCTION!
-        <hr>
-                 <div><b>Departure:</b> ${googleRoute.departure_time.text}</div>
-              <div><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
-              <div><b>Distance:</b> ${googleRoute.distance.text}</div>
-              <div class="mb-2"><b>Duration:</b> ${googleRoute.duration.text}</div>
-            <br>
-<!--               for (data of dataArray) {
-                output.innerHTML += `
-              <div>${data.instructions} <b>${data.duration.text}</b></div>
- -->
-              <div class="returnButton" id="returnButton" onclick="history.back()">Return</div>
+    <div class="mapContainer" id="map">The route is going to appear here! *imagine*</div>
+
+    <div class="routesContainer">
+
+      <div class="titleDirections">How to get there:</div>
+
+      <br>
+      <!--    <div id="directionInfo">
+              <div id="departure"><b>Departure:</b> Loading....</div>
+              <div id="arrival"><b>Arrival:</b> Loading....</div>
+              <div id="distance"><b>Distance:</b> Loading....</div>
+              <div id="duration"><b>Duration:</b> Loading....</div>
+        </div> -->
+      <br>
+
+
+      <div id="directionInfo">
+        <div id="departure" class="direction"><b>Departure:</b> Loading...</div>
+        <div id="arrival" class="direction"><b>Arrival:</b> Loading...</div>
+        <div id="distance" class="direction"><b>Distance:</b> Loading...</div>
+        <div id="duration" class="direction"><b>Duration:</b> Loading...</div>
+
+      </div>
+      <br>
+      <div class="returnButton" id="returnButton" onclick="history.back()">Back to Challenge</div>
+
 
     </div>
+
   </div>
 
   <!--- API KEY GMAPS --->
-<!--    <script async 
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
- -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
+
   <script defer src="./scriptPages/addHeader.js"></script>
-  <script defer src="../scripts/preferences.js"></script>
-  <script defer src="./scriptPages//mainPage.js"></script>
+  <script defer src="./scriptPages/challengeStepRoute.js"></script>
 
 
 </body>

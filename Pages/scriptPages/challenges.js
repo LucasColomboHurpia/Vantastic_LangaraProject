@@ -65,7 +65,7 @@ let parkChallenge = [
     }
 ]
 
-const surveyTags = ['Day','Night','Adrenaline','Relax','Beach','Lake','Outdoor','Indoor','History','Culture','Big City','Small City','Group','Individual', 'City Landscapes', 'Nature Landscapes']
+const surveyTags = ['Day', 'Night', 'Adrenaline', 'Relax', 'Beach', 'Lake', 'Outdoor', 'Indoor', 'History', 'Culture', 'Big City', 'Small City', 'Group', 'Individual', 'City Landscapes', 'Nature Landscapes']
 
 challengesExample = [
     {
@@ -157,7 +157,7 @@ challengesExample = [
                     done: false
                 },
             ],
-            high: [ 
+            high: [
                 {
                     desc: "Go to Sunset Beach and find the Inukshuk Stone Sculpture. Take a picture with it and share it with us! You will most likely see people playing games. Join them if you feel like it!",
                     coord: { lat: 49.28430649257112, lng: -123.14375633650968 },
@@ -172,7 +172,7 @@ challengesExample = [
                     image: "../Assets/designer-assets/png-icons-uploadpicture.png",
                     done: false
                 },
-                { 
+                {
                     desc: "The A-maze-ing Laughter bronze sculpture is there to bring a smile to the ones that see it. Share with us a picture of you smiling with the statues!",
                     coord: { lat: 49.287596913119486, lng: -123.14192174110453 },
                     tag: false,
@@ -218,7 +218,7 @@ challengesExample = [
                     done: false
                 },
             ],
-            high: [ 
+            high: [
                 {
                     desc: "Take a picture with the Granville welcome sign.",
                     coord: { lat: 49.27012311030005, lng: -123.1367827938784 },
@@ -229,11 +229,11 @@ challengesExample = [
                 {
                     desc: "	Have lunch at the Sandbar. Take a picture of your plate!",
                     coord: false,
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: "../Assets/designer-assets/png-icons-uploadpicture.png",
                     done: false
                 },
-                { 
+                {
                     desc: "Try the famous Lee Donuts. Share with us a pic of the doughnut you picked!",
                     coord: { lat: 49.272265103234105, lng: -123.13527755710894 },
                     tag: false,
@@ -245,7 +245,7 @@ challengesExample = [
         image: "../Assets/designer-assets/jpg-sunset-1.jpg",
         budget: '',
         placeId: '',
-        areaCoordinates: { lat: 49.27048109309838, lng: -123.13479550485158},
+        areaCoordinates: { lat: 49.27048109309838, lng: -123.13479550485158 },
         premium: true,
         surveyScore: 0,
         tags: [surveyTags[14], surveyTags[0], surveyTags[1], surveyTags[3], surveyTags[7], surveyTags[9], surveyTags[11], surveyTags[13]]
@@ -274,7 +274,7 @@ challengesExample = [
                 {
                     desc: "Have lunch in Gastown. Share with us a picture of what you decided to order!",
                     coord: { lat: 49.284576542322675, lng: -123.10887160201466 },
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: "../Assets/designer-assets/png-icons-uploadpicture.png",
                     done: false
                 },
@@ -297,7 +297,7 @@ challengesExample = [
                 {
                     desc: "Have lunch in Gastown. Share with us a picture of what you decided to order!",
                     coord: false,
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: "../Assets/designer-assets/png-icons-uploadpicture.png",
                     done: false
                 },
@@ -305,7 +305,7 @@ challengesExample = [
         },
         image: '../Assets/default_img.jpg',
         budget: '',
-        placeId: '', 
+        placeId: '',
         areaCoordinates: { lat: 49.288334842288705, lng: -123.1124199551516 },
         premium: true,
         surveyScore: 0,
@@ -366,12 +366,12 @@ challengesExample = [
         },
         image: '../Assets/default_img.jpg',
         budget: '',
-        placeId: '', 
+        placeId: '',
         areaCoordinates: { lat: 50.12040687042842, lng: -122.95420441063983 },
         premium: true,
         surveyScore: 0,
         tags: [/* surveyTags[15], surveyTags[0], surveyTags[2], surveyTags[6], surveyTags[8], surveyTags[12], surveyTags[3]*/]
-    }, 
+    },
 
 ]
 
@@ -381,7 +381,7 @@ const loadChallenges = () => {
 
 
     displayChallenge.innerHTML = '';
-    for (let i=0; i<challengesExample.length; i++) {
+    for (let i = 0; i < challengesExample.length; i++) {
         displayChallenge.innerHTML += `
     <div class="challenge">
         <div class="challengeStart">
@@ -413,38 +413,54 @@ const loadChallenges = () => {
 const challengeActivity = (name, i) => {
     document.getElementById('returnButton').style.display = 'inline-block'
 
-    console.log(i)
-
     document.querySelector('h1').innerText = name;
-   // document.getElementById('challengeFilter').remove();
-/*     const activity = document.createElement('h2');
-    activity.innerHTML = "Activities:"
-    document.body.insertBefore(activity, document.getElementById('displayChallenge'));
- */
-    if(displayChallenge.innerHTML !== "") {
+
+    if (displayChallenge.innerHTML !== "") {
         displayChallenge.innerHTML = "";
     }
 
-        let challenge = challengesExample[i].steps.low
-        for( let j = 0; j < challenge.length; j++) {
+    let challenge = challengesExample[i].steps.low //CHANGE THIS TO CHECK USER OBJECT
+    console.log(challenge)
 
-            let activity = 'Goal';
-            if(j==0){ activity = 'Goal 1'}
-            if(j==1){ activity = 'Goal 2'}
-            if(j==2){ activity = 'Goal 3'}
-            
-                displayChallenge.innerHTML += `
+    for (let j = 0; j < challenge.length; j++) {
+
+        let activity = 'Goal';
+        if (j == 0) { activity = 'Goal 1' }
+        if (j == 1) { activity = 'Goal 2' }
+        if (j == 2) { activity = 'Goal 3' }
+
+        let buttonRouteString = ''
+        if(challenge[j].coord != false){
+            buttonRouteString = `<button id="route" onclick="loadChallengeRoute(${challenge[j].coord.lat},${challenge[j].coord.lng})">See Route</button>`
+        }
+
+        displayChallenge.innerHTML += `
                 <div class="actualChallengeContainer">
                     <div class="camera"><img class="challengeImage" src="${challenge[j].image}" alt="camera"></div>
                     <div class="activityInfo">
                         <h3>${activity}</h3>
                         <p>${challenge[j].desc}.</p>
                     </div>
-                    <div><button id="route" onclick="window.location.href='./challengeStepRoute.html'">See Route</button></div>
+                    <div>${buttonRouteString}</div>
                 </div>
                     `
-        }
-    
+    }
+
+}
+
+const loadChallengeRoute = (lat, lng) => {
+    console.log(lat,lng)
+
+    let destination = {lat:lat,lng:lng}
+
+    localStorage.setItem('destination', JSON.stringify(destination));
+
+    window.location.href = './challengeStepRoute.html'
 }
 
 loadChallenges();
+
+//////-------------------------- API FUNCTIONS ------------------------------------------------------------------------------------------------------------------
+
+
+

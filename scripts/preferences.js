@@ -529,3 +529,10 @@ const panToChallenge = (lat,lng) => {
 
 
 //mobile style
+
+
+//check survey results
+//add reload button to map
+//add find me button to map
+
+//talk icons with sebastian
