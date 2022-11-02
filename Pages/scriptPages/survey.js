@@ -1,7 +1,7 @@
 //value: ['restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','park','shopping_mall','stadium','spa','zoo'],
 
                     //0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
-const surveyTags = ['Day','Night','Adrenaline','Relax','Beach','Lake','Outdoor','Indoor','History','Culture','Big City','Small City','Group','Individual', 'City Landscapes', 'Nature Landscapes']
+const surveyTags = ['Day life','Night life','Adrenaline','To Relax','Beach Walks ','Lake and River Walks ','Outdoor Activities','Indoor Activities','History and Architecture','Gastronomy and Culture','Big City Environment','Small City Environment','Group activities','Individual activities', 'City Landscapes', 'Nature Landscapes']
 
 const surveyOptions = [
     {
@@ -135,6 +135,23 @@ const startSurvey = () => {
     surveyOpt2.innerHTML = startSurveyHtmlString('low');
 }
 
+const submitBudget = (budget) => {
+    if (budget == 'high') {
+        surveyOpt1.classList.add('spinCard')
+    }
+    else if (budget == 'low') {
+        surveyOpt2.classList.add('spinCard')
+    }
+    console.log(budget)
+    setTimeout(() => {
+        surveyTitle.innerHTML = 'Between these two, what do you prefer?'
+        surveyPrev.style.display = "inline";
+        surveyNext.style.display = "inline";
+        surveyBothButton.style.display = "inline";
+        surveyUpdate(); SurveyAddEventListeners()
+    }, 1000)
+}
+
 const surveyUpdate = () => {
     surveyOpt1.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt1);
     surveyOpt2.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt2);
@@ -229,23 +246,6 @@ const SurveyAddEventListeners = () => {
     })
 }
 
-const submitBudget = (budget) => {
-    if (budget == 'high') {
-        surveyOpt1.classList.add('spinCard')
-    }
-    else if (budget == 'low') {
-        surveyOpt2.classList.add('spinCard')
-    }
-    console.log(budget)
-    setTimeout(() => {
-        surveyTitle.innerHTML = 'Between these two, what do you prefer?'
-        surveyPrev.style.display = "inline";
-        surveyNext.style.display = "inline";
-        surveyBothButton.style.display = "inline";
-        surveyUpdate(); SurveyAddEventListeners()
-    }, 1000)
-}
-
 const checkSurvey = (text) => {
     for (item of surveyOptions) {
         if (item.opt1.text == text) {
@@ -276,20 +276,22 @@ const checkSurveyBoth = (text) => {
 
 const surveyCheckProgress = () => {
     surveyProgress.innerHTML = ''
+    let index = 0;
     for (item of surveyOptions) {
         if (item.opt1.marked || item.opt2.marked){
 
             if(item.opt1.text == surveyOptions[currentOptions].opt1.text){
-                surveyProgress.innerHTML += '<span class="progressCurrent">x </span>'
+                surveyProgress.innerHTML += `<span onclick="navigateSurvey(${index})" class="progressCurrent">x </span>`
             }
-            else{ surveyProgress.innerHTML += '<span>x </span>'}
+            else{ surveyProgress.innerHTML += `<span onclick="navigateSurvey(${index})" style="cursor:pointer;">x </span>`}
         }
         if (!item.opt1.marked && !item.opt2.marked){
             if(item.opt1.text == surveyOptions[currentOptions].opt1.text){
-                surveyProgress.innerHTML += '<span class="progressCurrent">o </span>'
+                surveyProgress.innerHTML += `<span onclick="navigateSurvey(${index})" class="progressCurrent">o </span>`
             }
-            else {surveyProgress.innerHTML += '<span>o </span>'}
+            else {surveyProgress.innerHTML += `<span onclick="navigateSurvey(${index})" style="cursor:pointer;">o </span>`}
         }
+        index++;
     }
 
     for (item of surveyOptions) {
@@ -299,6 +301,11 @@ const surveyCheckProgress = () => {
     }
 
     finishSurvey();
+}
+
+const navigateSurvey = (i) =>{
+    currentOptions = i
+    surveyUpdate();
 }
 
 const surveyParseAnswer = (opt) => {

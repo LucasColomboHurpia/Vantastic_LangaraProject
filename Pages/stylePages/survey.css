@@ -229,6 +229,7 @@ body{
   }
 
   .progressCurrent{
+    cursor: pointer;
     color: orangered;
     font-weight: bolder;
     font-size: large;
