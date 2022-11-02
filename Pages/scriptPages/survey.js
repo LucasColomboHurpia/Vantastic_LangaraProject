@@ -124,6 +124,17 @@ let surveyDelay = 300
 
 let currentOptions = 0
 
+const startSurvey = () => {
+    getSurveyHtmlElements()
+    console.log("activated")
+    surveyPrev.style.display = "none";
+    surveyNext.style.display = "none";
+    surveyBothButton.style.display = "none";
+
+    surveyOpt1.innerHTML = startSurveyHtmlString('high');
+    surveyOpt2.innerHTML = startSurveyHtmlString('low');
+}
+
 const surveyUpdate = () => {
     surveyOpt1.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt1);
     surveyOpt2.innerHTML = optionHtmlString(surveyOptions[currentOptions].opt2);
@@ -217,16 +228,6 @@ const SurveyAddEventListeners = () => {
 
     })
 }
-const startSurvey = () => {
-    getSurveyHtmlElements()
-    console.log("activated")
-    surveyPrev.style.display = "none";
-    surveyNext.style.display = "none";
-    surveyBothButton.style.display = "none";
-
-    surveyOpt1.innerHTML = startSurveyHtmlString('high');
-    surveyOpt2.innerHTML = startSurveyHtmlString('low');
-}
 
 const submitBudget = (budget) => {
     if (budget == 'high') {
@@ -250,13 +251,10 @@ const checkSurvey = (text) => {
         if (item.opt1.text == text) {
             item.opt1.marked = !item.opt1.marked
             item.opt2.marked = !item.opt1.marked
-            console.log(item.opt1)
         } else
             if (item.opt2.text == text) {
                 item.opt2.marked = !item.opt2.marked
                 item.opt1.marked = !item.opt2.marked
-
-                console.log(item.opt2)
             }
     }
     surveyUpdate()
@@ -279,10 +277,19 @@ const checkSurveyBoth = (text) => {
 const surveyCheckProgress = () => {
     surveyProgress.innerHTML = ''
     for (item of surveyOptions) {
-        if (item.opt1.marked || item.opt2.marked)
-            surveyProgress.innerHTML += 'x '
-        if (!item.opt1.marked && !item.opt2.marked)
-            surveyProgress.innerHTML += 'o '
+        if (item.opt1.marked || item.opt2.marked){
+
+            if(item.opt1.text == surveyOptions[currentOptions].opt1.text){
+                surveyProgress.innerHTML += '<span class="progressCurrent">x </span>'
+            }
+            else{ surveyProgress.innerHTML += '<span>x </span>'}
+        }
+        if (!item.opt1.marked && !item.opt2.marked){
+            if(item.opt1.text == surveyOptions[currentOptions].opt1.text){
+                surveyProgress.innerHTML += '<span class="progressCurrent">o </span>'
+            }
+            else {surveyProgress.innerHTML += '<span>o </span>'}
+        }
     }
 
     for (item of surveyOptions) {
@@ -321,7 +328,10 @@ const surveyParseAnswer = (opt) => {
     user.preferences.budget = defaultSurveyResults.budget
     user.preferences.surveyResults = defaultSurveyResults.surveyResults
     
-    user.preferences = {       
+    console.log('user',user)
+
+    //REMOVE THIS
+/*     user.preferences = {       
     surveyDone: true,
     budget: 'low',
     surveyResults: {
@@ -342,9 +352,8 @@ const surveyParseAnswer = (opt) => {
         ],
         ChallengePreferences: ['Day', 'Relax', 'History']
     }
-}
+} */
 
-console.log('user',user)
 localStorage.clear()
 localStorage.setItem("user", JSON.stringify(user));
 
@@ -429,19 +438,19 @@ const user = {
         budget: 'low',
         surveyResults: {
             placesPreferences: [
-                { name: 'restaurant', value: 2, },
-                { name: 'library', value: 5, },
-                { name: 'art_gallery', value: 3, },
-                { name: 'bar', value: 1, },
-                { name: 'movie_theater', value: 4, },
-                { name: 'bowling_alley', value: 3, },
-                { name: 'museum', value: 3, },
-                { name: 'cafe', value: 4, },
-                { name: 'night_club', value: 1, },
-                { name: 'park', value: 5, },
-                { name: 'shopping_mall', value: 3, },
-                { name: 'stadium', value: 1, },
-                { name: 'zoo', value: 2, },
+                { name: 'restaurant', value: 0, },
+                { name: 'library', value: 0, },
+                { name: 'art_gallery', value: 0, },
+                { name: 'bar', value: 0, },
+                { name: 'movie_theater', value: 0, },
+                { name: 'bowling_alley', value: 0, },
+                { name: 'museum', value: 0, },
+                { name: 'cafe', value: 0, },
+                { name: 'night_club', value: 0, },
+                { name: 'park', value: 0, },
+                { name: 'shopping_mall', value: 0, },
+                { name: 'stadium', value: 0, },
+                { name: 'zoo', value: 0, },
             ],
             ChallengePreferences: ['Day', 'Relax', 'History']
         }

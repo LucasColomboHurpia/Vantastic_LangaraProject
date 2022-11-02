@@ -348,7 +348,7 @@ async function initMap() {
           position: point,
           map,
           title: 'invisible',
-          icon: '../Assets/Empty.png',
+          icon: '../Assets/Empt',
           category: 'invisible'
         };
         point = marker

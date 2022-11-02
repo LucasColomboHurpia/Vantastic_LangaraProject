@@ -228,6 +228,12 @@ body{
     cursor: pointer;
   }
 
+  .progressCurrent{
+    color: orangered;
+    font-weight: bolder;
+    font-size: large;
+  }
+
 
    /* //////////////////////////////  */
    /* // SurveyFinished //  */

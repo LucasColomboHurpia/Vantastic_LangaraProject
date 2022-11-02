@@ -400,7 +400,7 @@ const preferences = (surveyResults) => {
         }, 12000);  */
     
         setTimeout(() => {
-        librarians.aroundVancouverMarkers('park', 3)
+        librarians.aroundVancouverMarkers('tourist_attraction', 3)
     },2000);
 }
 
@@ -521,18 +521,12 @@ const panToChallenge = (lat,lng) => {
     map.setZoom(14)
 }
 
+//fix route page (current location)
 
-
-//show route info
-    //set up new page
-
-
+//link challenge page to main map
 
 //mobile style
 
-
-//check survey results
-//add reload button to map
 //add find me button to map
 
 //talk icons with sebastian

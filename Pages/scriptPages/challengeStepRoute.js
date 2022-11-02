@@ -70,6 +70,57 @@ async function initMap() {
     directionsRenderer.setMap(map);
 
     ///---------------------------------------------------------------------------------------------
+    //Calculates the route, takes coordinates and the mode of transportarion
+    //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
+
+    const calculateRoute = (lat, lng, mode) => {
+      let start = currentPosition; //start route
+      let end = { lat, lng }; //end route
+
+      //sets up request object for the API
+      let request = {
+        origin: start,
+        destination: end,
+        travelMode: mode //DRIVING, BICYCLING, TRANSIT, WALKING  
+      };
+
+      //Makes the route API request
+      directionsService.route(request, function (result, status) {
+        //checks if the status of the response is OK
+        if (status == 'OK') {
+          //gets data from the response
+          let googleRoute = result.routes[0].legs[0]
+          let dataArray = googleRoute.steps
+          for (data of dataArray) {
+            console.log('duration:', googleRoute.departure_time)
+          }
+
+          //output
+          let directionInfo = document.getElementById('directionInfo');
+
+          directionInfo.innerHTML = `
+                    <div id="departure" class="direction"><b>Departure:</b> ${googleRoute.departure_time.text}</div>
+                    <div id="arrival" class="direction"><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
+                    <div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>
+                    <div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>
+
+            `
+          for (data of dataArray) {
+            directionInfo.innerHTML += `
+              <div class="direction">${data.instructions} <b>${data.duration.text}</b></div>
+              `
+          }
+
+
+          //renders the directon in the map
+          directionsRenderer.setDirections(result);
+        } else {
+          console.log('Directions Services not available')
+        }
+      });
+    }
+
+
     ///////Pan to current location
 
     //sets up function to find user
@@ -112,14 +163,31 @@ async function initMap() {
             //update currentPosition 
             currentPosition = pos;
             map.panTo(currentPosition) //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
+            
+        //Calculates the route, takes coordinates and the mode of transportarion
+        //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
+        const coord = JSON.parse(localStorage.getItem('destination'));
+        calculateRoute(coord.lat, coord.lng, 'TRANSIT')
+
           },
           () => {
             handleLocationError(true, infoWindow, map.getCenter());
           }
         );
+
+        //Calculates the route, takes coordinates and the mode of transportarion
+        //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
+        const coord = JSON.parse(localStorage.getItem('destination'));
+        calculateRoute(coord.lat, coord.lng, 'TRANSIT')
+
       } else {
         //if Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, VancouverLatlng);
+        //Calculates the route, takes coordinates and the mode of transportarion
+        //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
+        const coord = JSON.parse(localStorage.getItem('destination'));
+        calculateRoute(coord.lat, coord.lng, 'TRANSIT')
+
       }
     };
     //Deal with errors
@@ -169,7 +237,8 @@ async function initMap() {
       }
 
       //if place is a challengeSpot, sets up a special info window
-      if (place.category == 'challengeStep') {specific
+      if (place.category == 'challengeStep') {
+        specific
         let infowindow = new google.maps.InfoWindow({
           content: createChallengStepString(place), //creates a custom info window using the object parameters
         });
@@ -193,278 +262,10 @@ async function initMap() {
       currentVisibleMarkers.push(marker)
     }
 
-    ///---------------------------------------------------------------------------------------------
-    ///Places API///
-
-    //Calls the google places API for its database
-    placesAPIRequest = function (type, position, npins, remove, radius, category) {
-      console.log('TYPE IS', type)
-      requestPlaces.location = position //sets location as a parameter
-      requestPlaces.type[0] = type //sets chosen type as a parameter
-
-      //chekc if there is a radius specification
-      if (radius) {
-        requestPlaces.radius = radius
-      } else { requestPlaces.radius = 50000 }
-
-      //Delete pins and empty the array
-      if (remove) {
-        console.log('remove',)
-        deletePins(currentVisibleMarkers)
-        currentVisibleMarkers = [];
-      }
-
-      //Sets how many markers will be rendered
-      nPins = npins
-
-      //Makes the API call
-      if (!category) {
-        service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(requestPlaces, callbackPlacesAPI);
-      }
-      else if (category == 'arounVan') {
-        service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(requestPlaces, callbackPlacesAPIaroundVan);
-      }
-    }
-
-    //callback for the google places API //default
-    function callbackPlacesAPI(results, status) {
-
-      //Checks if the status response is OK
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results)
-
-        //Loops through the array
-        for (i = 0; i < results.length; i++) {
-          let place = results[i];
-
-          //gets the coordinates 
-          let lat = (place.geometry.location.lat())
-          let lng = (place.geometry.location.lng())
-
-          //checks if price level is available
-          let priceLevel;
-          place.price_level > 0 ? priceLevel = place.price_level : priceLevel = 'Not available'
-
-          //checks if photos is valid
-          let photosAPI = '../Assets/default_img.jpg'
-          /*           if(place.photos[0]){photosAPI=place.photos[0]}
-           */
-          //Creates a new object with the information provided by google
-          let newPlace = {
-            name: place.name,
-            title: place.name,
-            address: place.vicinity,
-            picture:  place.photos[0].getUrl(),
-            position: { lat, lng },
-            rating: place.rating,
-            numberOfRatings: place.user_ratings_total,
-            priceLevel: priceLevel,
-            type: place.types,
-            id: place.place_id,
-            icon: orangeMarker,
-            description: '',
-            category: 'pointOfInterest'
-          }
-
-          //Creates the new Pin based on the object
-          pinMarker(newPlace)
-
-          //checks if the set requirement by nPin was met
-          if (i == nPins - 1) { i = results.length }
-        }
-      }
-    }
-
-    //callback for the google places API //default
-    function callbackPlacesAPIaroundVan(results, status) {
-
-      //Checks if the status response is OK
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results)
-
-        //Loops through the array
-        for (i = 0; i < results.length; i++) {
-          let place = results[i];
-
-          //gets the coordinates 
-          let lat = (place.geometry.location.lat())
-          let lng = (place.geometry.location.lng())
-
-          //checks if price level is available
-          let priceLevel;
-          place.price_level > 0 ? priceLevel = `${place.price_level}/5` : priceLevel = 'Not available'
-
-          //checks if photos is valid
-          let photosAPI = '../Assets/default_img.jpg'
-          /*           if(place.photos[0]){photosAPI=place.photos[0]}
-           */
-          //Creates a new object with the information provided by google
-          let newPlace = {
-            name: place.name,
-            title: place.name,
-            address: place.vicinity,
-            picture:  place.photos[0].getUrl(),
-            position: { lat, lng },
-            rating: place.rating,
-            numberOfRatings: place.user_ratings_total,
-            priceLevel: priceLevel,
-            type: place.types,
-            id: place.place_id,
-            icon: yellowMarker,
-            description: '',
-            category: 'pointOfInterest'
-          }
-
-          //Creates the new Pin based on the object
-          pinMarker(newPlace)
-
-          //checks if the set requirement by nPin was met
-          if (i == nPins - 1) { i = results.length }
-        }
-      }
-    }
-    //---------------------------------------------------------------------------------------------------
-
-    //set markers around Vancouver
-    aroundVancouverMarkers = function (type, npins) {
-      //type, position, npins
-      let invisibleMarkers = [
-        { lat: 49.26619806343015, lng: -123.1857251774933 },
-        { lat: 49.23321894517517, lng: -123.16840324520768 },
-        { lat: 49.23378448708606, lng: -123.0690908334368 },
-        { lat: 49.26851453010027, lng: -123.07305406904976 },
-        { lat: 49.290754750354566, lng: -123.13429634796184 },
-        { lat: 49.33972774400079, lng: -123.16267193737758 },
-        { lat: 49.33387484028106, lng: -123.05406896259956 },
-        { lat: 49.26137950331339, lng: -123.12082629486389 },
-        { lat: 49.22790174959055, lng: -123.1146204699535 },
-      ]
-      if (!npins) { nPins = 3 }
-
-      for (point of invisibleMarkers) {
-        const marker = {
-          position: point,
-          map,
-          title: 'invisible',
-          icon: '../Assets/Empty.png',
-          category: 'invisible'
-        };
-        point = marker
-        pinMarker(point)
-
-        //
-        placesAPIRequest(type, point.position, npins, false, 50000, 'arounVan' )
-      }
-    }
-
-    //------------Polygons----------------------------------------
-    //https://developers.google.com/maps/documentation/javascript/shapes
-
-    challengeMarker = (challenge) => {
-      //CIRCLE
-      const cityCircle = new google.maps.Circle({
-        strokeColor: "#264996",
-        strokeOpacity: 0.5,
-        strokeWeight: 1,
-        fillColor: "#264996",
-        fillOpacity: 0.25,
-        map,
-        center: challenge.areaCoordinates,
-        radius: 1200,
-      });
-
-      //marker
-      let newMarker = new google.maps.Marker({
-        position: challenge.areaCoordinates,
-        map,
-        title: challenge.name,
-        icon: "../Assets/blue marker.png",
-      });
-
-      //INFOWINDOW
-      let infowindow = new google.maps.InfoWindow({
-        content: createChallengeString(challenge), //creates a custom info window using the object parameters
-      });
-
-      //adds infowindow when clicked
-      newMarker.addListener("click", () => {
-        infowindow.open({
-          anchor: newMarker,
-          map,
-          shouldFocus: true,
-        });
-        closeinfoWindow(infowindow)
-        infowindow.focus()
-      });
-    }
-    //--------------------------------------------------------------------
-
-    //set object with our functions
-    librarians = {
-      pinMaker: pinMarker,
-      deletePins: deletePins,
-      placesAPIRequest: placesAPIRequest,
-      aroundVancouverMarkers: aroundVancouverMarkers,
-      challengeMarker: challengeMarker,
-      findUser: findUser,
-    }
+    findUser();
 
 
-    librarians.findUser();
 
-    const calculateRoute = (lat, lng, mode) => {
-        let start = currentPosition; //start route
-        let end = { lat, lng }; //end route
-      
-        //sets up request object for the API
-        let request = {
-          origin: start,
-          destination: end,
-          travelMode: mode //DRIVING, BICYCLING, TRANSIT, WALKING  
-        };
-      
-        //Makes the route API request
-        directionsService.route(request, function (result, status) {
-          //checks if the status of the response is OK
-          if (status == 'OK') {
-            //gets data from the response
-            let googleRoute = result.routes[0].legs[0]
-            let dataArray = googleRoute.steps
-            for (data of dataArray) {
-              console.log('duration:', googleRoute.departure_time)
-            }
-
-            //output
-            let directionInfo = document.getElementById('directionInfo');
-
-            directionInfo.innerHTML = `
-                    <div id="departure" class="direction"><b>Departure:</b> ${googleRoute.departure_time.text}</div>
-                    <div id="arrival" class="direction"><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
-                    <div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>
-                    <div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>
-
-            `
-            for (data of dataArray) {
-                directionInfo.innerHTML += `
-              <div class="direction">${data.instructions} <b>${data.duration.text}</b></div>
-              `
-              }
-
-      
-            //renders the directon in the map
-            directionsRenderer.setDirections(result);
-          } else {
-            console.log('Directions Services not available')
-          }
-        });
-      }
-     
-      //Calculates the route, takes coordinates and the mode of transportarion
-        //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
-      const coord = JSON.parse(localStorage.getItem('destination'));
-      calculateRoute(coord.lat,coord.lng,'TRANSIT')
 
   } catch (error) { console.log(error) }
 }
@@ -472,14 +273,6 @@ async function initMap() {
 //--------------------------------------------------------------------
 //--------------------------------------------------------------------
 
-// Delete pins
-function deletePins(arrayOfMarkers) {
-  if (arrayOfMarkers.length > 0) { //checks if there is something to delete
-    for (pin of arrayOfMarkers) { // loops through the array
-      pin.setMap(null); //deletes the pin
-    }
-  }
-}
 
 // Close info window when a new one is open
 const closeinfoWindow = (infowindow) => {
@@ -517,49 +310,4 @@ const createContentString = (place) => {
   `
   return infoWindowString
 }
-
-//add if to high option
-const createChallengeString = (challenge) => {
-  let challengeSteps = '';
-  for (steps of challenge.steps.low) {
-    challengeSteps += `<li class="infoWindow-ChallengeStep" >${steps.desc}</li>`
-  }
-
-  let infoWindowString = `
-    <div class="infoWindowContainer">
-    <img class="infoWindowImg" src="${challenge.image}">
-    <div class="infoWindow-body">
-      <h5 class="infoWindow-title">${challenge.name}</h5>
-      <p class="infoWindow-text">${challenge.description}</p>
-      <p class="infoWindow-text">
-        ${challengeSteps}  
-      </p>
-    </div>
-    <button type="button" class="infoWindow-btn"
-      onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">Start
-      Challenge</button>
-  </div>
-  `
-  return infoWindowString
-}
-
-//add info for challenge step
-const createChallengStepString = (place) => {
-  console.log('place is', place)
-
-  let infoWindowString = `
-    <div class="infoWindowContainer">
-    <img class="infoWindowImgChallenge" src="${place.image}">
-    <div class="infoWindow-body">
-    <h5 class="infoWindow-title">${place.name}</h5>
-      <p class="infoWindow-text">${place.description}</p>
-    </div>
-    <button type="button" class="infoWindow-btn"
-    onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
-    </div>
-  `
-  return infoWindowString
-}
-
-//https://developers.google.com/maps/documentation/javascript/shapes
 

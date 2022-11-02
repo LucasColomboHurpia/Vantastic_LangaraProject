@@ -189,7 +189,7 @@ background-color: rgba(236, 236, 236, 0.582);
   height: max-content;
   width:26%;
   min-width: 280px;
-
+  background-color: rgba(255, 255, 255, 0.219);
   padding-top: 20px; 
   padding-bottom: 30px; 
   margin-left: 2%;
@@ -236,4 +236,40 @@ color: white;
   background-color: rgba(0, 0, 0, 0.055);
 color: #592b78;
 cursor: pointer;
+}
+
+.reloadFail{
+  margin: auto;
+  text-align: center;
+  margin-top: 17%;
+  font-size:x-large;
+}
+.reloadFail:hover{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
+.reloadIcon{
+  width: 80px;
+  display: flex;
+
+  margin: auto;
+
+}
+.reloadIcon:hover{
+  animation-name: spin;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+
+}
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
 }
