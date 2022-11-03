@@ -273,6 +273,22 @@ async function initMap() {
 //--------------------------------------------------------------------
 //--------------------------------------------------------------------
 
+const loadChallengeSteps = (challenge) =>{
+  let directionInfo = document.getElementById('directionInfo');
+
+  directionInfo.innerHTML = `
+            <div id="departure" class="direction"><b>Departure:</b> ${googleRoute.departure_time.text}</div>
+            <div id="arrival" class="direction"><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
+            <div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>
+            <div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>
+
+    `
+    for (data of dataArray) {
+      directionInfo.innerHTML += `
+        <div class="direction">${data.instructions} <b>${data.duration.text}</b></div>
+        `
+    }
+}
 
 // Close info window when a new one is open
 const closeinfoWindow = (infowindow) => {

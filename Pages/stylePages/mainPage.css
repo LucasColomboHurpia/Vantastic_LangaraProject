@@ -236,6 +236,10 @@ body{
 
     margin: auto;
 
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
 }
 .reloadIcon:hover{
     animation-name: spin;
