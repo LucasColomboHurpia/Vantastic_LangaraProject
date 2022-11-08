@@ -502,7 +502,7 @@ const showChallengeInfo = (challenge) => {
             category: 'challengeStep'
         }
         for (let i = 0; i < challenge.steps.high.length; i++) {
-            let challengeStep = challenge.steps.low[i]
+            let challengeStep = challenge.steps.high[i]
             if (challengeStep.coord == false) { return console.log('has no coordinates') }
             else {
                 if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1 }

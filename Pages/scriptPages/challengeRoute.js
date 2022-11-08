@@ -62,7 +62,6 @@ let userPreferences = userResults.preferences
 let surveyResults = userResults.preferences.surveyResults
 /////////////-------------------------------------------------------------------/////////////////////////////////////
 
-/////////////-------------------------------------------------------------------/////////////////////////////////////
 
 
 //Activates Gmaps API
@@ -85,7 +84,7 @@ async function initMap() {
       fullscreenControl: myFullscreenControl,
       streetViewControl: myStreetViewControl,
     });
-    
+
     ////---------------------------------------------------------------------------------------------
         // Create button inside the map
         const centerControlDiv = document.createElement("div");
@@ -503,7 +502,49 @@ const showChallengeInfo = (challenge) => {
       }
   }
 
+  if (userPreferences.budget == 'high') {
+    let placeMarker = {
+        position: {lat:'',lng:''},
+        title: '',
+        name: '',
+        icon: '',
+        category: 'challengeStep',
+        description: '',
+        image: '',
+    }
+    for (let i = 0; i < challenge.steps.high.length; i++) {
 
+        let challengeStep = challenge.steps.high[i]
+
+        //checks if there are specific coordinates for the step
+        if(challengeStep.coord==false){console.log('has no coordinates')}
+        else{
+            if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = markerN1; }
+            if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = markerN2; }
+            if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = markerN3; }
+            placeMarker.title = challenge.name
+            placeMarker.name = challenge.name
+            placeMarker.description = challengeStep.desc
+            placeMarker.image = challengeStep.image
+            placeMarker.position = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
+            pinMarker(placeMarker)
+        }
+
+        //checks if there are specific TAGS for the step
+        if(challengeStep.tag==false){console.log('has no tags')}
+        else{
+            if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = orangeMarkerN1; }
+            if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = orangeMarkerN2; }
+            if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = orangeMarkerN3; }
+            placeMarker.description = challengeStep.desc
+            placeMarker.image = challengeStep.image
+            let placeMarkerPosition = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
+            setTimeout(() => {
+            placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false,  1200) //(type, position, npins, remove, radius)
+        }, i * 6000);
+        }
+    }
+}
 }
 
 
