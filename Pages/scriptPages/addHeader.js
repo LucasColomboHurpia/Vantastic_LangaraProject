@@ -14,6 +14,8 @@ header.innerHTML = `
         <div class="hederSetting headerSection disabled">Settings</div>
     </div>
 <div class="loginHeader" onclick="window.location.href='./login.html';">${buttonText}</div>
+<div class="menuMobileIcon" onclick="loadMobileMenu()"><img src="../Assets/mobileMenu.png" width="50px"/></div>
+
 `
 
 document.body.prepend(header)
@@ -23,3 +25,10 @@ headerStyle.rel  = 'stylesheet';
 headerStyle.type = 'text/css';
 headerStyle.href = './stylePages/header.css';
 document.body.append(headerStyle)
+
+const loadMobileMenu = () => {
+
+}
+
+let mobileMenu = document.createElement("div")
+mobileMenu.classList.add("mobileMenu")

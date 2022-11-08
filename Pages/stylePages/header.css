@@ -58,6 +58,12 @@
   
 }
 
+.menuMobileIcon{
+    margin: auto;
+    display:none;
+}
+
+
 .disabled{
     color: grey;
 }

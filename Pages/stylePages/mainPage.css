@@ -55,7 +55,7 @@ body{
     height: 85vh;
     margin: auto;
      margin-top: 3vh;
-     margin-bottom: 50px;
+     margin-bottom: 0;
 
 
 }
@@ -273,4 +273,22 @@ body{
   .mapButton:hover{
     background-color: rgb(212, 212, 212);
   
+  }
+
+  .mapCaption{
+    display: inline;
+    position:relative;
+    /* border: 1px solid black; */
+    border-radius: 25px;
+    font-size: small;
+    padding: 1px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.671);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  }
+
+  .captionImage{
+    width: 15px;
   }

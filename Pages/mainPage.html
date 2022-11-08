@@ -17,52 +17,73 @@
 
 
   <!--- /////////////////////////////////////////////////////// --->
-   <div class="container">
+  <div class="container">
+
     <div class="mapContainer" id="map">
-    <div class="reloadFail" onclick="location.reload();">
+      <div class="reloadFail" onclick="location.reload();">
         <!-- Failed to load resources, click here to reload -->
         <span style="color:red;">API temporarily disabled</span>
         <img src="../Assets/reloadIcon.png" alt="reload" class="reloadIcon">
-        <span style="color:red; font-size: medium;">Someone made 800 API calls yesterday, this prototype page will be disabled for a while</span>
-        <div style="font-size: medium;">Even with free trial there is a limit to our number of calls, this page will come back to normal soon.</div>
+        <span style="color:red; font-size: medium;">Someone made 800 API calls yesterday, this prototype page will be
+          disabled for a while</span>
+        <div style="font-size: medium;">Even with free trial there is a limit to our number of calls, this page will
+          come back to normal soon.</div>
 
-    </div>  
+      </div>
 
     </div>
+
+
     <div class="challengeContainer" id="challengeContainer">
 
-      
-     <div class="challengeInfo">
+
+<!--       <div class="challengeInfo">
         <div class="titleChallenge">${challenge.name}</div>
-            <div class="challengeDesc">${challenge.description}</div>
-            <div class="challengeStepsContainer">
-                <li class="challengeSteps">${challenge.steps.high[0].desc}</li>
-                <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
-                <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
-            </div>
+        <div class="challengeDesc">${challenge.description}</div>
+        <div class="challengeStepsContainer">
+          <li class="challengeSteps">${challenge.steps.high[0].desc}</li>
+          <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
+          <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
+        </div>
         <div class="challengeButton">Start</div>
+      </div>
+
+      <div class="challengeInfo">
+        <div class="titleChallenge">${challenge.name}</div>
+        <div class="challengeDesc">${challenge.description}</div>
+        <div class="challengeStepsContainer">
+          <li class="challengeSteps">${challenge.steps.high[0].desc}</li>
+          <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
+          <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
+        </div>
+        <div class="challengeButton">Start</div>
+      </div> -->
+
+
+
     </div>
 
-    <div class="challengeInfo">
-      <div class="titleChallenge">${challenge.name}</div>
-          <div class="challengeDesc">${challenge.description}</div>
-          <div class="challengeStepsContainer">
-              <li class="challengeSteps">${challenge.steps.high[0].desc}</li>
-              <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
-              <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
-          </div>
-      <div class="challengeButton">Start</div>
-  </div> 
+<!--     <div class="mapCaption">
+      <span>
+        <img class="captionImage" src="../Assets/red marker.png" alt=""> <span>Your Location</span>
+      </span>
+      <span>
+        <img class="captionImage" src="../Assets/yellow marker.png" alt=""> <span>Our Recommendations</span>
+      </span>
 
-
-
-    </div>
+      <span>
+        <img class="captionImage" src="../Assets/orange marker.png" alt=""> <span>Recommendations Near Challenge</span>
+      </span>
+      <span>
+        <img class="captionImage" src="../Assets/number 1 - marker.png" alt=""> <span>Challenge Step</span>
+      </span>
+    </div> -->
   </div>
 
   <!--- API KEY GMAPS --->
-<!--     <script async 
+     <script async 
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
- -->
+
   <script defer src="./scriptPages/addHeader.js"></script>
   <script defer src="../scripts/preferences.js"></script>
   <script defer src="./scriptPages//mainPage.js"></script>

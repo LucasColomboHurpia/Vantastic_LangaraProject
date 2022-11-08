@@ -71,6 +71,31 @@ async function initMap() {
     ////---------------------------------------------------------------------------------------------
 
     ////---------------------------------------------------------------------------------------------
+        // Create captions inside the map
+        const captionDiv = document.createElement("div");
+        captionDiv.innerHTML = `     <span>
+                                              <img class="captionImage" src="../Assets/red marker.png" alt=""> 
+                                              <span style="margin:auto">Your Location</span>
+                                           </span>
+                                            <span>
+                                              <img class="captionImage" src="../Assets/yellow marker.png" alt=""> 
+                                              <span>Our Recommendations</span>
+                                            </span>
+
+                                            <span>
+                                              <img class="captionImage" src="../Assets/orange marker.png" alt=""> 
+                                              <span>Recommendations Near Challenge</span>
+                                            </span>
+                                            <span>
+                                              <img class="captionImage" src="../Assets/number 1 - marker.png" alt=""> 
+                                              <span>Challenge Step</span>
+                                            </span>` 
+        captionDiv.classList.add('mapCaption')
+        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(captionDiv);
+    ////---------------------------------------------------------------------------------------------
+
+
+    ////---------------------------------------------------------------------------------------------
     ///Declarations to make routes work
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
