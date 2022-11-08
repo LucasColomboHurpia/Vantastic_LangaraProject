@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./stylePages/challengeRoute.css">
+  <title>Vantastic!</title>
+</head>
+
+<body>
+
+
+
+  <!--- /////////////////////////////////////////////////////// --->
+  <img src="../Assets/designer-assets/png-trees.png" alt="" id="bgImg">
+
+
+  <!--- /////////////////////////////////////////////////////// --->
+  <div class="container">
+
+    <div class="mapContainer" id="map">
+      <div class="reloadFail" onclick="location.reload();">
+        Failed to load resources, click here to reload
+        <img src="../Assets/reloadIcon.png" alt="reload" class="reloadIcon">
+
+    </div> </div>
+
+    <div class="routesContainer">
+
+      <div class="titleDirections" id="challengeName">Challenge</div>
+
+      <br>
+      <!--    <div id="directionInfo">
+              <div id="departure"><b>Departure:</b> Loading....</div>
+              <div id="arrival"><b>Arrival:</b> Loading....</div>
+              <div id="distance"><b>Distance:</b> Loading....</div>
+              <div id="duration"><b>Duration:</b> Loading....</div>
+        </div> -->
+
+
+      <div id="directionInfo">
+        Loading....
+        
+
+      </div>
+      <br>
+
+
+    </div>
+
+  </div>
+
+  <!--- API KEY GMAPS --->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
+
+  <script defer src="./scriptPages/addHeader.js"></script>
+  <script defer src="./scriptPages/challengeRoute.js"></script>
+
+
+</body>
+
+</html>

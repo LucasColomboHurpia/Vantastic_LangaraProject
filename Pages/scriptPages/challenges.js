@@ -1,71 +1,5 @@
-let newChallenge = [
-    {
-        id: 0,
-        img: "../Assets/designer-assets/jpg-sunset-2.jpg",
-        name: "Downtown Challenge",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
-        info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
-        info2: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam."
-
-    },
-
-    {
-        id: 1,
-        img: "../Assets/designer-assets/jpg-sunset-3.jpg",
-        name: "Park Challenge",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
-        info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
-        info2: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam."
-
-    },
-    {
-        id: 2,
-        img: "../Assets/designer-assets/jpg-sunset-1.jpg",
-        name: "Beach Challenge",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit atque magnam unde exercitationem possimus harum sint adipisci in cupiditate delectus.",
-        info1: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam.",
-        info2: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quisquam."
-
-    }
-]
-
-let downtownChallenge = [
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Drink Coffee",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    },
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Drink Beer",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    },
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Walk by English Bay",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    }
-]
-
-let parkChallenge = [
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Walk to the river",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    },
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Click pic with a tree",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    },
-    {
-        img: "../Assets/designer-assets/png-icons-uploadpicture.png",
-        activity: "Click pic with a bird nest",
-        activity_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus est animi eius, perferendis nostrum ipsum porro. Nesciunt, dignissimos ex.",
-    }
-]
-
-const surveyTags = ['Day', 'Night', 'Adrenaline', 'Relax', 'Beach', 'Lake', 'Outdoor', 'Indoor', 'History', 'Culture', 'Big City', 'Small City', 'Group', 'Individual', 'City Landscapes', 'Nature Landscapes']
+                             //0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
+    const surveyTags = ['Day life','Night life','Adrenaline','To Relax','Beach Walks ','Lake and River Walks ','Outdoor Activities','Indoor Activities','History and Architecture','Gastronomy and Culture','Big City Environment','Small City Environment','Group activities','Individual activities', 'City Landscapes', 'Nature Landscapes']
 
 challengesExample = [
     {
@@ -386,7 +320,7 @@ const loadChallenges = () => {
     <div class="challenge">
         <div class="challengeStart">
             <div ><img class="challengeImage" src="${challengesExample[i].image}" alt="start" id="clickChallenge"></a></div>
-            <div class="start_link"><p onclick="challengeActivity('${challengesExample[i].name}','${i}')">START</p></div>
+            <div class="start_link"><p onclick="loadChallenge('${challengesExample[i].id}')">START</p></div>
         </div>
         <div class="challengeInfo">
             <h3>${challengesExample[i].name}</h3>
@@ -458,9 +392,24 @@ const loadChallengeRoute = (lat, lng) => {
     window.location.href = './challengeStepRoute.html'
 }
 
+const loadChallenge = (id) => {
+
+    for(challenge of challengesExample){
+        if(challenge.id == id){
+            localStorage.setItem('challenge', JSON.stringify(challenge));
+        } 
+    }
+
+    window.location.href = './challengeRoute.html'
+
+
+}
+
+
 loadChallenges();
 
 //////-------------------------- API FUNCTIONS ------------------------------------------------------------------------------------------------------------------
 
 
 
+//challenge has to store whole thing

@@ -19,7 +19,9 @@ const db = firebaseApp.firestore();
 // firestore auth initialization
 //const auth = firebaseApp.auth();
 
-const surveyTags = ['Day life','Night life','Adrenaline','To Relax','Beach Walks ','Lake and River Walks ','Outdoor Activities','Indoor Activities','History and Architecture','Gastronomy and Culture','Big City Environment','Small City Environment','Group activities','Individual activities', 'City Landscapes', 'Nature Landscapes']
+
+    //0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
+    const surveyTags = ['Day life','Night life','Adrenaline','To Relax','Beach Walks ','Lake and River Walks ','Outdoor Activities','Indoor Activities','History and Architecture','Gastronomy and Culture','Big City Environment','Small City Environment','Group activities','Individual activities', 'City Landscapes', 'Nature Landscapes']
 
 const surveyOptions = [
 {
@@ -475,12 +477,12 @@ startSurvey()
 */
 //Library USERS
 const user = {
-userName: 'Lucas',
-email: 'lucas@email.com',
+userName: 'usernameFromTheAuthentication',
+email: 'emailFromTheAuthentication',
 password: 'encryptionKey',
-premium: true,
+premium: false,
 dateOfBirth: '',
-gender: 'male',
+gender: '',
 preferences: {
     surveyDone: false,
     budget: 'low',

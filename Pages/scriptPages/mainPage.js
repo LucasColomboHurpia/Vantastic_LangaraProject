@@ -518,6 +518,7 @@ const createContentString = (place) => {
 //add if to high option
 const createChallengeString = (challenge) => {
   let challengeSteps = '';
+  //if low
   for (steps of challenge.steps.low) {
     challengeSteps += `<li class="infoWindow-ChallengeStep" >${steps.desc}</li>`
   }
