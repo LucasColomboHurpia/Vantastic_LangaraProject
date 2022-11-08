@@ -62,6 +62,8 @@ let userPreferences = userResults.preferences
 let surveyResults = userResults.preferences.surveyResults
 /////////////-------------------------------------------------------------------/////////////////////////////////////
 
+/////////////-------------------------------------------------------------------/////////////////////////////////////
+
 
 //Activates Gmaps API
 async function initMap() {
@@ -83,9 +85,15 @@ async function initMap() {
       fullscreenControl: myFullscreenControl,
       streetViewControl: myStreetViewControl,
     });
-
-
+    
     ////---------------------------------------------------------------------------------------------
+        // Create button inside the map
+        const centerControlDiv = document.createElement("div");
+        centerControlDiv.innerHTML = '<span id="findMeButton" onclick="findME()"><img src="../Assets/red marker.png" width="15px"/>Find me</span>'
+        centerControlDiv.classList.add('mapButton')
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+    ////---------------------------------------------------------------------------------------------
+
     ///Declarations to make routes work
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
@@ -390,6 +398,7 @@ async function initMap() {
     challengeMarker(challenge);
     map.panTo(challengeLatLng)
 
+
   } catch (error) { console.log(error) }
 }
 //--------------------------------------------------------------------
@@ -563,4 +572,9 @@ const createChallengStepString = (place) => {
     </div>
   `
   return infoWindowString
+}
+
+const findME = () =>{
+  findUser();
+  map.panTo(currentPosition)
 }

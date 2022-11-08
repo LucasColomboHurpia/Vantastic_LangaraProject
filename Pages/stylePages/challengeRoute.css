@@ -218,6 +218,7 @@ background-color: rgba(236, 236, 236, 0.582);
 }
 .direction:hover{
   background-color: rgba(0, 0, 0, 0.055);
+  cursor: pointer;
 }
 
 .stepContainer{
@@ -283,4 +284,20 @@ cursor: pointer;
   to {
       transform:rotate(360deg);
   }
+}
+
+/* ------------------------------- */
+.mapButton{
+  padding: 5px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+.mapButton:hover{
+  background-color: rgb(212, 212, 212);
+
 }

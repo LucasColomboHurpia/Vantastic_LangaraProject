@@ -256,3 +256,21 @@ body{
         transform:rotate(360deg);
     }
 }
+
+
+
+/* ------------------------------- */
+.mapButton{
+    padding: 5px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+  }
+  .mapButton:hover{
+    background-color: rgb(212, 212, 212);
+  
+  }

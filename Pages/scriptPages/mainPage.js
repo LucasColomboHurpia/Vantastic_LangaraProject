@@ -62,6 +62,13 @@ async function initMap() {
       streetViewControl: myStreetViewControl,
     });
 
+    ////---------------------------------------------------------------------------------------------
+        // Create button inside the map
+        const centerControlDiv = document.createElement("div");
+        centerControlDiv.innerHTML = '<span id="findMeButton" onclick="findME()"><img src="../Assets/red marker.png" width="15px"/>Find me</span>'
+        centerControlDiv.classList.add('mapButton')
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+    ////---------------------------------------------------------------------------------------------
 
     ////---------------------------------------------------------------------------------------------
     ///Declarations to make routes work
@@ -499,6 +506,7 @@ const calculateRoute = (lat, lng, mode) => {
 
 //sets up HTML and style yo infowindow
 const createContentString = (place) => {
+
   let infoWindowString = `
     <div class="infoWindowContainer">
     <img class="infoWindowImg" src="${place.picture}">
@@ -509,33 +517,34 @@ const createContentString = (place) => {
       <p class="infoWindow-text"><b>Price Level: </b>${place.priceLevel}</p>
     </div>
     <button type="button" class="infoWindow-btn"
-      onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+      onclick="getRoutePage(${place.position.lat},${place.position.lng})">See route</button>
   </div>
   `
   return infoWindowString
 }
 
 //add if to high option
-const createChallengeString = (challenge) => {
+const createChallengeString = (challengeSpecific) => {
   let challengeSteps = '';
+  console.log(challengeSpecific)
   //if low
-  for (steps of challenge.steps.low) {
+  for (steps of challengeSpecific.steps.low) {
     challengeSteps += `<li class="infoWindow-ChallengeStep" >${steps.desc}</li>`
   }
 
   let infoWindowString = `
     <div class="infoWindowContainer">
-    <img class="infoWindowImg" src="${challenge.image}">
+    <img class="infoWindowImg" src="${challengeSpecific.image}">
     <div class="infoWindow-body">
-      <h5 class="infoWindow-title">${challenge.name}</h5>
-      <p class="infoWindow-text">${challenge.description}</p>
+      <h5 class="infoWindow-title">${challengeSpecific.name}</h5>
+      <p class="infoWindow-text">${challengeSpecific.description}</p>
       <p class="infoWindow-text">
         ${challengeSteps}  
       </p>
     </div>
     <button type="button" class="infoWindow-btn"
-      onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">Start
-      Challenge</button>
+    onclick="startChallenge('${challengeSpecific.id}')">Start Challenge</button>
+      </button>
   </div>
   `
   return infoWindowString
@@ -543,7 +552,7 @@ const createChallengeString = (challenge) => {
 
 //add info for challenge step
 const createChallengStepString = (place) => {
-  console.log('place is', place)
+console.log(place)
 
   let infoWindowString = `
     <div class="infoWindowContainer">
@@ -553,7 +562,7 @@ const createChallengStepString = (place) => {
       <p class="infoWindow-text">${place.description}</p>
     </div>
     <button type="button" class="infoWindow-btn"
-    onclick="calculateRoute(${place.position.lat},${place.position.lng},'TRANSIT')">See route</button>
+    onclick="startChallenge('${place.id}')">Start Challenge</button>
     </div>
   `
   return infoWindowString
@@ -561,3 +570,25 @@ const createChallengStepString = (place) => {
 
 //https://developers.google.com/maps/documentation/javascript/shapes
 
+const startChallenge = (id) => {
+  for(challenge of challengesExample){
+    if(challenge.id == id){
+        localStorage.setItem('challenge', JSON.stringify(challenge));
+    } 
+}
+
+window.location.href = './challengeRoute.html'
+}
+
+const getRoutePage = (lat,lng) =>{
+  let coord = {lat:lat, lng:lng}
+  localStorage.setItem('coord',JSON.stringify(coord))
+
+  window.location.href = './challengeStepRoute.html'
+
+}
+
+const findME = () =>{
+  findUser();
+  map.panTo(currentPosition)
+}

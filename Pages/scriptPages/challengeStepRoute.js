@@ -62,6 +62,13 @@ async function initMap() {
       streetViewControl: myStreetViewControl,
     });
 
+    ////---------------------------------------------------------------------------------------------
+        // Create button inside the map
+        const centerControlDiv = document.createElement("div");
+        centerControlDiv.innerHTML = '<span id="findMeButton" onclick="findME()"><img src="../Assets/red marker.png" width="15px"/>Find me</span>'
+        centerControlDiv.classList.add('mapButton')
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+    ////---------------------------------------------------------------------------------------------
 
     ////---------------------------------------------------------------------------------------------
     ///Declarations to make routes work
@@ -92,7 +99,7 @@ async function initMap() {
           let googleRoute = result.routes[0].legs[0]
           let dataArray = googleRoute.steps
           for (data of dataArray) {
-            console.log('duration:', googleRoute.departure_time)
+            console.log('route:', result.routes[0].legs[0])
           }
 
           //output
@@ -166,7 +173,7 @@ async function initMap() {
             
         //Calculates the route, takes coordinates and the mode of transportarion
         //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
-        const coord = JSON.parse(localStorage.getItem('destination'));
+        const coord = JSON.parse(localStorage.getItem('coord'));
         calculateRoute(coord.lat, coord.lng, 'TRANSIT')
 
           },
@@ -177,7 +184,7 @@ async function initMap() {
 
         //Calculates the route, takes coordinates and the mode of transportarion
         //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
-        const coord = JSON.parse(localStorage.getItem('destination'));
+        const coord = JSON.parse(localStorage.getItem('coord'));
         calculateRoute(coord.lat, coord.lng, 'TRANSIT')
 
       } else {
@@ -185,7 +192,7 @@ async function initMap() {
         handleLocationError(false, infoWindow, VancouverLatlng);
         //Calculates the route, takes coordinates and the mode of transportarion
         //Available modes are //DRIVING, BICYCLING, TRANSIT, WALKING//
-        const coord = JSON.parse(localStorage.getItem('destination'));
+        const coord = JSON.parse(localStorage.getItem('coord'));
         calculateRoute(coord.lat, coord.lng, 'TRANSIT')
 
       }
@@ -327,3 +334,7 @@ const createContentString = (place) => {
   return infoWindowString
 }
 
+const findME = () =>{
+  findUser();
+  map.panTo(currentPosition)
+}

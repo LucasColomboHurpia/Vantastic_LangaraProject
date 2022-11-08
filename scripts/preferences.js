@@ -1,8 +1,8 @@
 //0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
-const surveyTags = ['Day life','Night life','Adrenaline','To Relax','Beach Walks ','Lake and River Walks ','Outdoor Activities','Indoor Activities','History and Architecture','Gastronomy and Culture','Big City Environment','Small City Environment','Group activities','Individual activities', 'City Landscapes', 'Nature Landscapes']
+const surveyTags = ['Day life', 'Night life', 'Adrenaline', 'To Relax', 'Beach Walks ', 'Lake and River Walks ', 'Outdoor Activities', 'Indoor Activities', 'History and Architecture', 'Gastronomy and Culture', 'Big City Environment', 'Small City Environment', 'Group activities', 'Individual activities', 'City Landscapes', 'Nature Landscapes']
 
 
-challengesExample = [ 
+challengesExample = [
     {
         id: '254yh24wtuh62utru2y24554y',
         name: 'THE HANGING BRIDGE CHALLENGE',
@@ -92,7 +92,7 @@ challengesExample = [
                     done: false
                 },
             ],
-            high: [ 
+            high: [
                 {
                     desc: "Go to Sunset Beach and find the Inukshuk Stone Sculpture. Take a picture with it and share it with us! You will most likely see people playing games. Join them if you feel like it!",
                     coord: { lat: 49.28430649257112, lng: -123.14375633650968 },
@@ -107,7 +107,7 @@ challengesExample = [
                     image: '../Assets/default_img.jpg',
                     done: false
                 },
-                { 
+                {
                     desc: "The A-maze-ing Laughter bronze sculpture is there to bring a smile to the ones that see it. Share with us a picture of you smiling with the statues!",
                     coord: { lat: 49.287596913119486, lng: -123.14192174110453 },
                     tag: false,
@@ -153,7 +153,7 @@ challengesExample = [
                     done: false
                 },
             ],
-            high: [ 
+            high: [
                 {
                     desc: "Take a picture with the Granville welcome sign.",
                     coord: { lat: 49.27012311030005, lng: -123.1367827938784 },
@@ -164,11 +164,11 @@ challengesExample = [
                 {
                     desc: "	Have lunch at the Sandbar. Take a picture of your plate!",
                     coord: false,
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: '../Assets/default_img.jpg',
                     done: false
                 },
-                { 
+                {
                     desc: "Try the famous Lee Donuts. Share with us a pic of the doughnut you picked!",
                     coord: { lat: 49.272265103234105, lng: -123.13527755710894 },
                     tag: false,
@@ -180,7 +180,7 @@ challengesExample = [
         image: '../Assets/default_img.jpg',
         budget: '',
         placeId: '',
-        areaCoordinates: { lat: 49.27048109309838, lng: -123.13479550485158},
+        areaCoordinates: { lat: 49.27048109309838, lng: -123.13479550485158 },
         premium: true,
         surveyScore: 0,
         tags: [surveyTags[14], surveyTags[0], surveyTags[1], surveyTags[3], surveyTags[7], surveyTags[9], surveyTags[11], surveyTags[13]]
@@ -209,7 +209,7 @@ challengesExample = [
                 {
                     desc: "Have lunch in Gastown. Share with us a picture of what you decided to order!",
                     coord: { lat: 49.284576542322675, lng: -123.10887160201466 },
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: '../Assets/default_img.jpg',
                     done: false
                 },
@@ -232,7 +232,7 @@ challengesExample = [
                 {
                     desc: "Have lunch in Gastown. Share with us a picture of what you decided to order!",
                     coord: false,
-                    tag: ['restaurant','bar','cafe'],
+                    tag: ['restaurant', 'bar', 'cafe'],
                     image: '../Assets/default_img.jpg',
                     done: false
                 },
@@ -240,7 +240,7 @@ challengesExample = [
         },
         image: '../Assets/default_img.jpg',
         budget: '',
-        placeId: '', 
+        placeId: '',
         areaCoordinates: { lat: 49.288334842288705, lng: -123.1124199551516 },
         premium: true,
         surveyScore: 0,
@@ -301,12 +301,12 @@ challengesExample = [
         },
         image: '../Assets/default_img.jpg',
         budget: '',
-        placeId: '', 
+        placeId: '',
         areaCoordinates: { lat: 50.12040687042842, lng: -122.95420441063983 },
         premium: true,
         surveyScore: 0,
         tags: [/* surveyTags[15], surveyTags[0], surveyTags[2], surveyTags[6], surveyTags[8], surveyTags[12], surveyTags[3]*/]
-    }, 
+    },
 
 ]
 
@@ -374,7 +374,6 @@ const preferences = (surveyResults) => {
         tagScore = 0
     }
 
-    console.log('comparisonValue', comparisonValue)
     for (let i = 0; i < comparisonValue.length; i++) {
         challengesExample[i].surveyScore = comparisonValue[i]
     }
@@ -383,25 +382,25 @@ const preferences = (surveyResults) => {
 
     console.log(challengesExample)
     //organize array from big to low
-  
+
 
     //show info in the side bar
-/*     showChallengeInfo(challengesExample[0])
-    showChallengeInfo(challengesExample[1])
- */
-        challengeLocationMarkers(challengesExample[0], bestPlaces, 1)
+    /*     showChallengeInfo(challengesExample[0])
+        showChallengeInfo(challengesExample[1])
+     */
+    challengeLocationMarkers(challengesExample[0], bestPlaces, 1)
 
     setTimeout(() => {
         challengeLocationMarkers(challengesExample[1], bestPlaces, 1)
-    },3000);
+    }, 3000);
     /*      setTimeout(() => {
             console.log(challengesExample[comparisonValue[2]]) ///this gets the challenges
             challengeLocationMarkers(challengesExample[comparisonValue[2]], bestPlaces, 1)
         }, 12000);  */
-    
-        setTimeout(() => {
+
+    setTimeout(() => {
         librarians.aroundVancouverMarkers('tourist_attraction', 3)
-    },2000);
+    }, 2000);
 }
 
 /*  */
@@ -418,7 +417,7 @@ const challengeLocationMarkers = (challenge, bestPlaces, delay) => {
         setTimeout(() => {
             librarians.placesAPIRequest(bestPlaces[i].name, challenge.areaCoordinates, 3, false, 1200)
         }, animationDelay * i);
-    } 
+    }
 }
 
 const showChallengeInfo = (challenge) => {
@@ -439,43 +438,45 @@ const showChallengeInfo = (challenge) => {
 
     `
         let placeMarker = {
-            position: {lat:'',lng:''},
+            position: { lat: '', lng: '' },
             title: '',
             name: '',
             icon: '',
             category: 'challengeStep',
             description: '',
             image: '',
+            id: '',
         }
         for (let i = 0; i < challenge.steps.low.length; i++) {
             let challengeStep = challenge.steps.low[i]
 
             //checks if there are specific coordinates for the step
-            if(challengeStep.coord==false){console.log('has no coordinates')}
-            else{
-                if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = markerN1; }
-                if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = markerN2; }
-                if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = markerN3; }
+            if (challengeStep.coord == false) { console.log('has no coordinates') }
+            else {
+                if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1; }
+                if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2; }
+                if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3; }
                 placeMarker.title = challenge.name
                 placeMarker.name = challenge.name
                 placeMarker.description = challengeStep.desc
                 placeMarker.image = challengeStep.image
-                placeMarker.position = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
+                placeMarker.id = challenge.id
+                placeMarker.position = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
                 librarians.pinMaker(placeMarker)
             }
 
             //checks if there are specific TAGS for the step
-            if(challengeStep.tag==false){console.log('has no tags')}
-            else{
-                if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = orangeMarkerN1; }
-                if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = orangeMarkerN2; }
-                if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = orangeMarkerN3; }
+            if (challengeStep.tag == false) { console.log('has no tags') }
+            else {
+                if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = orangeMarkerN1; }
+                if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = orangeMarkerN2; }
+                if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = orangeMarkerN3; }
                 placeMarker.description = challengeStep.desc
                 placeMarker.image = challengeStep.image
-                let placeMarkerPosition = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
+                let placeMarkerPosition = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
                 setTimeout(() => {
-              //  librarians.placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false,  1200) //(type, position, npins, remove, radius)
-            }, i * 6000);
+                    //  librarians.placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false,  1200) //(type, position, npins, remove, radius)
+                }, i * 6000);
             }
         }
     }
@@ -494,29 +495,29 @@ const showChallengeInfo = (challenge) => {
         </div>
 
     `
-    let placeMarker = {
-        position: {lat:'',lng:''},
-        title: '',
-        icon: '',
-        category: 'challengeStep'
-    }
-    for (let i = 0; i < challenge.steps.high.length; i++) {
-        let challengeStep = challenge.steps.low[i]
-        if(challengeStep.coord==false){return console.log('has no coordinates')}
-        else{
-            if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = markerN1}
-            if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = markerN2}
-            if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = markerN3}
-            placeMarker.position = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
-            librarians.pinMaker(placeMarker)
+        let placeMarker = {
+            position: { lat: '', lng: '' },
+            title: '',
+            icon: '',
+            category: 'challengeStep'
+        }
+        for (let i = 0; i < challenge.steps.high.length; i++) {
+            let challengeStep = challenge.steps.low[i]
+            if (challengeStep.coord == false) { return console.log('has no coordinates') }
+            else {
+                if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1 }
+                if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2 }
+                if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3 }
+                placeMarker.position = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
+                librarians.pinMaker(placeMarker)
+            }
         }
     }
 }
-}
 
-const panToChallenge = (lat,lng) => {
-    console.log(lat,lng)
-    let challengePos = {lat:lat, lng:lng}
+const panToChallenge = (lat, lng) => {
+    console.log(lat, lng)
+    let challengePos = { lat: lat, lng: lng }
     map.panTo(challengePos)
     map.setZoom(14)
 }
