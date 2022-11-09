@@ -368,7 +368,7 @@ async function initMap() {
         position: challenge.areaCoordinates,
         map,
         title: challenge.name,
-        icon: "../Assets/blue marker.png",
+        icon: challenge.marker,
       });
 
       //INFOWINDOW
@@ -582,7 +582,6 @@ const createChallengeString = (challenge) => {
 
   let infoWindowString = `
     <div class="infoWindowContainer">
-    <img class="infoWindowImg" src="${challenge.image}">
     <div class="infoWindow-body">
       <h5 class="infoWindow-title">${challenge.name}</h5>
       <p class="infoWindow-text">${challenge.description}</p>
@@ -591,8 +590,7 @@ const createChallengeString = (challenge) => {
       </p>
     </div>
     <button type="button" class="infoWindow-btn"
-      onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">Start
-      Challenge</button>
+      onclick="calculateRoute(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng},'TRANSIT')">See route</button>
   </div>
   `
   return infoWindowString
@@ -605,7 +603,6 @@ const createChallengStepString = (place) => {
   let infoWindowString = `
     <div class="infoWindowContainer">
     <div class="infoWindow-body">
-    <h5 class="infoWindow-title">${place.name}</h5>
       <p class="infoWindow-text">${place.description}</p>
     </div>
     <button type="button" class="infoWindow-btn"

@@ -412,7 +412,7 @@ async function initMap() {
         position: challenge.areaCoordinates,
         map,
         title: challenge.name,
-        icon: "../Assets/blue marker.png",
+        icon: challenge.marker,
       });
 
       //INFOWINDOW
