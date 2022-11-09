@@ -91,7 +91,7 @@ async function initMap() {
                                               <span>Challenge Step</span>
                                             </span>` 
         captionDiv.classList.add('mapCaption')
-        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(captionDiv);
+        map.controls[google.maps.ControlPosition.RIGHT].push(captionDiv);
     ////---------------------------------------------------------------------------------------------
 
 

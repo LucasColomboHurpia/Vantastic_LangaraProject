@@ -280,6 +280,7 @@ body{
     position:relative;
     /* border: 1px solid black; */
     border-radius: 25px;
+    border-top-left-radius: 0;    border-top-right-radius: 0; border-bottom-right-radius: 0;
     font-size: small;
     padding: 1px;
     font-weight: bold;
