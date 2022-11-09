@@ -26,8 +26,8 @@
     --main-bg-color: white;
     --main-title-color: white;
     --main-placeholder-color: rgb(155, 155, 155);
-    --main-border-style: 1px solid black;
-    --main-border-testing: 0px solid black;
+    --main-border-style: 1px solid #381160;
+    --main-border-testing: 0px solid #381160;
     --main-border-colorful: linear-gradient(94.49deg, #802778 5.08%, #D4264D 22.17%, #EA6233 47.51%, #F8A51E 67.55%, #F6E566 94.66%);
 }
 
@@ -53,22 +53,27 @@ body{
 }
 
 .logo {
-    height: 400px;
+    height: 500px;
     width: 700px;
 
 }
+.button{
+    margin-left: 100px;
+}
+
 
 .button {
     margin-top: 10px;
     border: var(--main-border-style);
     border-color: --main-border-colorful;
-    border-radius: 15px;
+    border-radius: 30px;
     padding: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 80px;
+    padding-right: 80px;
     text-align: center;
     flex-shrink: 1;
-    font-weight: bold;
+    font-size: 1.5em;
+    color: #381160;
 
    
 
@@ -79,9 +84,10 @@ body{
 
 #register:hover {
     background-color: var(--main-button-hover-color);
-
+    border-color: #381160;
     cursor: pointer;
     user-select: none;
+    border: 1;
 }
 
 p {
@@ -89,28 +95,36 @@ p {
 }
 
 #register {
-    background-color: var(--main-button-color-secondary);
+    background-color: #623d9396;
     border: 0;
 }
 
 .button:hover {
     /*colors*/
     background-color: var(--main-button-hover-color);
+    border-color: #381160;
 
     cursor: pointer;
     user-select: none;
 }
 
+html{
+    height:100%;
+    width:100%;
+}
 
 body {
-    background-image: url(../../Assets/designer-assets/png-cover.png);
+    background-image: url(../../Assets/designer-assets/png-cover-mobile.png);
     background-size: 100%;
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     /* Set a background color that will be displayed while the background image is loading */
     background-color: #464646;
@@ -125,9 +139,16 @@ body {
     font-weight: lighter;
 }
 
-@media only screen and (max-width: 500px) {
+#guestB:hover {
+    color: #381160;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+@media only screen and (min-width: 500px) {
     body {
-        background-image: url(../../Assets/designer-assets/png-cover-mobile.png);
+        background-image: url(../../Assets/designer-assets/png-cover.png);
         background-size: 100%;
         width: 100%;
         height: 100%;
@@ -138,6 +159,11 @@ body {
         background-size: cover;
         /* Set a background color that will be displayed while the background image is loading */
         background-color: #464646;
-    
+    }
+    .logo{
+        height: 400px;
+    }
+    .button{
+        margin-left: 0px;
     }
 }

@@ -40,7 +40,7 @@
 
 .form {
     
-    margin-top: 20%;
+    margin-top: 30%;
     display: flex;
     align-items: center;
     align-content: center;
@@ -65,8 +65,11 @@
     display: flex;
     flex-direction: row;
     width: 350px;
-    margin-bottom: 10px;
     
+}
+
+#firstName{
+    margin-right: 5px;
 }
 
 #fullName:first{
@@ -74,6 +77,10 @@
     flex-direction: row;
     margin-bottom: 10px;
     margin-right: 55px;
+}
+
+#intro{
+    height: 250px;
 }
 
 .form-item {
@@ -85,27 +92,42 @@
 }
 
 #buttonSU{
+    border: var(--main-border-style);
+    padding: 1px;
+    margin-top: 25px;
     border-color: #8C2B72;
-    border-width: 5px;
+    border-width: 1px;
     font-weight: bold;
     font-size: 1.5em;
-    height: 60px;
-    width: 140px;
-    border-radius: 25px;
-    
+    height: 70px;
+    width: 200px;
+    border-radius: 30px;
+    color: #381160;
+    background-color: #623d9396;
+    border:0
 }
 
-#button {
-    
+#buttonSU:hover {
+    background-color: var(--main-button-hover-color);
+    border-color: #381160;
+    cursor: pointer;
+    user-select: none;
+    border: 1;
+}
+.button {
+    margin-top: 10px;
     border: var(--main-border-style);
-    border-radius: 15px;
-    padding: 10px;
+    border-color: --main-border-colorful;
+    border-radius: 30px;
+    padding: 5px;
     padding-left: 30px;
     padding-right: 30px;
     text-align: center;
-
-    /*colors*/
+    flex-shrink: 1;
+    font-size: 1.1em;
+    color: #381160;
     background-color: var(--main-button-color);
+    font-weight: bold;
 }
 
 .pageOption{
@@ -113,7 +135,7 @@
     float: right
 }
 
-#button:hover {
+.button:hover {
     /*colors*/
     background-color: var(--main-button-hover-color);
 
@@ -121,32 +143,31 @@
     user-select: none;
 }
 
-.button {
-    border: var(--main-border-style);
-    border-radius: 15px;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    text-align: center;
-    margin-top: 20px;
-
-    /*colors*/
-    background-color: var(--main-button-color);
+#moreB{  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 15px;
 }
 
-.button:hover{
-    /*colors*/
-    background-color: var(--main-button-hover-color);
-    
+#guestB {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #802778;
+    font-weight: lighter;
+}
+
+#guestB:hover {
+    color: #381160;
+
     cursor: pointer;
     user-select: none;
 }
 
-#guest{
-    grid-area: guest;
-    
-    margin-right: 10px;
-}
 
 .logo{
     margin-left: 30px;
@@ -177,9 +198,12 @@ body {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     /* Set a background color that will be displayed while the background image is loading */
     background-color: #464646;
@@ -193,7 +217,7 @@ body {
         width: 100%;
         height: 100%;
         background-size: cover;
-        background-position: center center;
+        background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
@@ -222,5 +246,18 @@ body {
         width: 505px;
         margin-bottom: 10px;
         margin-right: 55px;
+    }
+    #intro{
+        height: 0px;
+    }
+
+    #firstName{
+        margin-right: 10px;
+    }
+    #moreB{
+        margin-top: 0;
+    }
+    .form {
+        margin-top: 15%;
     }
 }
