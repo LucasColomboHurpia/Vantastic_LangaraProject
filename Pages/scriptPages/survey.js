@@ -140,9 +140,9 @@ const getSurveyHtmlElements = () => {
     surveyProgress = document.getElementById('surveyProgress')
 }
 
-let surveyDelay = 300
-
-let currentOptions = 0
+let surveyDelay = 1000;
+let donevar = false;
+let currentOptions = 0;
 
 const introSurvey = () => {
     surveyWrapping.innerHTML = `
@@ -351,7 +351,10 @@ const surveyCheckProgress = () => {
         }
     }
 
-    finishSurvey();
+    if(donevar == false){
+        donevar = true
+        finishSurvey();
+    } else {console.log('fixed jank code')}
 }
 
 const navigateSurvey = (i) => {
@@ -388,29 +391,6 @@ const surveyParseAnswer = (opt) => {
 
     console.log('user', user)
 
-    //REMOVE THIS
-    /*     user.preferences = {       
-    surveyDone: true,
-    budget: 'low',
-    surveyResults: {
-        placesPreferences: [
-            { name: 'restaurant', value: 2, },
-            { name: 'library', value: 5, },
-            { name: 'art_gallery', value: 3, },
-            { name: 'bar', value: 1, },
-            { name: 'movie_theater', value: 4, },
-            { name: 'bowling_alley', value: 3, },
-            { name: 'museum', value: 3, },
-            { name: 'cafe', value: 4, },
-            { name: 'night_club', value: 1, },
-            { name: 'park', value: 5, },
-            { name: 'shopping_mall', value: 3, },
-            { name: 'stadium', value: 1, },
-            { name: 'zoo', value: 2, },
-        ],
-        ChallengePreferences: ['Day', 'Relax', 'History']
-    }
-    } */
 
     localStorage.clear()
     localStorage.setItem("user", JSON.stringify(user));
@@ -501,7 +481,7 @@ const finishSurvey = () => {
 }
 
 
-introSurvey()
+startSurvey()
 
 
 

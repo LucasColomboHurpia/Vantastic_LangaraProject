@@ -164,8 +164,8 @@ body{
     display: inline;
     
     border-radius: 10px;
-    margin-top: 30px;
-    padding: 15px;
+    margin-top: 40px;
+    padding: 25px;
     padding-left: 40px;
     padding-right: 40px;
 
@@ -205,14 +205,15 @@ body{
 
  .spinCard{
     animation-name: spin;
-    animation-duration: 1.5s;
-/*     animation-timing-function: ease-in;
- */ }
+    animation-duration: 1s;
+     animation-timing-function: ease-out; 
+ }
  @keyframes spin {
-    0%   {background-color: var(--main-button-hover-color);  padding: 9px;}
-    25%  {background-color: var(--main-button-color);}
-    50%  {background-color: var(--main-bg-color); color: white;}
-    100% {background-color: var(--main-title-color); padding: 0px; border-width: 2px; transform: rotateY(720deg);color: white;}
+    0%   {background-color: var(--main-button-hover-color); }
+    25%  { padding: 9px;}
+    50%  {transform: rotateY(0deg); font-size:x-large;}
+    75% { color:white;  }
+    100% {background-color: var(--main-title-color); color:var(--main-title-color);padding: 0px; border-width: 2px; transform: rotateY(180deg);color: white;}
   }
 
  /* //////////////////////////////
