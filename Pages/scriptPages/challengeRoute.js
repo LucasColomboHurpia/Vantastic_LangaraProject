@@ -54,8 +54,9 @@ const orangeMarkerN2 = "../Assets/number 2 - orange marker.png";
 const orangeMarkerN3 = "../Assets/number 3 - orange marker.png";
 
 //get Challenge from storage
-const challenge = JSON.parse(localStorage.getItem('challenge'));
+let challenge = JSON.parse(localStorage.getItem('challenge'));
 console.log(challenge)
+
 
 let userResults = JSON.parse(localStorage.getItem('user'))
 let userPreferences = userResults.preferences
@@ -69,7 +70,7 @@ async function initMap() {
   try {
     //sets default position to downtown
     let VancouverLatlng = new google.maps.LatLng(49.281709, -123.119305); // location downtown
-    let challengeLatLng = {lat: challenge.areaCoordinates.lat, lng: challenge.areaCoordinates.lng}
+    let challengeLatLng = { lat: challenge.areaCoordinates.lat, lng: challenge.areaCoordinates.lng }
 
     currentPosition = VancouverLatlng //sets current position to downtown
 
@@ -86,11 +87,11 @@ async function initMap() {
     });
 
     ////---------------------------------------------------------------------------------------------
-        // Create button inside the map
-        const centerControlDiv = document.createElement("div");
-        centerControlDiv.innerHTML = '<span id="findMeButton" onclick="findME()"><img src="../Assets/red marker.png" width="15px"/>Find me</span>'
-        centerControlDiv.classList.add('mapButton')
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+    // Create button inside the map
+    const centerControlDiv = document.createElement("div");
+    centerControlDiv.innerHTML = '<span id="findMeButton" onclick="findME()"><img src="../Assets/red marker.png" width="15px"/>Find me</span>'
+    centerControlDiv.classList.add('mapButton')
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
     ////---------------------------------------------------------------------------------------------
 
     ///Declarations to make routes work
@@ -195,10 +196,10 @@ async function initMap() {
             });
             //update currentPosition 
             currentPosition = pos;
-             //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
-            
-        //Calculates the route, takes coordinates and the mode of transportarion
-//---------------------------------------------------------------------------------------------------------        
+            //https://developers.google.com/maps/documentation/javascript/reference/map#Map.setCenter
+
+            //Calculates the route, takes coordinates and the mode of transportarion
+            //---------------------------------------------------------------------------------------------------------        
           },
           () => {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -281,7 +282,7 @@ async function initMap() {
         //-------------------------------
 
         let step1 = document.getElementById('step1')
-        if(place.icon == markerN1){
+        if (place.icon == markerN1) {
           step1.addEventListener("click", () => {
             console.log('clicked')
 
@@ -290,14 +291,14 @@ async function initMap() {
               map,
               shouldFocus: true,
             });
-  
+
             //Close infowindow when a new one is open
             closeinfoWindow(infowindow)
           });
         }
 
         let step2 = document.getElementById('step2')
-        if(place.icon == markerN2){
+        if (place.icon == markerN2) {
           step2.addEventListener("click", () => {
             console.log('clicked')
 
@@ -306,14 +307,14 @@ async function initMap() {
               map,
               shouldFocus: true,
             });
-  
+
             //Close infowindow when a new one is open
             closeinfoWindow(infowindow)
           });
-        }        
-        
+        }
+
         let step3 = document.getElementById('step3')
-        if(place.icon == markerN3){
+        if (place.icon == markerN3) {
           step3.addEventListener("click", () => {
             console.log('clicked')
 
@@ -322,23 +323,23 @@ async function initMap() {
               map,
               shouldFocus: true,
             });
-  
+
             //Close infowindow when a new one is open
             closeinfoWindow(infowindow)
           });
         }
 
 
-    /*     stepInstructions.addEventListener('click',()=>{
-          infowindow.open({
-            anchor: marker,
-            map,
-            shouldFocus: true,
-          });
-
-          //Close infowindow when a new one is open
-          closeinfoWindow(infowindow)
-        }) */
+        /*     stepInstructions.addEventListener('click',()=>{
+              infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: true,
+              });
+    
+              //Close infowindow when a new one is open
+              closeinfoWindow(infowindow)
+            }) */
 
 
       }
@@ -404,7 +405,7 @@ async function initMap() {
 //--------------------------------------------------------------------
 //--------------------------------------------------------------------
 
-const loadChallengeSteps = (challenge) =>{
+const loadChallengeSteps = (challenge) => {
   let directionInfo = document.getElementById('directionInfo');
 
   directionInfo.innerHTML = `
@@ -413,13 +414,21 @@ const loadChallengeSteps = (challenge) =>{
             <div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>
             <div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>
     `
-    for (data of dataArray) {
-      directionInfo.innerHTML += `
+  for (data of dataArray) {
+    directionInfo.innerHTML += `
         <div class="direction">${data.instructions} <b>${data.duration.text}</b></div>
         `
-    }
+  }
 
 }
+
+//----------------------------------------------------------------------------
+//if low
+let challengeSteps = challenge.steps.low
+//if high
+// let challengeSteps = challenge.steps.high
+//----------------------------------------------------------------------------
+
 
 const showChallengeSteps = (challenge) => {
   let challengeTitle = document.getElementById('challengeName');
@@ -427,22 +436,31 @@ const showChallengeSteps = (challenge) => {
 
   console.log(challenge)
 
-  //if low
-  let challengeSteps = challenge.steps.low
-  //if high
-  // let challengeSteps = challenge.steps.high
-
   challengeTitle.innerHTML = `${challenge.name}`
 
-  challengeInfo.innerHTML = `
-            <div class="direction" id="step1"><div class="stepContainer"><img src="../Assets/designer-assets/png-icons-uploadpicture.png" width="100px"/> ${challengeSteps[0].desc}</div></div>
-            <div class="direction" id="step2"><div class="stepContainer"><img src="../Assets/designer-assets/png-icons-uploadpicture.png" width="100px"/> ${challengeSteps[1].desc}</div></div>
-            <div class="direction" id="step3"><div class="stepContainer"><img src="../Assets/designer-assets/png-icons-uploadpicture.png" width="100px"/> ${challengeSteps[2].desc}</div></div>
-            <br>
-            <div class="returnButton" id="returnButton" onclick="history.back()">Return</div>
+  let defaultImg = '../Assets/designer-assets/png-icons-uploadpicture.png'
 
-            `
+  challengeInfo.innerHTML = '';
 
+  let i = 0;
+  for (step of challengeSteps) {
+    if (step.done) {
+      challengeInfo.innerHTML += `<div class="stepDone" id="step1"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/> ${step.desc}</div></div>`
+    } else {
+      challengeInfo.innerHTML += `<div class="direction" id="step1"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/><div class="submit">Submit</div> ${step.desc}</div></div>`
+    }
+    i++;
+  }
+  challengeInfo.innerHTML += `
+  <br>
+  <div class="returnButton" id="returnButton" onclick="history.back()">Return</div>
+`
+  ///-----------------------------------------------------------------
+  //check if complete
+
+  if (challengeSteps[0].done && challengeSteps[1].done && challengeSteps[2].done) {
+    setTimeout(()=>{challengeCompletion()}, 2000)
+  }
 }
 showChallengeSteps(challenge);
 
@@ -459,92 +477,92 @@ const closeinfoWindow = (infowindow) => {
 const showChallengeInfo = (challenge) => {
 
   if (userPreferences.budget == 'low') {
-      let placeMarker = {
-          position: {lat:'',lng:''},
-          title: '',
-          name: '',
-          icon: '',
-          category: 'challengeStep',
-          description: '',
-          image: '',
+    let placeMarker = {
+      position: { lat: '', lng: '' },
+      title: '',
+      name: '',
+      icon: '',
+      category: 'challengeStep',
+      description: '',
+      image: '',
+    }
+    for (let i = 0; i < challenge.steps.low.length; i++) {
+
+      let challengeStep = challenge.steps.low[i]
+
+      //checks if there are specific coordinates for the step
+      if (challengeStep.coord == false) { console.log('has no coordinates') }
+      else {
+        if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1; }
+        if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2; }
+        if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3; }
+        placeMarker.title = challenge.name
+        placeMarker.name = challenge.name
+        placeMarker.description = challengeStep.desc
+        placeMarker.image = challengeStep.image
+        placeMarker.position = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
+        pinMarker(placeMarker)
       }
-      for (let i = 0; i < challenge.steps.low.length; i++) {
 
-          let challengeStep = challenge.steps.low[i]
-
-          //checks if there are specific coordinates for the step
-          if(challengeStep.coord==false){console.log('has no coordinates')}
-          else{
-              if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = markerN1; }
-              if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = markerN2; }
-              if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = markerN3; }
-              placeMarker.title = challenge.name
-              placeMarker.name = challenge.name
-              placeMarker.description = challengeStep.desc
-              placeMarker.image = challengeStep.image
-              placeMarker.position = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
-              pinMarker(placeMarker)
-          }
-
-          //checks if there are specific TAGS for the step
-          if(challengeStep.tag==false){console.log('has no tags')}
-          else{
-              if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = orangeMarkerN1; }
-              if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = orangeMarkerN2; }
-              if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = orangeMarkerN3; }
-              placeMarker.description = challengeStep.desc
-              placeMarker.image = challengeStep.image
-              let placeMarkerPosition = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
-              setTimeout(() => {
-              placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false,  1200) //(type, position, npins, remove, radius)
-          }, i * 6000);
-          }
+      //checks if there are specific TAGS for the step
+      if (challengeStep.tag == false) { console.log('has no tags') }
+      else {
+        if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = orangeMarkerN1; }
+        if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = orangeMarkerN2; }
+        if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = orangeMarkerN3; }
+        placeMarker.description = challengeStep.desc
+        placeMarker.image = challengeStep.image
+        let placeMarkerPosition = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
+        setTimeout(() => {
+          placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false, 1200) //(type, position, npins, remove, radius)
+        }, i * 6000);
       }
+    }
   }
 
   if (userPreferences.budget == 'high') {
     let placeMarker = {
-        position: {lat:'',lng:''},
-        title: '',
-        name: '',
-        icon: '',
-        category: 'challengeStep',
-        description: '',
-        image: '',
+      position: { lat: '', lng: '' },
+      title: '',
+      name: '',
+      icon: '',
+      category: 'challengeStep',
+      description: '',
+      image: '',
     }
     for (let i = 0; i < challenge.steps.high.length; i++) {
 
-        let challengeStep = challenge.steps.high[i]
+      let challengeStep = challenge.steps.high[i]
 
-        //checks if there are specific coordinates for the step
-        if(challengeStep.coord==false){console.log('has no coordinates')}
-        else{
-            if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = markerN1; }
-            if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = markerN2; }
-            if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = markerN3; }
-            placeMarker.title = challenge.name
-            placeMarker.name = challenge.name
-            placeMarker.description = challengeStep.desc
-            placeMarker.image = challengeStep.image
-            placeMarker.position = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
-            pinMarker(placeMarker)
-        }
+      //checks if there are specific coordinates for the step
+      if (challengeStep.coord == false) { console.log('has no coordinates') }
+      else {
+        if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1; }
+        if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2; }
+        if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3; }
+        placeMarker.title = challenge.name
+        placeMarker.name = challenge.name
+        placeMarker.description = challengeStep.desc
+        placeMarker.image = challengeStep.image
+        placeMarker.position = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
+        pinMarker(placeMarker)
+      }
 
-        //checks if there are specific TAGS for the step
-        if(challengeStep.tag==false){console.log('has no tags')}
-        else{
-            if(i==0){placeMarker.title = 'First Step!' ;placeMarker.icon = orangeMarkerN1; }
-            if(i==1){placeMarker.title = 'Second Step!';placeMarker.icon = orangeMarkerN2; }
-            if(i==2){placeMarker.title = 'Third Step!' ;placeMarker.icon = orangeMarkerN3; }
-            placeMarker.description = challengeStep.desc
-            placeMarker.image = challengeStep.image
-            let placeMarkerPosition = {lat: challengeStep.coord.lat, lng: challengeStep.coord.lng}
-            setTimeout(() => {
-            placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false,  1200) //(type, position, npins, remove, radius)
+      //checks if there are specific TAGS for the step
+      if (challengeStep.tag == false) { console.log('has no tags') }
+      else {
+        if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = orangeMarkerN1; }
+        if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = orangeMarkerN2; }
+        if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = orangeMarkerN3; }
+        placeMarker.description = challengeStep.desc
+        placeMarker.image = challengeStep.image
+        let placeMarkerPosition = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
+        setTimeout(() => {
+          placesAPIRequest(challengeStep.tag[0], placeMarkerPosition, 3, false, 1200) //(type, position, npins, remove, radius)
         }, i * 6000);
-        }
+      }
     }
-}
+  }
 }
 
 
@@ -575,7 +593,7 @@ const createContentString = (place) => {
 const createChallengeString = (challenge) => {
   let challengeSteps = '';
 
-    //if low
+  //if low
   for (steps of challenge.steps.low) {
     challengeSteps += `<li class="infoWindow-ChallengeStep" >${steps.desc}</li>`
   }
@@ -612,7 +630,199 @@ const createChallengStepString = (place) => {
   return infoWindowString
 }
 
-const findME = () =>{
+const findME = () => {
   findUser();
   map.panTo(currentPosition)
+}
+
+
+///---------------------------------------------------------------------------------------------
+
+//MODAL//
+
+//declare elements
+buttonUpload = document.getElementById('buttonUpload')
+fileInput = document.getElementById('fileInput')
+submitbutton = document.getElementById('submitbutton')
+buttonTakePic = document.getElementById('buttonTakePic')
+displayImage = document.getElementById('display-image')
+videoModal = document.getElementById('videoModal')
+snapButton = document.getElementById('snapButton')
+
+// Get the modal
+let modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0];
+let span2 = document.getElementsByClassName("close")[1];
+
+stepIndex = 0;
+
+const showModal = (desc, index, img) => {
+  (document.getElementById('modalText')).innerHTML = desc
+  stepIndex = index
+  modal.style.display = "block";
+  videoModal.style.display = "none";
+  snapButton.style.display = "none";
+  submitbutton.style.display = "none";
+
+  if (challengeSteps[stepIndex].done) {
+    displayImage.style.backgroundImage = `url(${img})`;
+    console.log("done!")
+  } else {
+    displayImage.style.backgroundImage = ``;
+  }
+}
+
+// When the user clicks on <span> (x), close the modal
+span.addEventListener('click', () => {
+  modal.style.display = "none";
+  if (videoModal.style.display == 'block') {
+    displayImage.style.display = 'block'
+
+    const tracks = videoModal.srcObject.getTracks();
+    tracks.forEach((track) => track.stop());
+  }
+}
+)
+span2.addEventListener('click', () => {
+  modalCompletion.style.display = "none";
+  if (videoModal.style.display == 'block') {
+    displayImage.style.display = 'block'
+
+    const tracks = videoModal.srcObject.getTracks();
+    tracks.forEach((track) => track.stop());
+  }
+}
+)
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    if (videoModal.style.display == 'block') {
+      displayImage.style.display = 'block'
+      const tracks = videoModal.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+    }
+  }
+
+}
+
+
+//upload button
+buttonUpload.addEventListener('click', () => {
+  videoModal.style.display = 'none';
+  displayImage.style.display = 'block'
+  submitbutton.style.display = "flex";
+  snapButton.style.display = "none";
+  fileInput.click()
+})
+
+//when image is selected by user, activates this
+let uploaded_image;
+fileInput.onchange = () => {
+
+
+  console.log(fileInput.files[0]);
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    uploaded_image = reader.result;
+    displayImage.style.backgroundImage = `url(${uploaded_image})`;
+    console.log(typeof uploaded_image)
+  });
+  reader.readAsDataURL(fileInput.files[0]);
+  snapButton.style.display = "none";
+  submitbutton.style.display = "flex";
+}
+
+
+buttonTakePic.addEventListener("click", () => {
+  displayImage.style.display = 'none'
+  videoModal.style.display = 'block';
+  submitbutton.style.display = "none";
+  snapButton.style.display = "flex";
+
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      //video.src = window.URL.createObjectURL(stream);
+      videoModal.srcObject = stream;
+      // video.play();  // or autplay
+    });
+  } else {
+    console.log('media devices not available in this browser');
+  }
+})
+
+//submit challenge
+submitbutton.addEventListener("click", () => {
+  modal.style.display = "none";
+
+  challengeSteps[stepIndex].image = uploaded_image
+  challengeSteps[stepIndex].done = true
+
+  showChallengeSteps(challenge)
+
+  submitbutton.style.display = "none";
+})
+
+//snap
+const canvas = document.createElement('canvas');
+const context = canvas.getContext('2d');
+snapButton.addEventListener("click", () => {
+  canvas.width = videoModal.videoWidth;
+  canvas.height = videoModal.videoHeight;
+  context.drawImage(videoModal, 0, 0);
+
+  //we can pass the content of canvas as blob (a file like object)
+  const imageBlob = canvas.toBlob(handleBlob, 'image/jpeg');
+})
+
+function handleBlob(blob) {
+  const tracks = videoModal.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
+
+  // we can turn the blob into DOMString
+  const objectURL = window.URL.createObjectURL(blob);
+
+  console.log(objectURL)
+
+  displayImage.style.backgroundImage = `url(${objectURL})`;
+  videoModal.style.display = 'none';
+  displayImage.style.display = 'block';
+  submitbutton.style.display = "flex";
+  snapButton.style.display = "none";
+
+  uploaded_image = objectURL
+
+  //if we want to store the image into server, one way is to
+  //create base64 rendition of the the blob using FileReader
+  const reader = new FileReader();
+  reader.addEventListener('load', () => {
+    console.log('Base64:', reader.result);
+  });
+  // if you want to deal with it as base64 string (e.g. img src)
+  reader.readAsDataURL(blob);
+  //if you want to read it binary
+  //reader.readAsArrayBuffer(blob);
+}
+
+///---------------------------------------------------------------------------------------------
+// -------- CHALLENGE COMPLETION --------
+
+
+const challengeCompletion = () => {
+  console.log("CONGRATULATIONS")
+
+  let modalCompletion = document.getElementById('modalCompletion');
+
+  modalCompletion.style.display = 'block'
+
+  modalCompletion.classList.add('animationSlideIN')
+
+
+  document.getElementById('congratsDesc').innerHTML = `You completed <b>${challenge.name}</b>!`
+
+
 }

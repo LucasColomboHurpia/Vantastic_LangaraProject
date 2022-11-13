@@ -26,7 +26,7 @@
         Failed to load resources, click here to reload
         <img src="../Assets/reloadIcon.png" alt="reload" class="reloadIcon">
       </div>
-      
+
     </div>
 
     <div class="routesContainer">
@@ -54,10 +54,71 @@
 
   </div>
 
-  <!--- API KEY GMAPS --->
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
 
+  <!--- //////////////////////MODAL///////////////////////////////// --->
+
+  <!--  Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modalText">Some Dummy text goes here bla bla bla</div>
+      <video id="videoModal" autoplay></video>
+      <div id="display-image"></div>
+      <div id="submitbutton" class="submitbutton">Submit</div>
+      <div id="snapButton" class="submitbutton">Snap a Picture!</div>
+
+      <div class="modalBtncontainer">
+        <div id="buttonUpload" class=" modalBtn buttonUpload">
+          <span>
+            <img src="../Assets/designer-assets/png-icons-uploadpicture-small.png" class="modalImg" alt="">
+          </span>
+          <span class="modalBtnText">Upload a picture!</span>
+        </div>
+        <div id="buttonTakePic" class=" modalBtn buttonTakePic">
+          <span>
+            <img src="../Assets/designer-assets/png-camera.png" class="modalImg2" alt="">
+          </span>
+          <span class="modalBtnText">Take a picture!</span>
+        </div>
+      </div>
+      <input type="file" name="fileinput" id="fileInput">
+    </div>
+  </div>
+
+  <!--- //////////////////////MODAL - Completion///////////////////////////////// --->
+
+  <!--  Modal -->
+  <div id="modalCompletion" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content modal-content-completion" id="modal-content-completion">
+      <span class="close">&times;</span>
+      <div class="congratsContainer">
+        <div class="modalTextCongrat">
+          Congratulations!
+        </div>
+        <img class="badgeCongrats" id="badgeCongrats" src="../Assets/designer-assets/png-icons-badges-small.png" alt="Badge">
+        <div class="congratsDesc" id="congratsDesc">
+          You completed the [CHALLENGE NAME HERE] Challenge!
+        </div>
+        <div class="congratsBtnContainer">
+          <span class="modalBtn congratsBtn" onclick="window.location.href='./challenges.html';">Go back to Challenges</span>
+          <span class="modalBtn congratsBtn" onclick="window.location.href='./badges.html';">See my badges</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!--- /////////////////////////////////////////////////////// --->
+
+  <!--- API KEY GMAPS --->
+  <!--     <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFHIV-zkEGg03bKismXoLtaq9KRaGC4FQ&callback=initMap&libraries=places&v=weekly"></script>
+ -->
   <script defer src="./scriptPages/addHeader.js"></script>
   <script defer src="./scriptPages/challengeRoute.js"></script>
 

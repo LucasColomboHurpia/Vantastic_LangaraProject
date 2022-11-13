@@ -1,60 +1,63 @@
 :root {
-    --main-body-color: rgb(224, 222, 222);
-    --main-button-color: rgb(100, 77, 122);
-    --main-button-hover-color: rgb(108, 94, 121);
-    --main-bg-color: rgba(0, 90, 90, 0.548);
-    --main-title-color: rgba(13, 82, 82, 0.548);
-    --main-placeholder-color: rgb(85, 51, 116);
-    --main-border-style: 1px solid black;
-    --main-border-testing: 1px dashed black; 
+  --main-body-color: rgb(224, 222, 222);
+  --main-button-color: rgb(100, 77, 122);
+  --main-button-hover-color: rgb(108, 94, 121);
+  --main-bg-color: rgba(0, 90, 90, 0.548);
+  --main-title-color: rgba(13, 82, 82, 0.548);
+  --main-placeholder-color: rgb(85, 51, 116);
+  --main-border-style: 1px solid black;
+  --main-border-testing: 1px dashed black;
 
-    --main-body-color: white;
-    --main-button-color: white;
-    --main-button-color-secondary: rgb(211, 211, 238);
-    --main-button-hover-color: rgb(219, 219, 219);
-    --main-bg-color: rgb(221, 220, 220);
-    --main-title-color: rgb(185, 178, 194);
-    --main-placeholder-color: rgb(155, 155, 155);
-    --main-border-style: 1px solid black;
-    --main-border-testing: 0px solid black; 
-   }
-
-*{
-margin: 0;
-padding: 0;
-font-family: Arial, Helvetica, sans-serif;
+  --main-body-color: white;
+  --main-button-color: white;
+  --main-button-color-secondary: rgb(211, 211, 238);
+  --main-button-hover-color: rgb(219, 219, 219);
+  --main-bg-color: rgb(221, 220, 220);
+  --main-title-color: rgb(185, 178, 194);
+  --main-placeholder-color: rgb(155, 155, 155);
+  --main-border-style: 1px solid black;
+  --main-border-testing: 0px solid black;
 }
 
-body{
-height: 100vh; 
-width: 100vw;
-overflow-x: hidden;
-background-image: url('../../Assets/designer-assets/png-background.png');
-background-size: 100%;
-background-size: cover;background-position: center center; 
-background-repeat: no-repeat;background-attachment: fixed;background-size: cover; 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background-image: url('../../Assets/designer-assets/png-background.png');
+  background-size: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 
 }
 
 /* background
 */
-#bgImg{
-position: fixed;
-top: 49%;
-left: 49%; 
-width: 900px; 
-min-width: 900px;
-z-index: -1;
+#bgImg {
+  position: fixed;
+  top: 49%;
+  left: 49%;
+  width: 900px;
+  min-width: 900px;
+  z-index: -1;
 }
 
 
-.container{
-border: var(--main-border-testing);
-width: 95vw;
-height: 85vh;
-margin: auto;
- margin-top: 3vh;
- margin-bottom: 50px;
+.container {
+  border: var(--main-border-testing);
+  width: 95vw;
+  height: 85vh;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 50px;
 
 }
 
@@ -62,233 +65,261 @@ margin: auto;
 
 
 
-.challengeInfo{
-min-width: 200px;
+.challengeInfo {
+  min-width: 200px;
 
-padding: 30px;
-padding-top: 35px;
-font-size: small;
+  padding: 30px;
+  padding-top: 35px;
+  font-size: small;
 }
 
-.titleChallenge{
-font-weight: bold;
-font-size: large;
-color:rgb(135, 42, 172);
-border-bottom: 1px solid black;
-min-width: 150px;
+.titleChallenge {
+  font-weight: bold;
+  font-size: large;
+  color: rgb(135, 42, 172);
+  border-bottom: 1px solid black;
+  min-width: 150px;
 }
 
-.challengeDesc{  
- min-width: 170px;
-margin-top: 10px;
+.challengeDesc {
+  min-width: 170px;
+  margin-top: 10px;
 
 }
 
-.challengeButton{
-display: inline;
-padding: 5px 30px;
-border-radius: 30px;
-border: 2px solid purple;
-font-weight: bold;
-color:rgb(98, 18, 129);
+.challengeButton {
+  display: inline;
+  padding: 5px 30px;
+  border-radius: 30px;
+  border: 2px solid purple;
+  font-weight: bold;
+  color: rgb(98, 18, 129);
 
 }
-.challengeButton:hover{
-color: aliceblue;
-background-color: purple;
-cursor: pointer;
+
+.challengeButton:hover {
+  color: aliceblue;
+  background-color: purple;
+  cursor: pointer;
 }
 
-.challengeStepsContainer{
-margin-top: 5px;
-margin-bottom: 15px;
-padding-left: 10px;
+.challengeStepsContainer {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  padding-left: 10px;
 }
 
-.challengeSteps{
-list-style:circle;
-margin-top: 8px;
+.challengeSteps {
+  list-style: circle;
+  margin-top: 8px;
 }
 
 
 /* Infowindow place */
 
-.infoWindowContainer{
-width: 18rem;
-}
-.infoWindowImg{
-width: 100%;
-height: 200px;
-}
-.infoWindowImgChallenge{
-width: 100%;
-height: 150px;
+.infoWindowContainer {
+  width: 18rem;
 }
 
-.infoWindow-body{
-margin-left: 15px; 
+.infoWindowImg {
+  width: 100%;
+  height: 200px;
 }
 
-.infoWindow-title{
-font-size: large;
-margin-top: 8px;
-
+.infoWindowImgChallenge {
+  width: 100%;
+  height: 150px;
 }
 
-.infoWindow-text{
-margin-top: 8px;
-font-size: larger;
+.infoWindow-body {
+  margin-left: 15px;
 }
 
-.infoWindow-btn{
-margin-top: 5%;
-margin-left: 5%;
-margin-bottom: 5%;
-border: 0px;
-border-radius: 15px;
-width: 90%;
-background-color: rgb(102, 40, 102);
-color: aliceblue;
-font-weight: bolder;
-padding: 10px;
-}
-.infoWindow-btn:hover{
-cursor: pointer;
-background-color: rgb(133, 53, 133);
+.infoWindow-title {
+  font-size: large;
+  margin-top: 8px;
 
 }
 
-.infoWindow-ChallengeStep{
+.infoWindow-text {
+  margin-top: 8px;
+  font-size: larger;
+}
 
-margin-top: 1px;
-padding: 8px;
-background-color: rgba(236, 236, 236, 0.582);
+.infoWindow-btn {
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  border: 0px;
+  border-radius: 15px;
+  width: 90%;
+  background-color: rgb(102, 40, 102);
+  color: aliceblue;
+  font-weight: bolder;
+  padding: 10px;
+}
+
+.infoWindow-btn:hover {
+  cursor: pointer;
+  background-color: rgb(133, 53, 133);
+
+}
+
+.infoWindow-ChallengeStep {
+
+  margin-top: 1px;
+  padding: 8px;
+  background-color: rgba(236, 236, 236, 0.582);
 }
 
 @media (max-width: 870px) {
-.mapContainer {
-  background-color: lightblue;
-  width: 100%;
-  float: none;
+  .mapContainer {
+    background-color: lightblue;
+    width: 100%;
+    float: none;
   }
 }
 
 
-.mapContainer{
-  background-color: var(--main-title-color);   
+.mapContainer {
+  background-color: var(--main-title-color);
   border: var(--main-border-testing);
-  
+
   float: right;
   width: 61%;
   min-width: 500px;
-  height: 90%;  
+  height: 90%;
   border-radius: 18px;
-  }
+}
 
-.routesContainer{
-  border-radius:25px;
+.routesContainer {
+  border-radius: 25px;
   height: max-content;
-  width:35%;
+  width: 35%;
   min-width: 280px;
   background-color: rgba(255, 255, 255, 0.219);
-  padding-top: 20px; 
-  padding-bottom: 30px; 
+  padding-top: 20px;
+  padding-bottom: 30px;
   margin-left: 2%;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
 }
 
-.titleDirections{
+.titleDirections {
   color: #592b78;
   font-weight: bolder;
   font-size: larger;
   padding: 12px;
 }
-.directionInfo{
-  margin-bottom: 550px; 
+
+.directionInfo {
+  margin-bottom: 550px;
 }
 
-.direction{
+.direction {
   padding: 10px 35px 10px 35px;
   margin-bottom: 5px;
-/*   border-bottom: 1px solid purple;
- */  border-radius:25px;
-/*   border-bottom-left-radius:0px;
+  /*   border-bottom: 1px solid purple;
+ */
+  border-radius: 25px;
+  /*   border-bottom-left-radius:0px;
   border-bottom-right-radius:0px;
- */  cursor: default;
+ */
+  cursor: default;
 }
-.direction:hover{
+
+.direction:hover {
   background-color: rgba(0, 0, 0, 0.055);
   cursor: pointer;
 }
 
-.stepContainer{
+.stepDone {
+  padding: 10px 35px 10px 35px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  cursor: default;
+  
+  background-color: rgba(8, 250, 0, 0.164);
+
+
+}
+.stepDone:hover {
+  background-color: rgba(62, 250, 56, 0.164);
+  cursor: pointer;
+}
+
+.stepContainer {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid purple;
   padding-bottom: 12px;
 
 }
 
-.returnButton{
-margin: auto;
-margin-left: 12%;
-margin-right: 12%;
-width: 100%;
-border: 1px solid purple;
-display: inline;
-font-weight: bold;
-border-radius: 17px;
-padding: 7px 8% 7px 8%;
+.returnButton {
+  margin: auto;
+  margin-left: 12%;
+  margin-right: 12%;
+  width: 100%;
+  border: 1px solid purple;
+  display: inline;
+  font-weight: bold;
+  border-radius: 17px;
+  padding: 7px 8% 7px 8%;
 
-background-color: #592b78;
-color: white;
+  background-color: #592b78;
+  color: white;
 }
-.returnButton:hover{
+
+.returnButton:hover {
   background-color: rgba(0, 0, 0, 0.055);
-color: #592b78;
-cursor: pointer;
+  color: #592b78;
+  cursor: pointer;
 }
 
-.reloadFail{
+.reloadFail {
   margin: auto;
   text-align: center;
   margin-top: 17%;
-  font-size:x-large;
+  font-size: x-large;
 }
-.reloadFail:hover{
+
+.reloadFail:hover {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
 
 }
 
-.reloadIcon{
+.reloadIcon {
   width: 80px;
   display: flex;
 
   margin: auto;
 
 }
-.reloadIcon:hover{
+
+.reloadIcon:hover {
   animation-name: spin;
   animation-duration: 3000ms;
   animation-iteration-count: infinite;
-  animation-timing-function: linear; 
+  animation-timing-function: linear;
 
 }
+
 @keyframes spin {
   from {
-      transform:rotate(0deg);
+    transform: rotate(0deg);
   }
+
   to {
-      transform:rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 /* ------------------------------- */
-.mapButton{
+.mapButton {
   padding: 5px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -298,7 +329,261 @@ cursor: pointer;
   font-weight: bold;
   text-align: center;
 }
-.mapButton:hover{
+
+.mapButton:hover {
   background-color: rgb(212, 212, 212);
 
+}
+
+.imgStep {
+  z-index: 100;
+  border-radius: 25px;
+  margin-right: 8px;
+}
+
+.imgStep:hover {
+  background-color: rgba(191, 124, 197, 0.479);
+
+}
+.submit{
+  position:absolute;
+  display: inline;
+  background-color: #4b2564d0;
+  transform:translateY(140%);
+  width: 100px;
+  font-size: large;
+  color: whitesmoke;
+  text-align: center;
+  z-index: 101;
+}
+
+/* --------------------------------- M O D A L---------------------------------------- */
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 105;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: hidden;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+
+}
+
+
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  background-image: url('../../Assets/designer-assets/png-illustration.png');
+  background-size:contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 1% auto;
+  border-radius: 30px;
+  /* 15% from the top and centered */
+  padding: 20px;
+  width: 70%;
+  height: 87%;
+  /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modalImg{
+  width: 70px;
+}
+.modalImg2{
+  width: 39px;
+}
+.modalBtnText{
+  padding-left: 10px;
+}
+
+#modalText{
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 8px;
+  font-size: x-large;
+  text-align: center;
+  background-color: rgba(226, 226, 226, 0.295);
+  border-radius: 55px;
+  width: fit-content;
+  padding: 10px;
+}
+
+.modalBtncontainer{
+  text-align: center;
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-evenly;
+  height: max-content;
+}
+.modalBtn {
+  text-align: center;
+  width: 150px;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  margin: 0;
+  font-weight: bold;
+  border-radius: 17px;
+  padding: 5px 8% 5px 8%;
+  white-space:nowrap;
+  background-color: #4b2564;
+  color: white;
+}
+
+.modalBtn:hover {
+  background-color: #6e438b;
+  color: white;
+  cursor: pointer;
+}
+
+#fileInput{
+  display: none;
+}
+
+#display-image{
+  margin: auto;
+  width:auto;
+  height: 50%;
+  background-position: center;
+  background-size:contain;
+  background-repeat: no-repeat;
+
+}
+
+.submitbutton{
+ /* float: right;
+
+   transform: translateY(-650%);
+  margin-right: 10%;
+ */
+
+  text-align: center;
+  width: 70px;
+  display: none; /* flex */
+  justify-content:space-evenly;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 17px;
+  padding: 7px 8% 7px 8%;
+  white-space:nowrap;
+  background-color: #4b2564;
+  color: white;
+  margin: auto;
+  margin-top: 5px;
+}
+.submitbutton:hover{
+  background-color: #6e438b;
+  color: white;
+  cursor: pointer;
+}
+
+#videoModal{
+  display: none;
+  margin: auto;
+  width:auto;
+  height: 55%;
+  border: 1px solid black;
+}
+
+/* --------------------------------- M O D A L COMPLETION---------------------------------------- */
+
+#modalCompletion{
+  display: none;
+}
+
+.congratsContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalTextCongrat{
+  margin-top: 30px;
+  text-align: center;
+  font-size: 5rem;
+  font-weight: bolder;
+  background: linear-gradient(to right, #592b78, #ce1e50, #ea6233, #ebd44b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badgeCongrats{
+  width: 30%;
+  margin-bottom: 10px;
+}
+
+.congratsDesc{
+  font-size: large;
+  font-weight: bolder;
+  background-color: #c0c0c0bb;
+  padding: 8px;
+  border-radius: 8px;
+
+}
+
+.congratsBtnContainer{
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-top: 20px;
+}
+
+.congratsBtn{
+  margin-top: 10%;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.animationSlideIN{
+  animation-name: slideInFrame;
+  animation-duration: 1000ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes slideInFrame {
+  0% {
+    transform: translateY(100%);
+    background-color: rgba(0, 0, 0, 0);  }
+
+  90%{
+    background-color: rgba(0, 0, 0, 0);
+    transform: translateY(0);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.4);
+
+  }
 }
