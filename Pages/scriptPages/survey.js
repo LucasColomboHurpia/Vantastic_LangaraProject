@@ -517,9 +517,9 @@ const user = {
             ChallengePreferences: ['Day', 'Relax', 'History']
         }
     },
-    challengesDone: ['idOfChallenge1', 'idOfChallenge2', 'idOfChallenge3'],
-    badges: ['idOfBadge1', 'idOfBadge2', 'idOfBadge3',],
-    placesVisited: ['idOfPlace1', 'idOfPlace2', 'idOfPlace3',],
+    challengesDone: [],
+    badges: [],
+    placesVisited: [],
     id: 'a8s72bn198gbs18y',
 }
 

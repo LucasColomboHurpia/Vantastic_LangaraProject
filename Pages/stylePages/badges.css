@@ -77,6 +77,14 @@ header {
     height: 130px;
 }
 
+.challengeBadgeCompleted{
+    border: 2px solid grey;
+    /* margin: 20px; */
+    border-radius: 10px;
+    width: 300px;
+    background-color: rgba(165, 241, 165, 0.363);
+}
+
 /* @media screen and (max-width:920px) {
     .challengeBadge {
         border-style: solid;

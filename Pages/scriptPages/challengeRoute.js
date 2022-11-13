@@ -445,9 +445,9 @@ const showChallengeSteps = (challenge) => {
   let i = 0;
   for (step of challengeSteps) {
     if (step.done) {
-      challengeInfo.innerHTML += `<div class="stepDone" id="step1"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/> ${step.desc}</div></div>`
+      challengeInfo.innerHTML += `<div class="stepDone" id="step${i+1}"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/> ${step.desc}</div></div>`
     } else {
-      challengeInfo.innerHTML += `<div class="direction" id="step1"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/><div class="submit">Submit</div> ${step.desc}</div></div>`
+      challengeInfo.innerHTML += `<div class="direction" id="step${i+1}"><div class="stepContainer"><img src="${step.image}" onclick="showModal('${step.desc}',${i},'${step.image}')" class="imgStep" width="100px"/><div class="submit">Submit</div> ${step.desc}</div></div>`
     }
     i++;
   }
@@ -824,5 +824,23 @@ const challengeCompletion = () => {
 
   document.getElementById('congratsDesc').innerHTML = `You completed <b>${challenge.name}</b>!`
 
+  checkBadges()
+}
 
+const checkBadges = () =>{
+  //GET INFO FROM LOCAL STORAGE
+let badges = JSON.parse(localStorage.getItem("badges"));
+
+  for(badge of badges){
+    if(challenge.id == badge.relation){
+
+      userResults.badges.push(badge.relation)
+      userResults.challengesDone.push(challenge.id)
+
+      localStorage.setItem("user", JSON.stringify(userResults));
+      console.log(userResults)
+      badge.status = "Completed"
+      localStorage.setItem("badges", JSON.stringify(badges));
+    }
+  }
 }
