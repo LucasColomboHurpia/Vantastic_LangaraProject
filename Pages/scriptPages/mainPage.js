@@ -596,7 +596,7 @@ console.log(place)
 //https://developers.google.com/maps/documentation/javascript/shapes
 
 const startChallenge = (id) => {
-  for(challenge of challengesExample){
+  for(challenge of challenges){
     if(challenge.id == id){
         localStorage.setItem('challenge', JSON.stringify(challenge));
     } 
