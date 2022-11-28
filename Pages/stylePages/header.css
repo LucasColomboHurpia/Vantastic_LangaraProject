@@ -1,3 +1,20 @@
+@font-face {
+  font-family: myFont;
+  src: url(../../Assets/fonts/Poppins-Regular.otf);
+}
+
+@font-face {
+  font-family: myFont;
+  src: url(../../Assets/fonts/Poppins-Bold.otf);
+  font-weight: bold;
+}
+
+
+*{
+  font-family: myFont;
+}
+
+
 .header{
     width: 100vw;
     max-width: 100%;

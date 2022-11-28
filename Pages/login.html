@@ -7,7 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="./stylePages/login.css">
-    <script src="./scriptPages/login.js"></script>
+
+         <!-- Firebase CDN links -->
+
+         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+         
+         <!-- Firebase CDN links -->
+    
+        <script src="./scriptPages/firebaseConfig.js"></script>
+
+     <script src="./scriptPages/login.js"></script>
 </head>
 
 <body>
@@ -20,7 +31,7 @@
         <label for="password"></label>
         <input class="form-item" type="password" placeholder="Password*" id="password" name="password"
             required>
-        <input class="form-item" type="submit" class="button" id="buttonSU" value="Log In!">
+        <input class="form-item"  class="button" id="buttonSU"  onclick="login()" value="Log In!">
     </form><br><br>
     <div id="moreB">
         <button class="button" onclick="window.location.href='register.html';" id="register">Sign Up</button>

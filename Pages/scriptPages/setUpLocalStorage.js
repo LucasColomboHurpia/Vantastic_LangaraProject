@@ -1,11 +1,126 @@
-                         //0        //1          //2           //3        //4              //5                     //6                    //7                //8                          //9                         //10                   //11                     //12               //13                     //14               //15
+
+//set arrays
+let firebaseBadges = [];
+let firebaseChallenges = [];
+
+///// Get badges -----------------------------------------------------
+const getBadges = () => {
+
+    db.collection("badges").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+
+            let newBadge = {
+                badgeName: doc.data().badgeName,
+                badgeIcon: doc.data().badgeIcon,
+                relation: doc.data().relation,
+            }
+
+            firebaseBadges.push(newBadge)
+
+
+
+        });
+        console.log(firebaseBadges)
+        localStorage.setItem("badges", JSON.stringify(firebaseBadges));
+
+    });
+}
+getBadges();
+
+///// Get challenges -----------------------------------------------------
+
+const getChallenges = () => {
+
+    db.collection("challenges").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+
+
+            let newChallenge = {
+                areaCoordinates: doc.data().areaCoordinates,
+                budget: doc.data().budget,
+                description: doc.data().description,
+                id: doc.data().id,
+                image: doc.data().image,
+                marker: doc.data().marker,
+                name: doc.data().name,
+                placeId: doc.data().placeId,
+                premium: doc.data().premium,
+                steps: doc.data().steps,
+                surveyScore: doc.data().surveyScore,
+                tags: doc.data().tags,
+            }
+            firebaseChallenges.push(newChallenge)
+
+
+
+        });
+        console.log(firebaseChallenges)
+        localStorage.setItem("challenges", JSON.stringify(firebaseChallenges));
+
+    });
+}
+getChallenges();
+
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+        console.log("you are logged!")
+        // ...
+    } else {
+        // User is signed out
+        console.log("you not are logged!")
+
+        // ...
+    }
+});
+
+const logIn = () => {
+    if (auth.currentUser) {
+        console.log(auth.currentUser.uid)
+        // with the auth uid we get the user from the firestore database
+
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                if (doc.data().id == auth.currentUser.uid) {
+                    console.log('doc data is', doc.data().id)
+                    console.log('auth.currentUser.uid is', auth.currentUser.uid)
+
+                    let currentUser = doc.data()
+                    console.log('user is ', currentUser)
+                    localStorage.setItem("user", JSON.stringify(currentUser));
+                }
+
+
+
+
+            });
+        });
+        //with this user from firestore database, code works
+    }
+    else {
+        //go back to login page
+    }
+}
+
+////////////////////////////////////////
+
+setTimeout(
+()=>{
+//0        //1          //2           //3        //4              //5                     //6                    //7                //8                          //9                         //10                   //11                     //12               //13                     //14               //15
 const surveyTags = ['Day life', 'Night life', 'Adrenaline', 'To Relax', 'Beach Walks ', 'Lake and River Walks ', 'Outdoor Activities', 'Indoor Activities', 'History and Architecture', 'Gastronomy and Culture', 'Big City Environment', 'Small City Environment', 'Group activities', 'Individual activities', 'City Landscapes', 'Nature Landscapes']
 
 challengesDatabase = [
     {
         id: '254yh24wtuh62utru2y24554y',
         name: 'THE HANGING BRIDGE CHALLENGE',
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci itaque soluta ea!',
+        description: "This challenge will take you to the Lynn Canyon Park. There you’ll find many hiking trails, a waterfall, and the main attraction… a suspension bridge! It sways 50 meters above the canyon. Grab your favorite sneakers and you’re ready to go!",
         steps: {
             low: [
                 {
@@ -67,7 +182,7 @@ challengesDatabase = [
     {
         id: '9p8u07gty8bgvf7t9vcfg',
         name: 'THE SEAWALL CHALLENGE',
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci itaque soluta ea!',
+        description: 'In this challenge you’ll discover the longest uninterrupted waterfront in the world! You can swim in the summer or ride a bike in the fall. Also, you’ll find some of the better spots in the city to grab a bottle of wine and see the sunset. ',
         steps: {
             low: [
                 {
@@ -129,7 +244,7 @@ challengesDatabase = [
     {
         id: '21u7g4812knrsara',
         name: 'THE GRANVILLE ISLAND CHALLENGE',
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci itaque soluta ea!',
+        description: 'If you’re feeling a little hungry, this is the place to go. Here you’ll find a picturesque market where you can find seafood, bagels, and the best donuts in Vancouver! You can eat in the courtyard next to the sea while you’re listening to the buskers.',
         steps: {
             low: [
                 {
@@ -191,7 +306,7 @@ challengesDatabase = [
     {
         id: 'dfsava8747543g',
         name: 'THE DOWNTOWN CHALLENGE', //
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci itaque soluta ea!',
+        description: 'Be ready for an exciting day exploring the iconic buildings of Vancouver. You’ll discover the most vibrant and unique areas of the city, from the oldest and charming neighborhoods to the most modern and busy ones. ',
         steps: {
             low: [
                 {
@@ -253,7 +368,7 @@ challengesDatabase = [
     {
         id: 'bnm4b198mb9nm42',
         name: 'THE WHISTLER CHALLENGE',
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci itaque soluta ea!',
+        description: 'With less than 2 hours of drive from Vancouver, you’ll arrive to the town of Whistler, that’s home of one of the largest ski resorts in North America! You’ll fall in love with this chalet-style village surrounded by mountains.',
         steps: {
             low: [
                 {
@@ -320,44 +435,47 @@ let badges = [
     {
         badgeName: "Downtown Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"dfsava8747543g",
+        relation: "dfsava8747543g",
     },
     {
         badgeName: "Langara Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"",
+        relation: "",
     },
     {
         badgeName: "Beach Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"",
+        relation: "",
     },
     {
         badgeName: "Seawall Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"9p8u07gty8bgvf7t9vcfg",
+        relation: "9p8u07gty8bgvf7t9vcfg",
     },
     {
         badgeName: "Bridge Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"254yh24wtuh62utru2y24554y",
+        relation: "254yh24wtuh62utru2y24554y",
     },
     {
         badgeName: "Granville Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"21u7g4812knrsara",
+        relation: "21u7g4812knrsara",
     },
     {
         badgeName: "Whistler Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"bnm4b198mb9nm42",
+        relation: "bnm4b198mb9nm42",
     },
     {
         badgeName: "Survey Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation:"",
+        relation: "",
     },
 
 ]
 
 localStorage.setItem("badges", JSON.stringify(badges));
+
+console.log('foi')
+}, 1000)

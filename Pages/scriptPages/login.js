@@ -32,7 +32,7 @@ const guestEntry = () =>{
         challengesDone: ['idOfChallenge1', 'idOfChallenge2', 'idOfChallenge3'],
         badges: ['idOfBadge1', 'idOfBadge2', 'idOfBadge3',],
         placesVisited: ['idOfPlace1', 'idOfPlace2', 'idOfPlace3',],
-        id: 'a8s72bn198gbs18y',
+        id: 'guest',
     }
     localStorage.clear()
     localStorage.setItem("user", JSON.stringify(guest));
@@ -40,3 +40,32 @@ const guestEntry = () =>{
     window.location.href='./Pages/mainPage.html'
 
 }
+
+const login = () => {
+    email = (document.getElementById('email')).value;
+    password = (document.getElementById('password')).value;
+    
+    signInUser(email, password);
+}
+
+const signInUser = (email, password) => {
+
+    let userEmail = email;
+    //console.log(userEmail);
+    let userPassword = password;
+
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
+    .then(() => {
+    // Signed in
+        window.location.href='./mainPage.html';
+        alert('Signed In!');
+    // ...
+    })
+    .catch((error) => {
+        console.log(error.message);
+  });
+
+}
+
+// easytoRember@emai.com
+// password

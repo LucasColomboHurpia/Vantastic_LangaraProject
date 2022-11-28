@@ -1,9 +1,11 @@
 //GET INFO FROM LOCAL STORAGE
 let challenges = JSON.parse(localStorage.getItem("challenges"));
 
-const challengesFinalValues = ''
-const placesFinalValues = ''
+//sets up some variables to be use later
+let challengesFinalValues = ''
+let placesFinalValues = ''
 
+//sets up markers for map
 const markerN1 = "../Assets/number 1 - marker.png";
 const markerN2 = "../Assets/number 2 - marker.png";
 const markerN3 = "../Assets/number 3 - marker.png";
@@ -12,14 +14,14 @@ const orangeMarkerN1 = "../Assets/number 1 - orange marker.png";
 const orangeMarkerN2 = "../Assets/number 2 - orange marker.png";
 const orangeMarkerN3 = "../Assets/number 3 - orange marker.png";
 
-
+//gets user data from localStorage (soon to be firebase)
 let userResults = JSON.parse(localStorage.getItem('user'))
 let userPreferences = userResults.preferences
 let surveyResults = userResults.preferences.surveyResults
 
 
 const preferences = (surveyResults) => {
-    //gets first favorite, then scond and third
+    //gets first favorite, then scond and third favorites
     //gets places favorites
     let highestValChallenges = { value: 0 }
     let secondHighestValChallenges = { value: 0 }
@@ -46,33 +48,32 @@ const preferences = (surveyResults) => {
 
     //calls API for number 1, 2 and 3
     ///------------------------------------------------------------------------------------
-    //checks best challenges
 
+    //checks best challenges suited for the user based on survey results
     let comparisonValue = []
     let tagScore = 0
-    console.log(challenges[0].tags)
     for (let i = 0; i < challenges.length; i++) {
         let currentChallenge = challenges[i]
         for (let j = 0; j < currentChallenge.tags.length; j++) {
             let currentTag = challenges[i].tags[j]
             for (userTag of surveyResults.ChallengePreferences) {
                 if (userTag == currentTag) {
-                    tagScore++;
+                    tagScore++; //tag score increases every time the challenge's tags matches the user's results
                 }
             }
         }
-        comparisonValue.push(tagScore)
+        comparisonValue.push(tagScore) 
         tagScore = 0
     }
-
     for (let i = 0; i < comparisonValue.length; i++) {
-        challenges[i].surveyScore = comparisonValue[i]
+        challenges[i].surveyScore = comparisonValue[i] //adds tag score to challenge as an attribute
     }
 
-    challenges.sort(function (a, b) { return a.surveyScore - b.surveyScore; }).reverse()
+    challenges.sort(function (a, b) { return a.surveyScore - b.surveyScore; }).reverse() //sorts
 
-    console.log(challenges)
-    //organize array from big to low
+    //from now on, the challenges are properly ordered from most to least favorite
+    console.log('challenges ordered', challenges)
+
 
 
     //show info in the side bar
@@ -81,7 +82,7 @@ const preferences = (surveyResults) => {
      */
     challengeLocationMarkers(challenges[0], bestPlaces, 1)
 
-    setTimeout(() => {
+    setTimeout(() => { //sets up delay for animation to play
         challengeLocationMarkers(challenges[1], bestPlaces, 1)
     }, 3000);
     /*      setTimeout(() => {
@@ -89,7 +90,7 @@ const preferences = (surveyResults) => {
             challengeLocationMarkers(challenges[comparisonValue[2]], bestPlaces, 1)
         }, 12000);  */
 
-    setTimeout(() => {
+    setTimeout(() => { //sets up delay for animation to play
         librarians.aroundVancouverMarkers('tourist_attraction', 3)
     }, 2000);
 }
@@ -97,15 +98,15 @@ const preferences = (surveyResults) => {
 /*  */
 
 const challengeLocationMarkers = (challenge, bestPlaces, delay) => {
-    let animationDelay = delay * 1000
+    let animationDelay = delay * 1000 //sets up delay for animation to play
 
-    showChallengeInfo(challenge)
+    showChallengeInfo(challenge) //adds challenge info to interface
 
-    librarians.challengeMarker(challenge)
+    librarians.challengeMarker(challenge) //marks the map
 
     //check if there are coordinates
     for (let i = 0; i < bestPlaces.length; i++) {
-        setTimeout(() => {
+        setTimeout(() => { //sets up delay for animation to play
             librarians.placesAPIRequest(bestPlaces[i].name, challenge.areaCoordinates, 3, false, 1200)
         }, animationDelay * i);
     }
@@ -114,20 +115,22 @@ const challengeLocationMarkers = (challenge, bestPlaces, delay) => {
 const showChallengeInfo = (challenge) => {
     let challengeContainer = document.getElementById('challengeContainer');
 
-    if (userPreferences.budget == 'low') {
+    //show information badsed on budget
+    if (userPreferences.budget == 'low') { 
+
+        //shows low budget challenge information
         challengeContainer.innerHTML += `
         <div class="challengeInfo">
             <div class="titleChallenge">${challenge.name}</div>
                 <div class="challengeDesc">${challenge.description}</div>
                 <div class="challengeStepsContainer">
-                    <li class="challengeSteps">${challenge.steps.low[0].desc}</li>
-                    <li class="challengeSteps">${challenge.steps.low[1].desc}</li>
-                    <li class="challengeSteps">${challenge.steps.low[2].desc}</li>
+
                 </div>
             <div class="challengeButton" onclick="panToChallenge(${challenge.areaCoordinates.lat},${challenge.areaCoordinates.lng})">See Challenge Area</div>
         </div>
 
     `
+        //set up object to be used in API function
         let placeMarker = {
             position: { lat: '', lng: '' },
             title: '',
@@ -138,12 +141,15 @@ const showChallengeInfo = (challenge) => {
             image: '',
             id: '',
         }
+
+        //loops through ever step of the challenge
         for (let i = 0; i < challenge.steps.low.length; i++) {
             let challengeStep = challenge.steps.low[i]
 
             //checks if there are specific coordinates for the step
             if (challengeStep.coord == false) { console.log('has no coordinates') }
             else {
+            //sets up marker and pins the map
                 if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1; }
                 if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2; }
                 if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3; }
@@ -172,33 +178,43 @@ const showChallengeInfo = (challenge) => {
         }
     }
 
+    //show information badsed on budget
     if (userPreferences.budget == 'high') {
+
+        //shows low budget challenge information
         challengeContainer.innerHTML += `
         <div class="challengeInfo">
             <div class="titleChallenge">${challenge.name}</div>
                 <div class="challengeDesc">${challenge.description}</div>
                 <div class="challengeStepsContainer">
-                    <li class="challengeSteps">${challenge.steps.high[0].desc}</li>
-                    <li class="challengeSteps">${challenge.steps.high[1].desc}</li>
-                    <li class="challengeSteps">${challenge.steps.high[2].desc}</li>
+
                 </div>
             <div class="challengeButton">Explore</div>
         </div>
 
     `
+         //set up object to be used in API function
         let placeMarker = {
             position: { lat: '', lng: '' },
             title: '',
             icon: '',
             category: 'challengeStep'
         }
+        //loops through ever step of the challenge
         for (let i = 0; i < challenge.steps.high.length; i++) {
             let challengeStep = challenge.steps.high[i]
+            //checks if there are specific coordinates for the step
             if (challengeStep.coord == false) { return console.log('has no coordinates') }
             else {
+                //sets up marker and pins the map
                 if (i == 0) { placeMarker.title = 'First Step!'; placeMarker.icon = markerN1 }
                 if (i == 1) { placeMarker.title = 'Second Step!'; placeMarker.icon = markerN2 }
                 if (i == 2) { placeMarker.title = 'Third Step!'; placeMarker.icon = markerN3 }
+                placeMarker.title = challenge.name
+                placeMarker.name = challenge.name
+                placeMarker.description = challengeStep.desc
+                placeMarker.image = challengeStep.image
+                placeMarker.id = challenge.id
                 placeMarker.position = { lat: challengeStep.coord.lat, lng: challengeStep.coord.lng }
                 librarians.pinMaker(placeMarker)
             }
@@ -206,15 +222,13 @@ const showChallengeInfo = (challenge) => {
     }
 }
 
+//use this function to pan the current challenge
 const panToChallenge = (lat, lng) => {
-    console.log(lat, lng)
     let challengePos = { lat: lat, lng: lng }
     map.panTo(challengePos)
     map.setZoom(14)
 }
 
-
-//link challenge page to main map
 
 //mobile style
 

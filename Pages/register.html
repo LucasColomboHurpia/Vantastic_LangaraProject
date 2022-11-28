@@ -7,7 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="./stylePages/register.css">
+
+    <!-- Firebase CDN links -->
+
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+    
+    <!-- Firebase CDN links -->
+    <script src="./scriptPages/firebaseConfig.js"></script>
     <script src="./scriptPages/register.js"></script>
+
+
+    
 </head>
 
 <body>
@@ -37,12 +49,12 @@
             <label for="password"></label>
             <input class="form-item" type="password" placeholder="Choose your Password" id="password" name="password"
                 >
-            <input class="form-item"  class="button" id="buttonSU" onclick="window.location.href='./survey.html';" value="Sign Up!">
+            <input class="form-item"  class="button" id="buttonSU" onclick="register();" value="Sign Up!">
     </form>
     <div id="moreB">
         <p>or</p>
-        <button class="button" id="loginB" onclick="window.location.href='./login.html';" id="login">Login!</button>
-        <button class="button" id="guestB" onclick="guestEntry();  window.location.href='../Pages/mainPage.html'" id="guest">Enter as Guest</button>
+        <button class="button" id="loginB" onclick="window.location.href='../Pages/login.html'" id="login">Login!</button>
+        <button class="button" id="guestB" onclick="guestEntry();" id="guest">Enter as Guest</button>
         
     </div>
 
