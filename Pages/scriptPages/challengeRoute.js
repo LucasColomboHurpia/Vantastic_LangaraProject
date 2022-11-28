@@ -24,6 +24,11 @@ let step1Shortcut;
 let step2Shortcut;
 let step3Shortcut;
 
+//current coords for method change
+let currentLat;
+let currentLng;
+
+
 const orangeMarker = "../Assets/orange marker.png"
 const yellowMarker = "../Assets/yellow marker.png"
 
@@ -55,14 +60,9 @@ const orangeMarkerN3 = "../Assets/number 3 - orange marker.png";
 
 //get Challenge from storage
 let challenge = JSON.parse(localStorage.getItem('challenge'));
-console.log(challenge)
 
-
-let userResults = JSON.parse(localStorage.getItem('user'))
-let userPreferences = userResults.preferences
-let surveyResults = userResults.preferences.surveyResults
-/////////////-------------------------------------------------------------------/////////////////////////////////////
-
+let userPreferences = user.preferences
+let surveyResults = user.preferences.surveyResults
 
 
 //Activates Gmaps API
@@ -107,6 +107,10 @@ async function initMap() {
       let start = currentPosition; //start route
       let end = { lat, lng }; //end route
 
+      //sets up variables for method change
+      currentLat = lat;
+      currentLng = lng;
+
       //sets up request object for the API
       let request = {
         origin: start,
@@ -127,14 +131,34 @@ async function initMap() {
 
           //output
           let directionInfo = document.getElementById('directionInfo');
+          directionInfo.innerHTML = ''
 
-          directionInfo.innerHTML = `
-                    <div id="departure" class="direction"><b>Departure:</b> ${googleRoute.departure_time.text}</div>
-                    <div id="arrival" class="direction"><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>
-                    <div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>
-                    <div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>
-
-            `
+/*           directionInfo.innerHTML += `
+            <div class="flexCenter">
+              <select name="selectmMthod" id="methodInput" onchange="changeMethod()">
+                <option value="TRANSIT" class="optText">Public Transport</option>
+                <option value="WALKING" class="optText">Walk</option>
+                <option value="DRIVING" class="optText">Drive</option>
+                <option value="BICYCLING" class="optText">Biking</option>
+              </select>
+            </div>
+          ` */
+          
+          console.log(googleRoute)
+          //checks results compability
+          if(googleRoute.departure_time){
+            directionInfo.innerHTML += `<div id="departure" class="direction"><b>Departure:</b> ${googleRoute.departure_time.text}</div>`
+          } 
+          if(googleRoute.arrival_time){
+            directionInfo.innerHTML += `<div id="arrival" class="direction"><b>Arrival:</b> ${googleRoute.arrival_time.text}</div>`
+          } 
+          if(googleRoute.distance){
+            directionInfo.innerHTML += `<div id="distance" class="direction"><b>Distance:</b> ${googleRoute.distance.text}</div>`
+          } 
+          if(googleRoute.duration){
+            directionInfo.innerHTML += `<div id="duration" class="direction"><b>Duration:</b> ${googleRoute.duration.text}</div>`
+          } 
+          
           for (data of dataArray) {
             directionInfo.innerHTML += `
               <div class="direction">${data.instructions} <b>${data.duration.text}</b></div>
@@ -391,6 +415,7 @@ async function initMap() {
     }
     //--------------------------------------------------------------------
 
+  
 
     findUser();
     showChallengeSteps(challenge);
@@ -729,7 +754,18 @@ fileInput.onchange = () => {
   reader.addEventListener("load", () => {
     uploaded_image = reader.result;
     displayImage.style.backgroundImage = `url(${uploaded_image})`;
-    console.log(typeof uploaded_image)
+    console.log(typeof uploaded_image);
+
+    //Storing in firestore storage
+    const ref = firebase.storage().ref();
+    const userid = user.id
+    const challengeID = challenge.id
+    const name = "step" + stepIndex + "-image";
+
+    //'images/user1234/file.txt'
+    ref.child(userid+'/'+challengeID+'/'+name).putString(uploaded_image, 'data_url').then((snapshot) => {
+      console.log('Uploaded a data_url string!');
+    });
   });
   reader.readAsDataURL(fileInput.files[0]);
   snapButton.style.display = "none";
@@ -813,7 +849,6 @@ function handleBlob(blob) {
 
 
 const challengeCompletion = () => {
-  console.log("CONGRATULATIONS")
 
   let modalCompletion = document.getElementById('modalCompletion');
 
@@ -834,13 +869,42 @@ let badges = JSON.parse(localStorage.getItem("badges"));
   for(badge of badges){
     if(challenge.id == badge.relation){
 
-      userResults.badges.push(badge.relation)
-      userResults.challengesDone.push(challenge.id)
+      user.badges.push(badge.relation)
+      user.challengesDone.push(challenge.id)
 
-      localStorage.setItem("user", JSON.stringify(userResults));
-      console.log(userResults)
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log(user)
       badge.status = "Completed"
       localStorage.setItem("badges", JSON.stringify(badges));
     }
   }
 }
+
+//--------------
+
+const changeMethod = ()=>{
+  let methodIndput = document.getElementById('methodInput')
+  console.log(methodIndput.value)
+  console.log(currentLat)
+
+  console.log(currentLng)
+
+
+  calculateRoute(currentLat,currentLng,methodIndput.value)
+}
+
+//let storage = firebase.storage();
+
+let imgtest = document.getElementById('imagetest')
+console.log(imgtest)
+
+/* firebase.storage().ref(`${user.id}/${challenge.id}/step2-image`).getDownloadURL().then(imgURL => {
+  imgtest.src = imgURL
+
+}) */
+
+/////////////-------------------------------------------------------------------/////////////////////////////////////
+let challengesDone = user.challengesDone
+console.log(challengesDone)
+
+/////////////-------------------------------------------------------------------/////////////////////////////////////

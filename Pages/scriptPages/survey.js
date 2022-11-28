@@ -1,24 +1,5 @@
 //value: ['restaurant','library','aquarium','art_gallery','bar','movie_theater','bowling_alley','museum','cafe','night_club','park','shopping_mall','stadium','spa','zoo'],
 
-//0    //1     //2           //3     //4    //5     //6       //7      //8       //9       //10       //11        //12     //13          //14                   //15
-// firebase app config details
-
-const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyAsess0m1wXNwckiyi-Pacj9j6e2K0p30g",
-    authDomain: "travel-8561c.firebaseapp.com",
-    projectId: "travel-8561c",
-    storageBucket: "travel-8561c.appspot.com",
-    messagingSenderId: "64893619706",
-    appId: "1:64893619706:web:4ba1c29f1c3db3180ce843",
-    measurementId: "G-4BXSG6Y8CG"
-});
-
-// firestore DB initialization
-const db = firebaseApp.firestore();
-
-// firestore auth initialization
-//const auth = firebaseApp.auth();
-
 
 //0    //1          //2           //3        //4            //5                     //6                  //7                //8                          //9                     //10                   //11                     //12               //13                     //14               //15
 const surveyTags = ['Day life', 'Night life', 'Adrenaline', 'To Relax', 'Beach Walks ', 'Lake and River Walks ', 'Outdoor Activities', 'Indoor Activities', 'History and Architecture', 'Gastronomy and Culture', 'Big City Environment', 'Small City Environment', 'Group activities', 'Individual activities', 'City Landscapes', 'Nature Landscapes']
@@ -389,6 +370,11 @@ const surveyParseAnswer = (opt) => {
     user.preferences.budget = defaultSurveyResults.budget
     user.preferences.surveyResults = defaultSurveyResults.surveyResults
 
+    //firebase setup
+    user.email = firebase.auth().currentUser.email
+    user.userName = firebase.auth().currentUser.displayName
+    user.id = firebase.auth().currentUser.uid
+
     console.log('user', user)
 
 
@@ -481,7 +467,7 @@ const finishSurvey = () => {
 }
 
 
-startSurvey()
+introSurvey()
 
 
 
@@ -517,7 +503,12 @@ const user = {
             ChallengePreferences: ['Day', 'Relax', 'History']
         }
     },
-    challengesDone: [],
+    challengesDone: [
+        {
+            id: '',
+            pictures:[],
+        }
+    ],
     badges: [],
     placesVisited: [],
     id: 'a8s72bn198gbs18y',

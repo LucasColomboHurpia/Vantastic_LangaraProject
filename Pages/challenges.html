@@ -6,9 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylePages/challengepage.css">
+     <!-- Firebase CDN links -->
 
-  
-    <script src="./scriptPages/challenges.js" defer></script>
+     <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+     
+     <!-- Firebase CDN links -->
+
+
+     <script src="./scriptPages/challenges.js" defer></script>
     <script defer src="./scriptPages/addHeader.js"></script>
     <title>Challenges</title>
 </head>
@@ -17,8 +24,9 @@
 
     
 
-
+    <div class="titleflex">
     <h1>New Challenge</h1>
+</div>
     <div class="returnButton" id="returnButton" onclick="loadChallenges()">Return to challenges</div>
 
     <div class="challengeFilter" id="challengeFilter">

@@ -20,11 +20,6 @@ const loadChallenges = () => {
                 <p>
                 ${challenges[i].description}
                 </p>
-                <ul>
-                    <li>${challenges[i].steps.low[0].desc}</li>
-                    <li>${challenges[i].steps.low[1].desc}</li>
-                    <li>${challenges[i].steps.low[2].desc}</li>
-                </ul>
             </div>
         </div>
     </div>

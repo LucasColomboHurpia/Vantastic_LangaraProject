@@ -1,7 +1,22 @@
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Regular.otf);
+}
+
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Bold.otf);
+    font-weight: bold;
+}
 
 *{
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: content-box;
+    font-family: myFont;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body{
@@ -9,8 +24,11 @@ body{
     overflow-x: hidden;
     background-image: url('../../Assets/designer-assets/png-background.png');
     background-size: 100%;
-    background-size: cover;background-position: center center; 
-    background-repeat: no-repeat;background-attachment: fixed;background-size: cover; 
+    background-size: cover;
+    background-position: center center; 
+    background-repeat: no-repeat;background-attachment: fixed;
+    background-size: cover; 
+    
 }
 
 .challengeContainer {
@@ -45,13 +63,17 @@ header {
 }
 
 h1 {
-    margin-left: 550px;
+    margin:auto;
     background: linear-gradient(to right, #592b78, #ce1e50, #ea6233, #ebd44b);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline;
     /* color: black; */
+}
+
+.titleflex{
+    display: flex;
 }
 
 h2 {
@@ -81,6 +103,7 @@ h3 {
     justify-content: space-around;
     width: 80vw;
     position: relative;
+    text-align: center;
 }
 
 .challenge:first-child {
@@ -204,4 +227,61 @@ hr:last-child{
     background-color: #592b78;
     color: white;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .challenge {
+        display: inline-block;
+        padding-top: 20px;
+        padding-right: 100px;
+        padding-left: 30px;
+        background-color: rgb(241, 237, 237);
+        background-size: 100%;
+        /* border-radius: 10px; */
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .challengeStart{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .challenge h3{
+        
+        width: 80vw;
+        margin-top: 40px;
+        padding-top: 50px;
+        margin-left: 5px;
+    }
+    #challengeDesc {
+        width: 80vw;
+        
+    }
+    #challengeDesc ul {
+        list-style: none;
+        margin-left: -30px;
+        margin-bottom: 5px;
+    }
+
+    .challengeImage{
+        display: flex;
+        width: auto;
+    }
+    .start_link{
+
+        margin-top: 50px;
+    }
+    hr{
+        margin-left: 45px;
+        margin-bottom: 5px;
+    }
+    #topDiv{
+        margin:15px;
+    }
+    h1 {
+        margin-left: 70px;
+    }
 }

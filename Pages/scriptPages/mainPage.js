@@ -74,22 +74,22 @@ async function initMap() {
         // Create captions inside the map
         const captionDiv = document.createElement("div");
         captionDiv.innerHTML = `     <span>
-                                              <img class="captionImage" src="../Assets/red marker.png" alt=""> 
-                                              <span style="margin:auto">Your Location</span>
-                                           </span>
-                                            <span>
-                                              <img class="captionImage" src="../Assets/yellow marker.png" alt=""> 
-                                              <span>Our Recommendations</span>
-                                            </span>
+                                      <img class="captionImage" src="../Assets/red marker.png" alt=""> 
+                                      <span style="margin:auto">Your Location</span>
+                                    </span>
+                                    <span>
+                                      <img class="captionImage" src="../Assets/yellow marker.png" alt=""> 
+                                      <span>Our Recommendations</span>
+                                    </span>
 
-                                            <span>
-                                              <img class="captionImage" src="../Assets/orange marker.png" alt=""> 
-                                              <span>Recommendations Near Challenge</span>
-                                            </span>
-                                            <span>
-                                              <img class="captionImage" src="../Assets/number 1 - marker.png" alt=""> 
-                                              <span>Challenge Step</span>
-                                            </span>` 
+                                    <span>
+                                      <img class="captionImage" src="../Assets/orange marker.png" alt=""> 
+                                      <span>Recommendations Near Challenge</span>
+                                    </span>
+                                    <span>
+                                      <img class="captionImage" src="../Assets/number 1 - marker.png" alt=""> 
+                                      <span>Challenge Step</span>
+                                    </span>` 
         captionDiv.classList.add('mapCaption')
         map.controls[google.maps.ControlPosition.RIGHT].push(captionDiv);
     ////---------------------------------------------------------------------------------------------
@@ -559,7 +559,6 @@ const createChallengeString = (challengeSpecific) => {
 
   let infoWindowString = `
     <div class="infoWindowContainer">
-    <img class="infoWindowImg" src="${challengeSpecific.image}">
     <div class="infoWindow-body">
       <h5 class="infoWindow-title">${challengeSpecific.name}</h5>
       <p class="infoWindow-text">${challengeSpecific.description}</p>
@@ -581,7 +580,6 @@ console.log(place)
 
   let infoWindowString = `
     <div class="infoWindowContainer">
-    <img class="infoWindowImgChallenge" src="${place.image}">
     <div class="infoWindow-body">
     <h5 class="infoWindow-title">${place.name}</h5>
       <p class="infoWindow-text">${place.description}</p>

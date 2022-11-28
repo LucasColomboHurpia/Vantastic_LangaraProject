@@ -1,3 +1,20 @@
+@font-face {
+  font-family: myFont;
+  src: url(../../Assets/fonts/Poppins-Regular.otf);
+}
+
+@font-face {
+  font-family: myFont;
+  src: url(../../Assets/fonts/Poppins-Bold.otf);
+  font-weight: bold;
+}
+
+
+*{
+  font-family: myFont;
+}
+
+
 :root {
     --main-body-color: gray;
     --main-button-color: rgb(100, 77, 122);
@@ -21,7 +38,6 @@
 
 *{
     margin: 0%;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     text-align: center;
 }
@@ -219,7 +235,7 @@ body{
  /* //////////////////////////////
  */
 .surveyProgress{
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
   .surveyProgressMarker{
