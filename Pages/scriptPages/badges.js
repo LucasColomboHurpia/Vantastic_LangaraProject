@@ -14,7 +14,7 @@ for (let i = 0; i < badges.length; i++) {
         <div class="challengeBadgeCompleted">
             <div class="badgeImg"><img src="${badges[i].badgeIcon}" alt=""></div>
             <h3 class="badgeName">${badges[i].badgeName}</h3>
-            <p class="status">${badges[i].status}</p>
+            <p class="status">Completed!</p>
         </div>
         `;
     } else {
@@ -23,7 +23,7 @@ for (let i = 0; i < badges.length; i++) {
             <div class="challengeBadge">
                 <div class="badgeImg"><img src="${badges[i].badgeIcon}" alt=""></div>
                 <h3 class="badgeName">${badges[i].badgeName}</h3>
-                <p class="status">${badges[i].status}</p>
+                <p class="status">Not completed</p>
             </div>
             `;
     }

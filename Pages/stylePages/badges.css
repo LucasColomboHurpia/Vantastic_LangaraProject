@@ -1,6 +1,24 @@
+
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Regular.otf);
+}
+
+@font-face {
+    font-family: myFont;
+    src: url(../../Assets/fonts/Poppins-Bold.otf);
+    font-weight: bold;
+}
+
+
+*{
+    font-family: myFont;
+}
+
+
+
 *{
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -45,6 +63,7 @@ header {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
     /* background: linear-gradient(to right, #e4c2fb, #fdbecf, #fbc8b7, #f9eeaf); */
 }
 
@@ -66,12 +85,14 @@ header {
 }
 
 #badge {
+
     text-align: center;
     font-size: 40px;
     color: #592b78;
 }
 
 .badgeImg {
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     height: 130px;
@@ -82,7 +103,7 @@ header {
     /* margin: 20px; */
     border-radius: 10px;
     width: 300px;
-    background-color: rgba(165, 241, 165, 0.363);
+    background-color: rgba(109, 248, 109, 0.363);
 }
 
 /* @media screen and (max-width:920px) {
