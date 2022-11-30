@@ -76,19 +76,13 @@ const preferences = (surveyResults) => {
 
 
 
-    //show info in the side bar
-    /*     showChallengeInfo(challenges[0])
-        showChallengeInfo(challenges[1])
-     */
+
     challengeLocationMarkers(challenges[0], bestPlaces, 1)
 
     setTimeout(() => { //sets up delay for animation to play
         challengeLocationMarkers(challenges[1], bestPlaces, 1)
     }, 3000);
-    /*      setTimeout(() => {
-            console.log(challenges[comparisonValue[2]]) ///this gets the challenges
-            challengeLocationMarkers(challenges[comparisonValue[2]], bestPlaces, 1)
-        }, 12000);  */
+ 
 
     setTimeout(() => { //sets up delay for animation to play
         librarians.aroundVancouverMarkers('tourist_attraction', 3)
