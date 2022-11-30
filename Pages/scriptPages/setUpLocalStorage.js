@@ -58,7 +58,7 @@ const getChallenges = () => {
 
         });
         console.log(firebaseChallenges)
-        localStorage.setItem("challenges", JSON.stringify(firebaseChallenges));
+   //     localStorage.setItem("challenges", JSON.stringify(firebaseChallenges));
 
     });
 }
@@ -111,8 +111,7 @@ const logIn = () => {
 
 ////////////////////////////////////////
 
-setTimeout(
-()=>{
+
 //0        //1          //2           //3        //4              //5                     //6                    //7                //8                          //9                         //10                   //11                     //12               //13                     //14               //15
 const surveyTags = ['Day life', 'Night life', 'Adrenaline', 'To Relax', 'Beach Walks ', 'Lake and River Walks ', 'Outdoor Activities', 'Indoor Activities', 'History and Architecture', 'Gastronomy and Culture', 'Big City Environment', 'Small City Environment', 'Group activities', 'Individual activities', 'City Landscapes', 'Nature Landscapes']
 
@@ -475,7 +474,6 @@ let badges = [
 
 ]
 
-localStorage.setItem("badges", JSON.stringify(badges));
-
+/* localStorage.setItem("badges", JSON.stringify(badges));
+ */
 console.log('foi')
-}, 1000)

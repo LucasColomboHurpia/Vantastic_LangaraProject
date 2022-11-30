@@ -4,20 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-         <!-- Firebase CDN links -->
 
-         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
-         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
-         <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
-         
-         <!-- Firebase CDN links -->
-    
-    
+    <!-- Firebase CDN links -->
+
+        <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-storage-compat.js"></script>
+          
+    <!-- Firebase CDN links -->
+
+    <script src="./scriptPages/firebaseConfig.js"></script>
+    <script src="./scriptPages/addHeader.js" defer></script>
+    <script src="./scriptPages/profile.js" defer></script>
+    <link rel="stylesheet" href="./stylePages/profile.css">
+    <title>Profile</title>
 </head>
 <body>
-    <div>
-        THIS IS THE PROFILE SCREEN
+    <div id="profile_container">
+
+        <div id="profile_pic_container">
+
+        </div>
+
+        <div id="profile_settings">
+            <div ><img src="../Assets/designer-assets/png-icons-settings.png" alt="" class="settings_icon"></div>
+    
+            <hr>
+    
+            <div class="changeSettings"><a >Change Budget</a></div>
+            <div class="changeSettings"><a >Change Preferences</a></div>
+            <div class="changeSettings"><a >Change Password</a></div>
+        </div>
+    
+        <div id="badgesEarned">
+    
+        </div>
     </div>
+
+
+
 </body>
 </html>

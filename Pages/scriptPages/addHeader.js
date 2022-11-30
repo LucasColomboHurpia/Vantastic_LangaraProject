@@ -44,7 +44,7 @@ header.innerHTML = `
         <div class="headerChallenges headerSection" onclick="window.location.href='./challenges.html';">Challenges</div>
         <div class="headerBadges headerSection" onclick="window.location.href='./badges.html';">Badges</div>
         <div class="headerProfile headerSection disabled">Find Places</div>
-        <div class="hederSetting headerSection disabled">Profile</div>
+        <div class="hederSetting headerSection " onclick="window.location.href='./profile.html';">Profile</div>
     </div>
     <div class="menuMobileIcon" onclick="loadMobileMenu()"><img src="../Assets/designer-assets/png-icons-hamburguermenu.png" width="50px"/></div>
 

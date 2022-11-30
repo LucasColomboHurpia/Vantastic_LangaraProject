@@ -856,6 +856,7 @@ const challengeCompletion = () => {
 
   modalCompletion.classList.add('animationSlideIN')
 
+  document.getElementById('badgeCongrats').src = challenge.name
 
   document.getElementById('congratsDesc').innerHTML = `You completed <b>${challenge.name}</b>!`
 
@@ -871,6 +872,8 @@ let badges = JSON.parse(localStorage.getItem("badges"));
 
       user.badges.push(badge.relation)
       user.challengesDone.push(challenge.id)
+
+      document.getElementById('badgeCongrats').src = badge.badgeIcon
 
       localStorage.setItem("user", JSON.stringify(user));
       console.log(user)
