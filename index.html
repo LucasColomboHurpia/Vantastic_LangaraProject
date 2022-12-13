@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Screen</title>
+    <meta name="description" content="The best way to explore BC!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="app.webmanifest">
+      <title>Vantastic!</title>
     <link rel="stylesheet" href="./Pages/stylePages/startScreen.css">
     <script src="./scripts/index.js"></script>
+
+    <script>
+        // does the browser support service workers?
+        if ('serviceWorker' in navigator) {
+          // fires when the service worker is ready
+          navigator.serviceWorker.ready.then(reg => {
+            // we have an active service worker working for us
+            console.log(`Service Worker ready (Scope: ${reg.scope})`);
+            // do something interesting, if you want...
+    
+          });
+          // then register our service worker
+          navigator.serviceWorker.register('./sw.js', { scope: '/' })
+            .then(function (reg) {
+              // display a success message
+              console.log(`Service Worker Registration (Scope: ${reg.scope})`);
+            })
+            .catch(function (error) {
+              // display an error message
+              console.log(`Service Worker Error (${error})`);
+            });
+        } else {
+          // happens when the app isn't served over a TLS connection (HTTPS)
+          console.warn('Service Worker not available');
+        }
+      </script>
 </head>
 
 
 <body>
+      <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
     <div class="container">
         
         <div class="logo"></div>

@@ -199,7 +199,6 @@ hr {
     margin-right: auto;
     padding: 0;
     width: 75%;
-    position: absolute;
     z-index: 2;
     height: 5px;
     background: #592b78;
@@ -229,7 +228,7 @@ hr:last-child{
     cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
     .challenge {
         display: inline-block;
         padding-top: 20px;

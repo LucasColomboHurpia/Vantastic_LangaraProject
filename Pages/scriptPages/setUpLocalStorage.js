@@ -58,7 +58,7 @@ const getChallenges = () => {
 
         });
         console.log(firebaseChallenges)
-   //     localStorage.setItem("challenges", JSON.stringify(firebaseChallenges));
+      // localStorage.setItem("challenges", JSON.stringify(firebaseChallenges));
 
     });
 }
@@ -111,7 +111,7 @@ const logIn = () => {
 
 ////////////////////////////////////////
 
-
+ 
 //0        //1          //2           //3        //4              //5                     //6                    //7                //8                          //9                         //10                   //11                     //12               //13                     //14               //15
 const surveyTags = ['Day life', 'Night life', 'Adrenaline', 'To Relax', 'Beach Walks ', 'Lake and River Walks ', 'Outdoor Activities', 'Indoor Activities', 'History and Architecture', 'Gastronomy and Culture', 'Big City Environment', 'Small City Environment', 'Group activities', 'Individual activities', 'City Landscapes', 'Nature Landscapes']
 
@@ -354,7 +354,7 @@ challengesDatabase = [
                 },
             ],
         },
-        image: '../Assets/default_img.jpg',
+        image: '../Assets/designer-assets/downtown.jpg',
         marker: '../Assets/designer-assets/png-pins-downtown.png',
         budget: '',
         placeId: '',
@@ -416,7 +416,7 @@ challengesDatabase = [
                 },
             ],
         },
-        image: '../Assets/default_img.jpg',
+        image: '../Assets/designer-assets/inuk.jpg',
         marker: '../Assets/designer-assets/png-pins-whistler.png',
         budget: '',
         placeId: '',
@@ -424,6 +424,68 @@ challengesDatabase = [
         premium: true,
         surveyScore: 0,
         tags: [surveyTags[15], surveyTags[0], surveyTags[2], surveyTags[6], surveyTags[8], surveyTags[12], surveyTags[3]]
+    },
+
+    {
+        id: 'langaraChallengeId',
+        name: 'THE LANGARA CHALLENGE',
+        description: 'What a convenient challenge for the presentation!',
+        steps: {
+            low: [
+                {
+                    desc: "Present your project to the class!",
+                    coord: false,
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: true
+                },
+                {
+                    desc: "Take a picture inside the Langara Library!",
+                    coord: { lat: 49.22462797962452, lng: -123.11024943241726 },
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: false
+                },
+                {
+                    desc: "Take a picture during your demo presentation!",
+                    coord: { lat:  49.224132286650516, lng: -123.10857221229938 },
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: false
+                },
+            ],
+            high: [
+                {
+                    desc: "Present your project to the class!",
+                    coord: false,
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: true
+                },
+                {
+                    desc: "Take a picture inside the Langara Library!",
+                    coord: { lat: 49.22462797962452, lng: -123.11024943241726 },
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: false
+                },
+                {
+                    desc: "Take a picture during your demo presentation!",
+                    coord: { lat:  49.224132286650516, lng: -123.10857221229938 },
+                    tag: false,
+                    image: '../Assets/designer-assets/png-icons-uploadpicture-small.png',
+                    done: false
+                },
+            ],
+        },
+        image: '../Assets/designer-assets/downtown.jpg',
+        marker: '../Assets/designer-assets/png-pins-start.png',
+        budget: '',
+        placeId: '', 
+        areaCoordinates: { lat: 49.224476155809676, lng:  -123.10901461045533 },
+        premium: true,
+        surveyScore: 0,
+        tags: []
     },
 
 ]
@@ -439,7 +501,7 @@ let badges = [
     {
         badgeName: "Langara Challenge",
         badgeIcon: "../Assets/designer-assets/png-icons-badges.png",
-        relation: "",
+        relation: "langaraDefault",
     },
     {
         badgeName: "Beach Challenge",
@@ -474,6 +536,5 @@ let badges = [
 
 ]
 
-/* localStorage.setItem("badges", JSON.stringify(badges));
- */
-console.log('foi')
+ // localStorage.setItem("badges", JSON.stringify(badges));
+ 

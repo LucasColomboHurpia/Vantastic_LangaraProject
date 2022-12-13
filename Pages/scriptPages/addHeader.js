@@ -43,7 +43,7 @@ header.innerHTML = `
         <div class="headerHome headerSection"  onclick="window.location.href='./mainPage.html';">Home</div>
         <div class="headerChallenges headerSection" onclick="window.location.href='./challenges.html';">Challenges</div>
         <div class="headerBadges headerSection" onclick="window.location.href='./badges.html';">Badges</div>
-        <div class="headerProfile headerSection disabled">Find Places</div>
+        <div class="headerProfile headerSection disabled">Premium</div>
         <div class="hederSetting headerSection " onclick="window.location.href='./profile.html';">Profile</div>
     </div>
     <div class="menuMobileIcon" onclick="loadMobileMenu()"><img src="../Assets/designer-assets/png-icons-hamburguermenu.png" width="50px"/></div>
@@ -84,8 +84,8 @@ sideBarMenu.innerHTML = `
     <a id="badgeB" >Badges</a>
     <img src="../Assets/designer-assets/png-icons-badges-small.png" alt="badges button">
 </li>
-<li>
-    <a id="profileB" class="disabled">Profile</a>
+<li  onclick="window.location.href='./profile.html';">
+    <a id="profileB" >Profile</a>
     <img src="../Assets/designer-assets/png-icons-profile-small.png" alt="profile button">
 </li>
 

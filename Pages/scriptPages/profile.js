@@ -2,22 +2,25 @@
 
 let username = "Guest";
 
-// firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     username = user.userName;
-//     // ...
-//   } else {
-//     // User is signed out
-//     // ...
-//   }
-// });
+ firebase.auth().onAuthStateChanged((user) => {
+   if (user) {
+     // User is signed in, see docs for a list of available properties
+     // https://firebase.google.com/docs/reference/js/firebase.User
+     username = user.userName;
+     profile_pic_container.innerHTML = `
+     <div class="profile_picture"><img src="../Assets/designer-assets/png-icons-profile.png"  class="user_pic" alt="user_pic"></div>
+     <div class="username"><p>${user.userName}</p></div>
+     `;
+   } else {
+     // User is signed out
+     // ...
+   }
+ });
 
 
 profile_pic_container.innerHTML = `
-<div class="profile_picture"><img src="../../Assets/designer-assets/png-icons-profile.png"  class="user_pic" alt="user_pic"></div>
-<div class="username"><p>${username}</p></div>
+<div class="profile_picture"><img src="../Assets/designer-assets/png-icons-profile.png"  class="user_pic" alt="user_pic"></div>
+<div class="username"><p>${user.userName}</p></div>
 `;
 
 badgesEarned.innerHTML= `
