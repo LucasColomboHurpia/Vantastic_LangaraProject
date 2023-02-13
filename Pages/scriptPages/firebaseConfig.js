@@ -1,11 +1,7 @@
 const firebaseApp = firebase.initializeApp({ 
-  apiKey: "AIzaSyAsess0m1wXNwckiyi-Pacj9j6e2K0p30g",
-  authDomain: "travel-8561c.firebaseapp.com",
-  projectId: "travel-8561c",
-  storageBucket: "travel-8561c.appspot.com",
-  messagingSenderId: "64893619706",
-  appId: "1:64893619706:web:4ba1c29f1c3db3180ce843",
-  measurementId: "G-4BXSG6Y8CG"
+
+  //firebase credentials go here (deleted for security reasons)
+
 });
 
 // firestore DB initialization
